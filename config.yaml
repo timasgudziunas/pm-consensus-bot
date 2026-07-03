@@ -95,6 +95,15 @@ paper:
   default_size_floor: 1000
   exit_strategy: hold_to_resolution     # beat copy_exits in all top validate cells
   position_size_usd: 50
+  # gate clock: first start of the final config (cohort B, N=5/12h/$1000, $50)
+  # from data/paper.log — day-3 review due exactly 72h later (2026-07-06 09:49:30Z)
+  gate_start_utc: "2026-07-03T09:49:30Z"
+  # day-3 decision-gate thresholds agreed with the owner 2026-07-03 (PLAN.md)
+  gate:
+    min_fills: 15               # OPEN+CLOSED paper positions by day 3
+    min_win_rate: 0.55          # over closed positions...
+    min_closed_for_win_rate: 10 # ...once at least this many have closed
+    max_mean_alpha_decay: 0.10  # $/share; ~50% of the backtested ~20c/share edge
 
 live:
   max_loss_usd: 200  # kill switch threshold — not used yet
