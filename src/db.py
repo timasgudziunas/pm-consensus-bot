@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS paper_trades (
     midpoint_at_signal REAL,
     avg_trader_price   REAL,
     alpha_decay        REAL,
-    status             TEXT,   -- OPEN / CLOSED / SKIPPED
+    status             TEXT,   -- OPEN / CLOSED / SKIPPED (book too thin) / STALE (detected too late)
     tx_hashes          TEXT,   -- JSON list of trades that formed the signal
     position_usd       REAL    -- stake at open; config changes must not reprice old rows
 );

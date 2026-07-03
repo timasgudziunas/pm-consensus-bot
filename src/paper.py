@@ -23,6 +23,7 @@ log = logging.getLogger("paper")
 REPORTS_DIR = os.path.join(db.REPO_ROOT, "reports")
 DAILY_MD = os.path.join(REPORTS_DIR, "paper_daily.md")
 LOG_FILE = os.path.join(db.REPO_ROOT, "data", "paper.log")
+PID_FILE = os.path.join(db.REPO_ROOT, "data", "logs", "paper.pid")  # read by watchdog.py
 
 _shutdown = False
 
@@ -144,11 +145,27 @@ class PaperTrader:
         recent = [dict(r) for r in self.conn.execute(
             """SELECT tx_hash, condition_id, wallet, side, outcome_index, size_usd, price, timestamp
                FROM trades WHERE timestamp >= ?""", (window_start,))]
+        max_age = self.pcfg["max_signal_age_seconds"]
         for s in sig.detect_signals(recent, self.params):
             exists = self.conn.execute(
                 "SELECT 1 FROM paper_trades WHERE condition_id = ? AND outcome_index = ?",
                 (s["condition_id"], s["outcome_index"])).fetchone()
             if exists:
+                continue
+            if now - s["signal_time"] > max_age:
+                # late detection (restart backfill / ingest catch-up) — record
+                # it so it never re-fires, but do not enter at today's price
+                self.conn.execute(
+                    """INSERT OR IGNORE INTO paper_trades
+                       (condition_id, outcome_index, side, signal_time, n_traders, wallets,
+                        exit_type, resolved, status, tx_hashes, position_usd)
+                       VALUES (?,?,?,?,?,?,?,0,'STALE',?,?)""",
+                    (s["condition_id"], s["outcome_index"], "BUY", s["signal_time"],
+                     s["n_traders"], json.dumps(s["wallets"]), self.pcfg["exit_strategy"],
+                     json.dumps([t["tx_hash"] for t in s["trades"]]), self.position_usd))
+                self.conn.commit()
+                log.info("SIGNAL on %s is %.0f min old (cap %.0f) — recorded STALE, not entered",
+                         s["condition_id"][:12], (now - s["signal_time"]) / 60, max_age / 60)
                 continue
             self.stats_today["signals"] += 1
             self.open_position(s)
@@ -350,8 +367,11 @@ class PaperTrader:
 
 
 def main() -> None:
-    """Entry point: set up logging/signals and run the loop."""
+    """Entry point: set up logging/signals, record our PID, run the loop."""
     setup_logging()
+    os.makedirs(os.path.dirname(PID_FILE), exist_ok=True)
+    with open(PID_FILE, "w", encoding="utf-8") as f:
+        f.write(str(os.getpid()))
     os_signal.signal(os_signal.SIGTERM, _handle_sigterm)
     PaperTrader().run()
 

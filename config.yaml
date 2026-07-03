@@ -86,6 +86,10 @@ paper:
   # deeper into the book for honest fills. Positions opened at $20 stay $20
   # (per-row position_usd in paper_trades).
   watchlist_cohort: B                   # wallet set to trade on: A / B / C / union
+  # a signal detected this long after its Nth trade (e.g. from backfilled data
+  # after a restart) is recorded STALE and never entered — entering at today's
+  # price hours late is not a copy of the signal and pollutes paper stats
+  max_signal_age_seconds: 1800
   default_n: 5
   default_window_hours: 12
   default_size_floor: 1000

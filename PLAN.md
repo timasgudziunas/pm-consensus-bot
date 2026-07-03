@@ -253,4 +253,17 @@ Before going live, ALL of these must be true:
 - [ ] Polymarket US KYC is complete and API keys are generated.
 - [ ] At least 5 of the paper-mode signal markets exist on Polymarket US.
 
+Quantitative thresholds agreed with the owner 2026-07-03 (fixed BEFORE the paper
+data arrived, so the numbers can't negotiate with us; paper clock restarted
+2026-07-03 ~05:50 on cohort B / N=5 / 12h / $1000 / hold / $50):
+- [ ] Sample floor: >= 15 paper signals with real fills (OPEN or CLOSED; SKIPPED
+      and STALE don't count) by gate day.
+- [ ] Win rate: >= 55% over closed positions if >= 10 have closed; with fewer
+      closes (expected under hold_to_resolution), mark-to-market PnL across
+      open positions must be neutral or positive instead.
+- [ ] Alpha decay: mean paper alpha_decay small relative to the backtested edge
+      (backtest avg ~ $16/trade at $50, i.e. ~20c/share edge; the 50%-of-edge
+      rule above means mean decay must stay under ~10c, and under ~5c is the
+      comfortable zone).
+
 If any of these fail, do not proceed to live. Revisit the strategy or parameters first.
