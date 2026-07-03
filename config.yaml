@@ -78,13 +78,17 @@ paper:
   poll_trade_limit: 500
   exit_poll_interval_seconds: 300       # copy-exit check on signal wallets
   resolution_poll_interval_seconds: 3600
-  # set to the best validate cell from reports/backtest_report.md (2026-07-03);
+  # set to the best ROBUST validate cell of the winning cohort from the
+  # 2026-07-03 cohort sweep (reports/backtest_report.md): cohort B,
+  # N=5 W=12h F=$1000 hold — best at both $50 and $100 position sizes,
+  # 83% of grid neighbors profitable in validate.
   # position raised $20 -> $50 (owner instruction, overnight 2026-07-03): walks
   # deeper into the book for honest fills. Positions opened at $20 stay $20
   # (per-row position_usd in paper_trades).
+  watchlist_cohort: B                   # wallet set to trade on: A / B / C / union
   default_n: 5
-  default_window_hours: 24
-  default_size_floor: 500
+  default_window_hours: 12
+  default_size_floor: 1000
   exit_strategy: hold_to_resolution     # beat copy_exits in all top validate cells
   position_size_usd: 50
 

@@ -90,9 +90,10 @@ class PaperTrader:
         self.data = DataApi()
         self.gamma = GammaApi()
         self.clob = ClobApi()
-        self.watchlist = {w["address"] for w in db.get_selected_wallets(self.conn)}
+        self.watchlist = db.get_cohort_wallets(self.conn, self.pcfg["watchlist_cohort"])
         if not self.watchlist:
-            raise SystemExit("no selected wallets — run discover.py first")
+            raise SystemExit("no wallets for cohort %r — run discover.py first"
+                             % self.pcfg["watchlist_cohort"])
         self.params = {
             "n_traders": self.pcfg["default_n"],
             "window_seconds": int(self.pcfg["default_window_hours"] * 3600),
@@ -322,18 +323,24 @@ class PaperTrader:
                     self.daily_summary()
                     self.today = today
                     self.stats_today = {"signals": 0, "opened": 0, "closed": 0}
-                n_new = self.poll_feed()
-                if n_new:
-                    log.debug("%d new watchlist trades", n_new)
-                    self.detect_and_open()
-                now = time.time()
-                if now - self.last_exit_poll >= pcfg["exit_poll_interval_seconds"]:
-                    self.last_exit_poll = now
-                    if pcfg["exit_strategy"] == "copy_exits":
-                        self.poll_copy_exits()
-                if now - self.last_resolution_poll >= pcfg["resolution_poll_interval_seconds"]:
-                    self.last_resolution_poll = now
-                    self.poll_resolutions()
+                try:
+                    n_new = self.poll_feed()
+                    if n_new:
+                        log.debug("%d new watchlist trades", n_new)
+                        self.detect_and_open()
+                    now = time.time()
+                    if now - self.last_exit_poll >= pcfg["exit_poll_interval_seconds"]:
+                        self.last_exit_poll = now
+                        if pcfg["exit_strategy"] == "copy_exits":
+                            self.poll_copy_exits()
+                    if now - self.last_resolution_poll >= pcfg["resolution_poll_interval_seconds"]:
+                        self.last_resolution_poll = now
+                        self.poll_resolutions()
+                except ApiError as e:
+                    # transient API failure escaping an unguarded call (e.g.
+                    # ensure_market's Gamma lookups) must not kill the loop —
+                    # killed the 2026-07-03 03:38 run while ingest saturated the API
+                    log.warning("poll cycle failed (%s) — continuing", e)
                 elapsed = time.time() - cycle_start
                 time.sleep(max(0.5, pcfg["poll_interval_seconds"] - elapsed))
         except KeyboardInterrupt:
