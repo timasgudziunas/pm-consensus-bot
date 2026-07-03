@@ -1,0 +1,349 @@
+"""Phase 5: live paper trading. Same signal engine as the backtest
+(signals.detect_signals), fed by the global trades feed, fills simulated
+against the real order book. No orders are ever placed.
+
+Run: python src/paper.py   (Ctrl+C to stop; state is in SQLite, restart-safe)
+"""
+import json
+import logging
+import os
+import signal as os_signal
+import sys
+import time
+from datetime import datetime, timezone
+
+import db
+import signals as sig
+from clob_api import ClobApi
+from data_api import ApiError, DataApi, load_config
+from gamma_api import GammaApi
+
+log = logging.getLogger("paper")
+
+REPORTS_DIR = os.path.join(db.REPO_ROOT, "reports")
+DAILY_MD = os.path.join(REPORTS_DIR, "paper_daily.md")
+LOG_FILE = os.path.join(db.REPO_ROOT, "data", "paper.log")
+
+_shutdown = False
+
+
+def _handle_sigterm(_signum, _frame) -> None:
+    global _shutdown
+    _shutdown = True
+
+
+def setup_logging() -> None:
+    """INFO to stdout, DEBUG to data/paper.log (per CLAUDE.md logging rule)."""
+    os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+    root = logging.getLogger()
+    root.setLevel(logging.DEBUG)
+    out = logging.StreamHandler(sys.stdout)
+    out.setLevel(logging.INFO)
+    out.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
+    fh = logging.FileHandler(LOG_FILE, encoding="utf-8")
+    fh.setLevel(logging.DEBUG)
+    fh.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(name)s %(message)s"))
+    root.addHandler(out)
+    root.addHandler(fh)
+
+
+def ensure_market(conn, gamma: GammaApi, condition_id: str) -> dict:
+    """Return the markets row for condition_id, fetching from Gamma if missing."""
+    row = conn.execute("SELECT * FROM markets WHERE condition_id = ?", (condition_id,)).fetchone()
+    if row and row["clob_token_ids"]:
+        return dict(row)
+    markets = gamma.get_markets(condition_ids=[condition_id])
+    if not markets:  # Gamma hides closed markets unless closed=true
+        markets = gamma.get_markets(condition_ids=[condition_id], closed=True)
+    if not markets:
+        return {}
+    mrow = db.market_row_from_gamma(markets[0])
+    slug = mrow["event_slug"]
+    if slug:
+        cat = db.get_event_category(conn, slug)
+        if cat is None:
+            cat, labels = gamma.resolve_category(slug)
+            db.set_event_category(conn, slug, cat, labels)
+        mrow["category"] = cat or None
+    db.upsert_market(conn, mrow)
+    return mrow
+
+
+def outcome_index_for_asset(market_row: dict, asset: str) -> int:
+    """Map a token id to its outcome index via the market's clobTokenIds.
+
+    Needed because the global /trades feed returns outcomeIndex=999 (Phase 0)."""
+    try:
+        tokens = json.loads(market_row["clob_token_ids"] or "[]")
+        return tokens.index(asset)
+    except (ValueError, TypeError):
+        return -1
+
+
+class PaperTrader:
+    """Polling loop state: watchlist, dedupe sets, poll timers."""
+
+    def __init__(self) -> None:
+        self.cfg = load_config()
+        self.pcfg = self.cfg["paper"]
+        self.conn = db.connect()
+        self.data = DataApi()
+        self.gamma = GammaApi()
+        self.clob = ClobApi()
+        self.watchlist = {w["address"] for w in db.get_selected_wallets(self.conn)}
+        if not self.watchlist:
+            raise SystemExit("no selected wallets — run discover.py first")
+        self.params = {
+            "n_traders": self.pcfg["default_n"],
+            "window_seconds": int(self.pcfg["default_window_hours"] * 3600),
+            "size_floor_usd": self.pcfg["default_size_floor"],
+        }
+        self.position_usd = float(self.pcfg["position_size_usd"])
+        self.start_time = int(time.time())
+        self.last_exit_poll = 0.0
+        self.last_resolution_poll = 0.0
+        self.today = datetime.now(timezone.utc).date()
+        self.stats_today = {"signals": 0, "opened": 0, "closed": 0}
+        log.info("paper trading started: %d watchlist wallets, params=%s, $%.0f/position",
+                 len(self.watchlist), self.params, self.position_usd)
+
+    # ---------- polling ----------
+
+    def poll_feed(self) -> int:
+        """Pull the global feed, keep watchlist trades, insert new ones. Returns count."""
+        try:
+            feed = self.data.get_trades(limit=self.pcfg["poll_trade_limit"])
+        except ApiError as e:
+            log.warning("feed poll failed: %s", e)
+            return 0
+        rows = []
+        for t in feed:
+            if t.get("proxy_wallet") not in self.watchlist or t.get("side") not in ("BUY", "SELL"):
+                continue
+            row = db.trade_row_from_api(t)
+            if not row:
+                continue
+            # global feed outcome_index is bogus (999) — resolve via asset
+            market = ensure_market(self.conn, self.gamma, row["condition_id"])
+            if not market:
+                log.debug("no market metadata for %s — skipping trade", row["condition_id"])
+                continue
+            idx = outcome_index_for_asset(market, t.get("asset", ""))
+            if idx < 0:
+                log.debug("cannot map asset to outcome for %s — skipping", row["condition_id"])
+                continue
+            row["outcome_index"] = idx
+            rows.append(row)
+        return db.insert_trades(self.conn, rows) if rows else 0
+
+    def detect_and_open(self) -> None:
+        """Run the shared detector over the recent window and open new positions."""
+        now = int(time.time())
+        window_start = now - self.params["window_seconds"]
+        recent = [dict(r) for r in self.conn.execute(
+            """SELECT tx_hash, condition_id, wallet, side, outcome_index, size_usd, price, timestamp
+               FROM trades WHERE timestamp >= ?""", (window_start,))]
+        for s in sig.detect_signals(recent, self.params):
+            exists = self.conn.execute(
+                "SELECT 1 FROM paper_trades WHERE condition_id = ? AND outcome_index = ?",
+                (s["condition_id"], s["outcome_index"])).fetchone()
+            if exists:
+                continue
+            self.stats_today["signals"] += 1
+            self.open_position(s)
+
+    def open_position(self, s: dict) -> None:
+        """Simulate a fill from the live book and record the paper trade."""
+        market = ensure_market(self.conn, self.gamma, s["condition_id"])
+        tokens = json.loads(market.get("clob_token_ids") or "[]")
+        if s["outcome_index"] >= len(tokens):
+            return
+        token = tokens[s["outcome_index"]]
+        try:
+            book = self.clob.get_book(token)
+            mid = self.clob.get_midpoint(token)
+        except ApiError as e:
+            # e.g. 404 "no orderbook" on already-resolved markets — still record
+            # the signal (as SKIPPED below) so it never re-fires
+            log.warning("book fetch failed for signal %s: %s", s["condition_id"][:12], e)
+            book, mid = None, None
+        fill = sig.simulate_book_fill(book["asks"], self.position_usd) if book else None
+        status = "OPEN" if fill else "SKIPPED"
+        entry = fill["avg_price"] if fill else None
+        decay = (entry - s["avg_trader_price"]) if (entry and s["avg_trader_price"]) else None
+        self.conn.execute(
+            """INSERT OR IGNORE INTO paper_trades
+               (condition_id, outcome_index, side, signal_time, n_traders, wallets,
+                entry_price, exit_type, resolved, category, token_id,
+                book_entry_price, midpoint_at_signal, avg_trader_price, alpha_decay,
+                status, tx_hashes)
+               VALUES (?,?,?,?,?,?,?,?,0,?,?,?,?,?,?,?,?)""",
+            (s["condition_id"], s["outcome_index"], "BUY", s["signal_time"], s["n_traders"],
+             json.dumps(s["wallets"]), entry, self.pcfg["exit_strategy"],
+             market.get("category"), token, entry, mid, s["avg_trader_price"], decay,
+             status, json.dumps([t["tx_hash"] for t in s["trades"]])))
+        self.conn.commit()
+        if fill:
+            self.stats_today["opened"] += 1
+            log.info("SIGNAL %s outcome=%d @ %.3f (traders avg %.3f, decay %+.3f) — %s",
+                     (market.get("question") or s["condition_id"])[:60], s["outcome_index"],
+                     entry, s["avg_trader_price"] or -1, decay or 0, market.get("category"))
+        else:
+            log.info("SIGNAL on %s but book too thin to fill $%.0f — recorded as SKIPPED",
+                     s["condition_id"][:12], self.position_usd)
+
+    # ---------- exits ----------
+
+    def open_positions(self) -> list:
+        return [dict(r) for r in self.conn.execute("SELECT * FROM paper_trades WHERE status = 'OPEN'")]
+
+    def poll_copy_exits(self) -> None:
+        """Refresh signal wallets' recent trades and close positions whose
+        signal wallets have exited (shared compute_copy_exit logic)."""
+        positions = self.open_positions()
+        if not positions:
+            return
+        wallets = {w for p in positions for w in json.loads(p["wallets"])}
+        for w in wallets:
+            try:
+                page = self.data.get_trades(user=w, limit=200)
+            except ApiError:
+                continue
+            rows = []
+            for t in page:
+                row = db.trade_row_from_api(t)
+                if row and row["timestamp"] >= self.start_time - self.params["window_seconds"]:
+                    rows.append(row)
+            if rows:
+                db.insert_trades(self.conn, rows)
+
+        bcfg = self.cfg["backtest"]
+        for p in positions:
+            relevant = [dict(r) for r in self.conn.execute(
+                """SELECT tx_hash, condition_id, wallet, side, outcome_index, size_usd, price, timestamp
+                   FROM trades WHERE condition_id = ?""", (p["condition_id"],))]
+            s = {"condition_id": p["condition_id"], "outcome_index": p["outcome_index"],
+                 "signal_time": p["signal_time"], "wallets": json.loads(p["wallets"])}
+            exit_ts = sig.compute_copy_exit(s, relevant, bcfg["copy_exit_wallet_fraction"],
+                                            bcfg["copy_exit_sold_fraction"])
+            if exit_ts:
+                self.close_position(p, exit_ts, exit_type="copy_exits")
+
+    def poll_resolutions(self) -> None:
+        """Close positions whose markets have resolved."""
+        for p in self.open_positions():
+            try:
+                # closed=True: Gamma's default listing excludes closed markets,
+                # so an empty result here just means "still open"
+                markets = self.gamma.get_markets(condition_ids=[p["condition_id"]], closed=True)
+            except ApiError:
+                continue
+            if not markets or not markets[0].get("closed"):
+                continue
+            m = markets[0]
+            db.upsert_market(self.conn, db.market_row_from_gamma(m))
+            try:
+                payout = float(json.loads(m["outcome_prices"])[p["outcome_index"]])
+            except (TypeError, ValueError, IndexError):
+                continue
+            self.close_position(p, int(time.time()), exit_type="resolution", exit_price=payout)
+
+    def close_position(self, p: dict, exit_ts: int, exit_type: str,
+                       exit_price: float = None) -> None:
+        """Compute PnL and mark a paper position CLOSED."""
+        slippage = self.cfg["slippage"]["exit_cents"] / 100.0
+        if exit_price is None:
+            try:
+                mid = self.clob.get_midpoint(p["token_id"])
+            except ApiError:
+                mid = None
+            if mid is None:
+                return
+            exit_price = max(0.0, mid - slippage)
+        entry = p["entry_price"]
+        if not entry:
+            return
+        shares = self.position_usd / entry
+        pnl = (exit_price - entry) * shares
+        self.conn.execute(
+            """UPDATE paper_trades SET status='CLOSED', exit_price=?, exit_time=?, exit_type=?,
+               resolved=?, pnl_20=? WHERE id=?""",
+            (exit_price, exit_ts, exit_type, 1 if exit_type == "resolution" else 0, pnl, p["id"]))
+        self.conn.commit()
+        self.stats_today["closed"] += 1
+        log.info("CLOSED %s outcome=%d via %s: entry %.3f -> exit %.3f, PnL $%+.2f",
+                 p["condition_id"][:12], p["outcome_index"], exit_type, entry, exit_price, pnl)
+
+    # ---------- reporting ----------
+
+    def daily_summary(self) -> None:
+        """Write the daily summary block to stdout and reports/paper_daily.md."""
+        closed = self.conn.execute(
+            "SELECT COUNT(*) c, COALESCE(SUM(pnl_20),0) p FROM paper_trades WHERE status='CLOSED'").fetchone()
+        decay = self.conn.execute(
+            "SELECT AVG(alpha_decay) d FROM paper_trades WHERE alpha_decay IS NOT NULL").fetchone()["d"]
+        open_pos = self.open_positions()
+        unrealized = 0.0
+        for p in open_pos:
+            try:
+                mid = self.clob.get_midpoint(p["token_id"])
+            except ApiError:
+                mid = None
+            if mid and p["entry_price"]:
+                unrealized += (mid - p["entry_price"]) * (self.position_usd / p["entry_price"])
+        lines = [
+            f"\n## {self.today.isoformat()}",
+            f"- signals fired today: {self.stats_today['signals']}"
+            f" | opened: {self.stats_today['opened']} | closed: {self.stats_today['closed']}",
+            f"- running realized PnL (all closed): ${closed['p']:+.2f} over {closed['c']} positions",
+            f"- avg alpha decay: {decay:+.4f}" if decay is not None else "- avg alpha decay: n/a",
+            f"- open positions: {len(open_pos)}, unrealized PnL est: ${unrealized:+.2f}",
+        ]
+        text = "\n".join(lines) + "\n"
+        print(text)
+        os.makedirs(REPORTS_DIR, exist_ok=True)
+        with open(DAILY_MD, "a", encoding="utf-8") as f:
+            f.write(text)
+
+    # ---------- main loop ----------
+
+    def run(self) -> None:
+        """Poll feed / exits / resolutions on their intervals until shutdown."""
+        pcfg = self.pcfg
+        try:
+            while not _shutdown:
+                cycle_start = time.time()
+                today = datetime.now(timezone.utc).date()
+                if today != self.today:
+                    self.daily_summary()
+                    self.today = today
+                    self.stats_today = {"signals": 0, "opened": 0, "closed": 0}
+                n_new = self.poll_feed()
+                if n_new:
+                    log.debug("%d new watchlist trades", n_new)
+                    self.detect_and_open()
+                now = time.time()
+                if now - self.last_exit_poll >= pcfg["exit_poll_interval_seconds"]:
+                    self.last_exit_poll = now
+                    if pcfg["exit_strategy"] == "copy_exits":
+                        self.poll_copy_exits()
+                if now - self.last_resolution_poll >= pcfg["resolution_poll_interval_seconds"]:
+                    self.last_resolution_poll = now
+                    self.poll_resolutions()
+                elapsed = time.time() - cycle_start
+                time.sleep(max(0.5, pcfg["poll_interval_seconds"] - elapsed))
+        except KeyboardInterrupt:
+            pass
+        log.info("shutting down — writing summary")
+        self.daily_summary()
+
+
+def main() -> None:
+    """Entry point: set up logging/signals and run the loop."""
+    setup_logging()
+    os_signal.signal(os_signal.SIGTERM, _handle_sigterm)
+    PaperTrader().run()
+
+
+if __name__ == "__main__":
+    main()

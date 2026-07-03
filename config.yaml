@@ -1,0 +1,89 @@
+# All tunables live here. Code reads from this file — no magic numbers in code.
+
+# Valid leaderboard categories verified against the live API on 2026-07-02.
+# ECONOMY, GEOPOLITICS, POP-CULTURE, SCIENCE, ELECTIONS, ENTERTAINMENT,
+# BUSINESS, WORLD all return HTTP 400. The API accepts exactly these six
+# (plus OVERALL, which we don't use for per-category discovery):
+categories:
+  - POLITICS
+  - SPORTS
+  - CRYPTO
+  - FINANCE
+  - CULTURE
+  - TECH
+
+lookback_months: 6
+
+api:
+  throttle_seconds: 0.15        # min gap between any two requests (~6 req/s)
+  backoff_base_seconds: 2       # exponential backoff base on 429/5xx
+  max_retries: 3
+  timeout_seconds: 30
+
+discovery:
+  leaderboard_page_limit: 50    # API max per page
+  leaderboard_max_offset: 1000  # API max offset
+  max_candidates_per_category: 25   # cap vetting work per category
+  vetting_trade_limit: 1500     # trades pulled per candidate for vetting stats
+  min_markets: 20
+  min_trades: 50
+  max_pnl_concentration: 0.6    # top-2 markets < 60% of total |PnL| (proxy)
+  mm_roundtrip_threshold: 0.6   # >60% of markets with same-day round trips = MM
+  mm_roundtrip_window_seconds: 86400
+  max_watchlist: 120
+  max_per_category: 25
+
+ingest:
+  page_size: 1000               # trades per /trades page (API silently caps at 1000)
+  max_offset: 3000              # API rejects offsets beyond 3000 -> max 4000 trades/wallet
+  gamma_batch_size: 20          # condition_ids per Gamma /markets request
+  price_history_fidelity_minutes: 60
+  price_history_chunk_days: 14  # CLOB 400s on intervals >~15d at fidelity 60
+
+sweep:
+  n_traders: [2, 3, 4, 5]
+  window_hours: [1, 6, 24]
+  size_floor_usd: [250, 500, 1000]   # per-trader min trade size to count toward a signal
+  exit_strategy: [hold_to_resolution, copy_exits]
+  position_size: [20, 50]            # bot position size in USD
+
+backtest:
+  train_months: 4               # first 4 months = train, rest = validate
+  entry_price_min: 0.05         # skip signals priced outside this band
+  entry_price_max: 0.95
+  entry_price_max_gap_seconds: 86400  # no price candle within this gap of signal time -> skip
+  copy_exit_wallet_fraction: 0.5     # exit when >= this fraction of signal wallets...
+  copy_exit_sold_fraction: 0.5       # ...have sold >= this fraction of their position
+
+slippage:
+  entry_cents_20: 1             # +1c entry haircut for $20 positions
+  entry_cents_50: 2             # +2c for $50
+  exit_cents: 1
+
+paper:
+  poll_interval_seconds: 20
+  poll_trade_limit: 500
+  exit_poll_interval_seconds: 300       # copy-exit check on signal wallets
+  resolution_poll_interval_seconds: 3600
+  # set to the best validate cell from reports/backtest_report.md (2026-07-03);
+  # position stays $20 — the owner's planned live size — even though the $50
+  # backtest cells score higher in absolute PnL
+  default_n: 5
+  default_window_hours: 24
+  default_size_floor: 500
+  exit_strategy: hold_to_resolution     # beat copy_exits in all top validate cells
+  position_size_usd: 20
+
+live:
+  max_loss_usd: 200  # kill switch threshold — not used yet
+
+# Event tag label -> our category. First match wins, checked in this order.
+# Discovered in Phase 0: Gamma market.category and market.tags are null;
+# category comes from GET /events?slug=... -> tags[].label.
+category_tag_map:
+  POLITICS: [politics, elections, geopolitics, world elections, global elections, us-current-affairs]
+  SPORTS: [sports, soccer, nba, nfl, mlb, nhl, tennis, esports, olympics]
+  CRYPTO: [crypto, bitcoin, ethereum, solana, memecoins]
+  FINANCE: [finance, economy, business, fed rates, stocks, macro]
+  CULTURE: [culture, pop culture, celebrities, entertainment, movies, music, awards]
+  TECH: [tech, science, ai, space, big tech]

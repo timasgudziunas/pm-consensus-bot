@@ -1,0 +1,148 @@
+| wallet      | username             | categories            |   pnl_month |   pnl_all |   markets |   trades | MM   | conc   | sel   |
+|-------------|----------------------|-----------------------|-------------|-----------|-----------|----------|------|--------|-------|
+| 0x55be7aa0… | coinman2             | CRYPTO                |      21,261 | 1,126,659 |        58 |     1000 |      |        | Y     |
+| 0x32ed2e54… | mo-money             | CRYPTO                |      17,487 |    53,099 |       525 |     1000 |      |        | Y     |
+| 0x38853725… | easypredict          | CRYPTO                |      16,103 |   455,414 |        39 |     1000 |      |        | Y     |
+| 0xc2ad03f7… | bosona               | CRYPTO                |      15,471 |    66,872 |       541 |     1000 |      |        | Y     |
+| 0xa7011667… | BadTattoo            | CRYPTO                |      14,290 |    82,169 |        28 |      103 |      |        | Y     |
+| 0xb27bc932… |                      | CRYPTO                |      14,229 |   774,114 |        67 |     1000 |      |        | Y     |
+| 0xeebde7a0… | Bonereaper           | CRYPTO                |      13,558 | 1,149,957 |        25 |     1000 |      |        | Y     |
+| 0x20d2309c… |                      | CRYPTO                |      12,823 |   474,225 |        32 |     1000 | Y    |        |       |
+| 0xf9b7876b… |                      | CRYPTO                |      12,667 |    48,581 |         0 |        0 |      |        |       |
+| 0x3725d52f… | almach               | CRYPTO                |      12,523 |    48,653 |       576 |     1000 |      |        | Y     |
+| 0xf3531b23… | powerwinner          | CRYPTO                |      12,516 |   136,859 |        32 |     1000 |      |        | Y     |
+| 0x568b0798… |                      | CRYPTO                |      12,165 |    48,620 |         0 |        0 |      |        |       |
+| 0x13e0d447… |                      | CRYPTO                |      11,052 |    45,865 |       250 |     1000 |      |        | Y     |
+| 0x251c1a28… | 0xAAAAA              | CRYPTO                |      10,162 |    91,348 |        45 |     1000 |      |        | Y     |
+| 0x48ac40fc… | 0x48AC40Fc545CF327eD | CRYPTO                |      10,111 |   130,879 |       362 |     1000 |      |        | Y     |
+| 0xb55fa129… | 0xb55fa1296E6ec55D0c | CRYPTO                |       9,406 |   568,921 |        90 |     1000 |      |        | Y     |
+| 0xce25e214… | 0xcE25E214D5cfE4f459 | CRYPTO                |       9,056 |   388,789 |        63 |     1000 |      |        | Y     |
+| 0x7f3c8979… | LucasMeow            | CRYPTO                |       8,770 |   295,404 |       140 |      292 |      |        | Y     |
+| 0xbf810a1a… | 0xBf810a1ab89672B841 | CRYPTO                |       8,628 |    54,112 |        34 |       76 |      |        | Y     |
+| 0x31393e2f… | hot-garbage          | CRYPTO                |       8,468 |   153,906 |       152 |     1000 |      |        | Y     |
+| 0x5371f1b6… | oegdatam             | CRYPTO                |       7,762 |    47,993 |       157 |     1000 |      |        | Y     |
+| 0x04b6d7e9… | 0x04b6D7E930cf9e493c | CRYPTO                |       7,607 |   278,070 |       145 |     1000 |      |        | Y     |
+| 0xcc500cbc… | justdance            | CRYPTO                |       7,424 | 1,831,609 |       181 |     1000 |      |        | Y     |
+| 0xdf7930e8… | std0                 | CRYPTO                |       6,806 |    99,017 |        27 |     1000 | Y    |        |       |
+| 0x8b4bca1d… | 0x8B4bcA1D794779E66e | CRYPTO,CULTURE        |       8,128 |   120,667 |       242 |      527 |      |        | Y     |
+| 0xbacd00c9… | ScottyNooo           | CULTURE               |      50,285 |   249,382 |       188 |     1000 |      |        | Y     |
+| 0xa2cd4ccd… | 0xA2cd4CcdA9A1f95949 | CULTURE               |      30,242 |   127,469 |        18 |       89 |      | Y      |       |
+| 0x53e55bc7… | Arbguy               | CULTURE               |      24,248 |    57,896 |       335 |     1000 |      |        | Y     |
+| 0x2233849e… | dr3amweaver          | CULTURE               |      18,280 |    23,646 |        12 |       23 |      | Y      |       |
+| 0x254e913a… | 0x254E913A4465cDE1A6 | CULTURE               |      11,664 |    17,663 |         8 |       20 |      | Y      |       |
+| 0x8c80d213… | SecondWindCapital    | CULTURE               |       9,008 |    53,974 |        75 |      276 |      |        | Y     |
+| 0x524db836… | 0x524db836890E08ACeB | CULTURE               |       8,260 |    10,032 |        36 |      228 |      |        | Y     |
+| 0x6bab41a0… | Dropper              | CULTURE               |       8,146 |   196,188 |       271 |     1000 |      |        | Y     |
+| 0xac4a1fab… | HerrieDavis          | CULTURE               |       7,656 |    18,730 |       155 |     1000 |      | Y      | Y     |
+| 0xcd71fd53… | Kevindoto            | CULTURE               |       4,895 |    58,159 |       357 |     1000 |      |        | Y     |
+| 0xe089e5e7… | lox97                | CULTURE               |       4,851 |     8,891 |        80 |      321 |      |        | Y     |
+| 0xb9eb019d… | LuckyOne - 7118      | CULTURE               |       4,762 |    22,619 |         1 |        2 |      | Y      |       |
+| 0x45b39e1f… | onekey09             | CULTURE               |       4,081 |    15,688 |       579 |      970 |      |        | Y     |
+| 0x60a92c86… | paddaa               | CULTURE               |       3,820 |     9,369 |       192 |     1000 |      |        | Y     |
+| 0xaca23974… | ellio8989            | CULTURE               |       3,790 |    95,007 |       473 |     1000 |      |        | Y     |
+| 0x73836f35… | EricaXBT             | CULTURE               |       3,601 |    23,174 |       153 |      334 |      |        | Y     |
+| 0x04a2a707… | gordontradedc        | CULTURE               |       3,529 |    19,252 |        71 |     1000 | Y    |        |       |
+| 0x9a3fa403… | Rex416               | CULTURE               |       3,434 |    13,747 |       406 |     1000 |      |        | Y     |
+| 0x12ed45d2… | sazzaa               | CULTURE               |       3,430 |    19,362 |        51 |     1000 |      |        | Y     |
+| 0x6e131d6c… | gooppa               | CULTURE               |       3,325 |    22,487 |        32 |       75 |      |        | Y     |
+| 0xd23f8c8a… | Corlys               | CULTURE,FINANCE       |      12,976 |    29,661 |       485 |     1000 |      |        | Y     |
+| 0xb0c85813… | lebron.james.bond    | CULTURE,FINANCE,TECH  |       8,834 |    14,250 |       376 |     1000 |      |        | Y     |
+| 0xdf17f4a8… | bahibahibahi         | CULTURE,POLITICS      |       6,995 |   679,559 |       147 |     1000 |      |        | Y     |
+| 0xfbd8c9c2… | 0xfBd8C9C22cA76B3662 | CULTURE,TECH          |       6,944 |    10,112 |       445 |     1000 |      |        | Y     |
+| 0x6a5121ac… | Bizzzhh              | FINANCE               |      27,779 |    27,937 |       100 |      472 |      |        | Y     |
+| 0x90c23cb8… | cryptothan           | FINANCE               |      22,512 |   160,580 |       107 |     1000 |      |        | Y     |
+| 0x96489abc… | anoin123             | FINANCE               |      17,403 |    83,012 |       280 |      985 |      |        | Y     |
+| 0xf0ca28d5… | Hauchn               | FINANCE               |      17,308 |   105,410 |        61 |     1000 |      |        | Y     |
+| 0x53c48faa… | uma003               | FINANCE               |      12,751 |    35,367 |        43 |       89 |      | Y      | Y     |
+| 0x5085b938… | EeEeeYJ              | FINANCE               |      10,463 |    10,141 |        32 |      117 |      | Y      | Y     |
+| 0x17559efa… | CamelUp              | FINANCE               |       9,718 |   408,134 |       231 |     1000 |      |        | Y     |
+| 0x9c261644… | H4OP99               | FINANCE               |       8,691 |     8,691 |         1 |        7 |      | Y      |       |
+| 0x671a3260… | GingerMcKenna        | FINANCE               |       8,308 |    12,042 |       450 |     1000 |      |        | Y     |
+| 0x06b2934b… | 0x06b2934b382D4429D5 | FINANCE               |       8,001 |    75,528 |        96 |     1000 |      |        | Y     |
+| 0x50c80ae7… | flipforchanel        | FINANCE               |       7,554 |    47,359 |         6 |     1000 |      | Y      |       |
+| 0x67bc6af6… | waterfall0           | FINANCE               |       6,894 |    50,581 |       423 |     1000 |      |        | Y     |
+| 0x4dfa70b0… | RelaxRelaxLikeQuagsi | FINANCE               |       6,203 |     5,582 |        71 |      221 |      | Y      | Y     |
+| 0x1ee9a5fc… | vinii                | FINANCE               |       5,318 |     9,958 |       337 |     1000 |      |        | Y     |
+| 0x3a8aa345… | TheReturnOfDarthMaul | FINANCE               |       4,924 |    10,796 |       443 |     1000 |      |        | Y     |
+| 0x982a77e7… | grasstoucher69       | FINANCE               |       4,879 |    38,763 |       171 |     1000 |      |        | Y     |
+| 0x7df00357… | neverhackme          | FINANCE               |       4,811 |     4,985 |        17 |       19 |      |        |       |
+| 0x7dcf2357… | godblessme2026       | FINANCE               |       4,328 |    19,700 |       494 |     1000 |      |        | Y     |
+| 0x5a218c7a… | balthazar            | FINANCE,POLITICS,TECH |      25,914 |   375,300 |       245 |     1000 |      |        | Y     |
+| 0x03805a13… | donthackme           | FINANCE,TECH          |      33,941 |   120,441 |       387 |     1000 |      |        | Y     |
+| 0x511f9c77… | Bigggggggg           | FINANCE,TECH          |      10,083 |    60,207 |       291 |     1000 |      |        | Y     |
+| 0xc5187cb6… | mustbethewater       | FINANCE,TECH          |       6,378 |    27,937 |       287 |     1000 |      |        | Y     |
+| 0xa3282d3e… | korda77              | FINANCE,TECH          |       5,072 |    20,408 |       420 |     1000 |      |        | Y     |
+| 0xbc75cabb… | unknwnfnd            | POLITICS              |      40,111 |   113,920 |         9 |      331 |      | Y      |       |
+| 0xecaa8806… | Melody626            | POLITICS              |      36,281 |   186,596 |       349 |     1000 |      |        | Y     |
+| 0x182bd8bf… | peoplearestrange     | POLITICS              |      17,541 |    62,912 |        62 |      187 |      |        | Y     |
+| 0x134a63b7… | Bertapotamous        | POLITICS              |      17,182 |   481,086 |       494 |     1000 |      |        | Y     |
+| 0xa3a417e4… | 0xC03cE4d8Af842Ca625 | POLITICS              |      14,023 |   131,496 |       167 |     1000 |      |        | Y     |
+| 0x0c0e270c… | The Spirit of Ukrain | POLITICS              |      12,999 | 1,372,302 |       344 |     1000 |      |        | Y     |
+| 0xa61ef877… | risk-manager         | POLITICS              |      12,901 |   160,412 |       298 |     1000 |      |        | Y     |
+| 0x88c4919d… | QuietRiskisWrong     | POLITICS              |      12,129 |   723,470 |        69 |     1000 |      |        | Y     |
+| 0xbaa2bcb5… | denizz               | POLITICS              |      11,577 | 2,477,697 |       121 |     1000 |      |        | Y     |
+| 0xd44e974a… | KrackenSruster       | POLITICS              |      11,011 |   291,901 |       281 |     1000 |      |        | Y     |
+| 0xc8b9a301… | SnowLover7           | POLITICS              |      10,374 |   231,199 |       290 |      880 |      |        | Y     |
+| 0xed107a85… | elmcap2              | POLITICS              |       9,725 |   801,890 |       390 |     1000 |      |        | Y     |
+| 0x9d84ce03… | ImJustKen            | POLITICS              |       8,138 | 1,447,166 |       419 |     1000 |      |        | Y     |
+| 0x7f9e2d1d… | nojnn                | POLITICS              |       8,135 |   611,670 |        96 |     1000 |      |        | Y     |
+| 0x6d9fc316… | MEPP                 | POLITICS              |       7,718 |   451,006 |       163 |     1000 |      |        | Y     |
+| 0x05e26c77… | Llalalala            | POLITICS              |       7,541 |   383,364 |       110 |      790 |      |        | Y     |
+| 0xb9d89bef… | 0xB9d89bef8c935082F6 | POLITICS              |       7,045 |    70,678 |        20 |       54 |      |        | Y     |
+| 0x3c8ac6a9… | momom                | POLITICS              |       6,775 |   108,087 |        49 |      118 |      |        | Y     |
+| 0xb6658288… | Aeglos               | POLITICS              |       5,814 |    58,659 |        20 |      530 |      |        | Y     |
+| 0x43372356… | Anjun                | POLITICS              |       5,127 |   155,126 |       611 |     1000 |      |        | Y     |
+| 0x2974bd00… | 65765757             | POLITICS              |       5,110 |   241,455 |       119 |     1000 |      |        | Y     |
+| 0xb1ca909e… | NonceChaser          | POLITICS              |       5,107 |   635,803 |       258 |      415 |      |        | Y     |
+| 0xb687f004… | alwayslatetotheparty | POLITICS,TECH         |      17,388 |   238,558 |        53 |     1000 |      |        | Y     |
+| 0x095fbca2… | muchobliged          | SPORTS                |   3,310,134 | 3,437,233 |         8 |       43 |      | Y      |       |
+| 0x0346afae… | GoalLineGhost        | SPORTS                |     889,712 |   494,569 |       133 |     1000 |      |        | Y     |
+| 0x709e8dcb… | 0xd4aa6f8e91cfea29b6 | SPORTS                |     792,558 | 3,591,895 |       170 |      477 |      |        | Y     |
+| 0xbf323edb… | WhatARobbery         | SPORTS                |     586,865 |   498,190 |         4 |       12 |      | Y      |       |
+| 0xb61b2079… | hot2trot             | SPORTS                |     558,497 | 1,188,908 |        24 |       57 |      |        | Y     |
+| 0x924379a7… | Kch-Temp             | SPORTS                |     557,329 | 1,006,893 |        90 |      276 |      |        | Y     |
+| 0x5c3a1a60… | Crystiano            | SPORTS                |     526,668 | 1,863,922 |       476 |      653 |      |        | Y     |
+| 0x9f2fe025… | surfandturf          | SPORTS                |     478,593 | 4,025,883 |       265 |      651 |      |        | Y     |
+| 0x7c1ee865… | CandleHammerDrums    | SPORTS                |     442,021 |   858,963 |       139 |      229 |      |        | Y     |
+| 0xfea31bc0… | ndb1                 | SPORTS                |     394,004 | 1,212,892 |       411 |     1000 |      |        | Y     |
+| 0xf5fabdcd… | palegrit             | SPORTS                |     341,669 |   398,026 |        11 |      150 |      |        |       |
+| 0xe9a6ed2e… | Oneger               | SPORTS                |     309,542 |   771,845 |        86 |      132 |      |        | Y     |
+| 0x9ee8bbc3… | Qpkwks               | SPORTS                |     293,313 | 1,319,614 |        29 |      208 |      |        | Y     |
+| 0x2005d16a… | RN1                  | SPORTS                |     285,577 | 9,981,088 |       188 |     1000 |      |        | Y     |
+| 0xa49becb6… | sleepy-panda         | SPORTS                |     278,150 |   465,813 |       409 |     1000 |      |        | Y     |
+| 0x5257aa84… | NO-GOD-PLEASE-NO     | SPORTS                |     253,454 |   597,752 |       101 |      230 |      |        | Y     |
+| 0x37ee3bce… | 0x37ee3BCEb4fBf028fb | SPORTS                |     227,648 |   678,812 |        10 |       32 |      | Y      |       |
+| 0x10a6fadc… | rabbitfoot1          | SPORTS                |     215,323 |   610,993 |        78 |     1000 |      |        | Y     |
+| 0x5e945820… | pleaseplease123      | SPORTS                |     206,723 |   242,717 |       109 |      181 |      |        | Y     |
+| 0xbc1b1e93… | shijiebeifacai       | SPORTS                |     200,592 |   501,883 |        47 |      110 |      |        | Y     |
+| 0xf751fbd7… | 0xF751fbD76257AD498e | SPORTS                |     199,261 |   918,830 |       118 |      436 |      |        | Y     |
+| 0x7d787c72… | MD14                 | SPORTS                |     173,552 |   464,997 |       404 |      913 |      |        | Y     |
+| 0x25d3d4e4… |                      | SPORTS                |     170,370 |   170,370 |         1 |        2 |      | Y      |       |
+| 0xa6a872de… | eyeseethefuture      | SPORTS                |     162,361 |   162,361 |        17 |      149 |      |        |       |
+| 0xe221be3b… | Jokerxing7           | SPORTS                |     147,562 |   168,056 |        19 |       28 |      |        |       |
+| 0x16952717… | sakuralover          | TECH                  |       5,355 |    26,447 |        23 |       67 |      |        | Y     |
+| 0x335f4ee2… | codyqb               | TECH                  |       3,505 |     3,703 |         5 |       70 | Y    | Y      |       |
+| 0x8a524bca… | Ayanokoji67          | TECH                  |       2,457 |     3,567 |        35 |       80 |      | Y      | Y     |
+| 0xacdfeeeb… | obeymesubjects       | TECH                  |       2,158 |     2,233 |         1 |        1 |      | Y      |       |
+| 0x73ecf6a3… | ChampagneSocialist   | TECH                  |       1,677 |     7,806 |        77 |      381 |      |        | Y     |
+| 0x090af6fd… | VictorLudorum        | TECH                  |       1,657 |     3,796 |       220 |     1000 |      |        | Y     |
+| 0x7131cb61… | 0x7131cB618fb195C70E | TECH                  |       1,348 |    32,113 |       195 |     1000 |      |        | Y     |
+| 0x3594526e… | Linslav              | TECH                  |       1,257 |     6,483 |       207 |      579 |      |        | Y     |
+| 0x8e9eedf2… | Siziriv              | TECH                  |       1,117 |     2,325 |       244 |     1000 |      |        | Y     |
+| 0xf44dcf50… | Certify0148          | TECH                  |       1,000 |     5,575 |       103 |      267 |      | Y      | Y     |
+| 0xdacf9f8d… | CosmicCedar          | TECH                  |         980 |     2,519 |       635 |     1000 |      |        | Y     |
+| 0xd32ce89f… |                      | TECH                  |         920 |     2,213 |        86 |     1000 |      |        | Y     |
+| 0x0fbb51da… | jestergooning        | TECH                  |         840 |     2,049 |       266 |      318 |      |        | Y     |
+| 0xaa99a6c2… | willsom              | TECH                  |         822 |     1,674 |       416 |     1000 |      |        | Y     |
+| 0xb9df9898… | aqaaa                | TECH                  |         784 |    13,544 |         4 |       11 |      | Y      |       |
+| 0xbeb9d19f… | AnonymousElephant69  | TECH                  |         725 |     8,767 |       166 |     1000 |      |        | Y     |
+| 0x224089fc… | kilerz               | TECH                  |         659 |     5,190 |         4 |       11 |      | Y      |       |
+
+Selected per category (wallets may count in several):
+  CRYPTO: 21
+  CULTURE: 20
+  FINANCE: 22
+  POLITICS: 24
+  SPORTS: 18
+  TECH: 21
+Total selected: 113 of 137 vetted candidates

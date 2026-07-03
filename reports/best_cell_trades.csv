@@ -1,0 +1,39 @@
+market,signal_time_utc,entry_price,exit_price,exit_type,pnl,category
+Iran closes its airspace by May 8?,2026-05-05T21:35:52+00:00,0.845,1.0,hold_to_resolution,7.8,POLITICS
+"US x Iran permanent peace deal by May 15, 2026?",2026-05-07T15:09:37+00:00,0.2985,0.0,hold_to_resolution,-50.0,POLITICS
+"Russia x Ukraine ceasefire by May 31, 2026?",2026-05-08T18:47:09+00:00,0.3175,1.0,hold_to_resolution,98.15,POLITICS
+"Russia x Ukraine ceasefire by June 30, 2026?",2026-05-08T18:52:07+00:00,0.345,1.0,hold_to_resolution,86.99,POLITICS
+Iran closes its airspace by May 15?,2026-05-11T15:21:52+00:00,0.935,1.0,hold_to_resolution,2.36,POLITICS
+Iran closes its airspace by May 21?,2026-05-19T06:19:41+00:00,0.92,1.0,hold_to_resolution,3.19,POLITICS
+Iran closes its airspace by May 24?,2026-05-20T18:51:23+00:00,0.785,1.0,hold_to_resolution,12.11,POLITICS
+"US x Iran permanent peace deal by May 31, 2026?",2026-05-20T22:16:18+00:00,0.215,0.0,hold_to_resolution,-50.0,POLITICS
+Will the Iran ceasefire continue through May 24?,2026-05-22T04:21:06+00:00,0.895,1.0,hold_to_resolution,4.64,POLITICS
+"US x Iran permanent peace deal by May 26, 2026?",2026-05-23T18:17:13+00:00,0.325,0.0,hold_to_resolution,-50.0,POLITICS
+US announces new Iran agreement/ceasefire extension by May 31?,2026-05-28T19:14:44+00:00,0.685,1.0,hold_to_resolution,20.92,POLITICS
+"Will Donald Trump announce that the United States blockade of the Strait of Hormuz has been lifted by May 31, 2026?",2026-05-29T18:08:17+00:00,0.305,0.0,hold_to_resolution,-50.0,POLITICS
+"Will Donald Trump announce that the United States blockade of the Strait of Hormuz has been lifted by May 31, 2026?",2026-05-29T21:49:06+00:00,0.745,1.0,hold_to_resolution,15.36,POLITICS
+Will Arsenal win the 2025–26 Champions League?,2026-05-30T18:29:01+00:00,0.545,1.0,hold_to_resolution,38.5,SPORTS
+"MicroStrategy sells any Bitcoin by May 31, 2026?",2026-06-01T12:42:03+00:00,0.3625,1.0,hold_to_resolution,80.72,CRYPTO
+Israel announces Lebanon ceasefire extension by June 7?,2026-06-04T00:55:15+00:00,0.835,1.0,hold_to_resolution,8.48,POLITICS
+Israel closes its airspace by June 15?,2026-06-07T20:01:01+00:00,0.71,1.0,hold_to_resolution,18.49,POLITICS
+"US x Iran permanent peace deal by June 15, 2026?",2026-06-13T12:16:54+00:00,0.1445,1.0,hold_to_resolution,253.95,POLITICS
+Will Iran close its airspace by June 14?,2026-06-14T19:26:37+00:00,0.767,1.0,hold_to_resolution,13.53,UNMAPPED
+Will Trump agree to withdraw troops from the Iranian region by June 30?,2026-06-17T19:24:26+00:00,0.495,1.0,hold_to_resolution,47.09,POLITICS
+Will Trump physically sign US x Iran deal?,2026-06-17T22:57:46+00:00,0.922,1.0,hold_to_resolution,3.08,POLITICS
+ Iran agrees to end enrichment of uranium by June 30?,2026-06-18T03:06:01+00:00,0.575,0.0,hold_to_resolution,-50.0,POLITICS
+ Iran agrees to end enrichment of uranium by June 30?,2026-06-19T19:34:34+00:00,0.775,1.0,hold_to_resolution,12.89,POLITICS
+Will Argentina win on 2026-06-22?,2026-06-22T16:59:58+00:00,0.675,1.0,hold_to_resolution,21.94,SPORTS
+Spread: Morocco (-1.5),2026-06-24T21:59:43+00:00,0.485,1.0,hold_to_resolution,49.01,SPORTS
+Will France win on 2026-06-26?,2026-06-26T16:49:01+00:00,0.705,1.0,hold_to_resolution,18.97,SPORTS
+Spread: France (-1.5),2026-06-26T19:01:11+00:00,0.81,1.0,hold_to_resolution,10.24,SPORTS
+Will Spain win on 2026-06-26?,2026-06-26T23:59:37+00:00,0.565,1.0,hold_to_resolution,35.47,SPORTS
+Spread: Argentina (-2.5),2026-06-28T01:53:38+00:00,0.435,0.0,hold_to_resolution,-50.0,SPORTS
+Will Canada win on 2026-06-28?,2026-06-28T18:54:40+00:00,0.525,1.0,hold_to_resolution,41.74,SPORTS
+Will Canada win on 2026-06-28?,2026-06-28T19:47:05+00:00,0.575,0.0,hold_to_resolution,-50.0,SPORTS
+Will Norway win on 2026-06-30?,2026-06-30T16:57:56+00:00,0.445,1.0,hold_to_resolution,57.53,SPORTS
+Will France win on 2026-06-30?,2026-06-30T21:02:31+00:00,0.135,0.0,hold_to_resolution,-50.0,SPORTS
+Will Mexico win on 2026-06-30?,2026-07-01T02:00:14+00:00,0.915,1.0,hold_to_resolution,3.48,SPORTS
+Mexico vs. Ecuador: Team to Advance,2026-07-01T02:36:13+00:00,0.945,1.0,hold_to_resolution,1.81,SPORTS
+Spread: United States (-1.5),2026-07-02T01:30:55+00:00,0.165,0.0,hold_to_resolution,-50.0,SPORTS
+Will Spain win on 2026-07-02?,2026-07-02T19:17:16+00:00,0.11625,0.0,hold_to_resolution,-50.0,SPORTS
+Will Portugal win on 2026-07-02?,2026-07-02T23:42:02+00:00,0.52625,1.0,hold_to_resolution,41.53,SPORTS
