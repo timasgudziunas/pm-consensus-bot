@@ -259,7 +259,7 @@ def upsert_wallet(conn: sqlite3.Connection, w: dict) -> None:
                pnl_month=excluded.pnl_month, pnl_all=excluded.pnl_all,
                markets_traded=excluded.markets_traded, total_trades=excluded.total_trades,
                is_mm=excluded.is_mm, concentrated=excluded.concentrated,
-               selected=excluded.selected,
+               selected=excluded.selected, discovered_at=excluded.discovered_at,
                cohorts=excluded.cohorts, vol_month=excluded.vol_month,
                pnl_per_vol=excluded.pnl_per_vol, entry_edge=excluded.entry_edge,
                resolved_buys=excluded.resolved_buys, consistency=excluded.consistency""",

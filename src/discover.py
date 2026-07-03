@@ -19,6 +19,7 @@ Run: python src/discover.py
 import json
 import logging
 import os
+import sys
 import time
 from collections import Counter, defaultdict
 from typing import Optional
@@ -281,6 +282,9 @@ def select_cohorts(passing: list, dcfg: dict) -> tuple:
 def main() -> None:
     """Run cohort discovery across all configured categories and write the watchlist."""
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    # Windows consoles default to cp1252; usernames contain emoji
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     cfg = load_config()
     dcfg = cfg["discovery"]
     api = DataApi()

@@ -1,148 +1,653 @@
-| wallet      | username             | categories            |   pnl_month |   pnl_all |   markets |   trades | MM   | conc   | sel   |
-|-------------|----------------------|-----------------------|-------------|-----------|-----------|----------|------|--------|-------|
-| 0x55be7aa0… | coinman2             | CRYPTO                |      21,261 | 1,126,659 |        58 |     1000 |      |        | Y     |
-| 0x32ed2e54… | mo-money             | CRYPTO                |      17,487 |    53,099 |       525 |     1000 |      |        | Y     |
-| 0x38853725… | easypredict          | CRYPTO                |      16,103 |   455,414 |        39 |     1000 |      |        | Y     |
-| 0xc2ad03f7… | bosona               | CRYPTO                |      15,471 |    66,872 |       541 |     1000 |      |        | Y     |
-| 0xa7011667… | BadTattoo            | CRYPTO                |      14,290 |    82,169 |        28 |      103 |      |        | Y     |
-| 0xb27bc932… |                      | CRYPTO                |      14,229 |   774,114 |        67 |     1000 |      |        | Y     |
-| 0xeebde7a0… | Bonereaper           | CRYPTO                |      13,558 | 1,149,957 |        25 |     1000 |      |        | Y     |
-| 0x20d2309c… |                      | CRYPTO                |      12,823 |   474,225 |        32 |     1000 | Y    |        |       |
-| 0xf9b7876b… |                      | CRYPTO                |      12,667 |    48,581 |         0 |        0 |      |        |       |
-| 0x3725d52f… | almach               | CRYPTO                |      12,523 |    48,653 |       576 |     1000 |      |        | Y     |
-| 0xf3531b23… | powerwinner          | CRYPTO                |      12,516 |   136,859 |        32 |     1000 |      |        | Y     |
-| 0x568b0798… |                      | CRYPTO                |      12,165 |    48,620 |         0 |        0 |      |        |       |
-| 0x13e0d447… |                      | CRYPTO                |      11,052 |    45,865 |       250 |     1000 |      |        | Y     |
-| 0x251c1a28… | 0xAAAAA              | CRYPTO                |      10,162 |    91,348 |        45 |     1000 |      |        | Y     |
-| 0x48ac40fc… | 0x48AC40Fc545CF327eD | CRYPTO                |      10,111 |   130,879 |       362 |     1000 |      |        | Y     |
-| 0xb55fa129… | 0xb55fa1296E6ec55D0c | CRYPTO                |       9,406 |   568,921 |        90 |     1000 |      |        | Y     |
-| 0xce25e214… | 0xcE25E214D5cfE4f459 | CRYPTO                |       9,056 |   388,789 |        63 |     1000 |      |        | Y     |
-| 0x7f3c8979… | LucasMeow            | CRYPTO                |       8,770 |   295,404 |       140 |      292 |      |        | Y     |
-| 0xbf810a1a… | 0xBf810a1ab89672B841 | CRYPTO                |       8,628 |    54,112 |        34 |       76 |      |        | Y     |
-| 0x31393e2f… | hot-garbage          | CRYPTO                |       8,468 |   153,906 |       152 |     1000 |      |        | Y     |
-| 0x5371f1b6… | oegdatam             | CRYPTO                |       7,762 |    47,993 |       157 |     1000 |      |        | Y     |
-| 0x04b6d7e9… | 0x04b6D7E930cf9e493c | CRYPTO                |       7,607 |   278,070 |       145 |     1000 |      |        | Y     |
-| 0xcc500cbc… | justdance            | CRYPTO                |       7,424 | 1,831,609 |       181 |     1000 |      |        | Y     |
-| 0xdf7930e8… | std0                 | CRYPTO                |       6,806 |    99,017 |        27 |     1000 | Y    |        |       |
-| 0x8b4bca1d… | 0x8B4bcA1D794779E66e | CRYPTO,CULTURE        |       8,128 |   120,667 |       242 |      527 |      |        | Y     |
-| 0xbacd00c9… | ScottyNooo           | CULTURE               |      50,285 |   249,382 |       188 |     1000 |      |        | Y     |
-| 0xa2cd4ccd… | 0xA2cd4CcdA9A1f95949 | CULTURE               |      30,242 |   127,469 |        18 |       89 |      | Y      |       |
-| 0x53e55bc7… | Arbguy               | CULTURE               |      24,248 |    57,896 |       335 |     1000 |      |        | Y     |
-| 0x2233849e… | dr3amweaver          | CULTURE               |      18,280 |    23,646 |        12 |       23 |      | Y      |       |
-| 0x254e913a… | 0x254E913A4465cDE1A6 | CULTURE               |      11,664 |    17,663 |         8 |       20 |      | Y      |       |
-| 0x8c80d213… | SecondWindCapital    | CULTURE               |       9,008 |    53,974 |        75 |      276 |      |        | Y     |
-| 0x524db836… | 0x524db836890E08ACeB | CULTURE               |       8,260 |    10,032 |        36 |      228 |      |        | Y     |
-| 0x6bab41a0… | Dropper              | CULTURE               |       8,146 |   196,188 |       271 |     1000 |      |        | Y     |
-| 0xac4a1fab… | HerrieDavis          | CULTURE               |       7,656 |    18,730 |       155 |     1000 |      | Y      | Y     |
-| 0xcd71fd53… | Kevindoto            | CULTURE               |       4,895 |    58,159 |       357 |     1000 |      |        | Y     |
-| 0xe089e5e7… | lox97                | CULTURE               |       4,851 |     8,891 |        80 |      321 |      |        | Y     |
-| 0xb9eb019d… | LuckyOne - 7118      | CULTURE               |       4,762 |    22,619 |         1 |        2 |      | Y      |       |
-| 0x45b39e1f… | onekey09             | CULTURE               |       4,081 |    15,688 |       579 |      970 |      |        | Y     |
-| 0x60a92c86… | paddaa               | CULTURE               |       3,820 |     9,369 |       192 |     1000 |      |        | Y     |
-| 0xaca23974… | ellio8989            | CULTURE               |       3,790 |    95,007 |       473 |     1000 |      |        | Y     |
-| 0x73836f35… | EricaXBT             | CULTURE               |       3,601 |    23,174 |       153 |      334 |      |        | Y     |
-| 0x04a2a707… | gordontradedc        | CULTURE               |       3,529 |    19,252 |        71 |     1000 | Y    |        |       |
-| 0x9a3fa403… | Rex416               | CULTURE               |       3,434 |    13,747 |       406 |     1000 |      |        | Y     |
-| 0x12ed45d2… | sazzaa               | CULTURE               |       3,430 |    19,362 |        51 |     1000 |      |        | Y     |
-| 0x6e131d6c… | gooppa               | CULTURE               |       3,325 |    22,487 |        32 |       75 |      |        | Y     |
-| 0xd23f8c8a… | Corlys               | CULTURE,FINANCE       |      12,976 |    29,661 |       485 |     1000 |      |        | Y     |
-| 0xb0c85813… | lebron.james.bond    | CULTURE,FINANCE,TECH  |       8,834 |    14,250 |       376 |     1000 |      |        | Y     |
-| 0xdf17f4a8… | bahibahibahi         | CULTURE,POLITICS      |       6,995 |   679,559 |       147 |     1000 |      |        | Y     |
-| 0xfbd8c9c2… | 0xfBd8C9C22cA76B3662 | CULTURE,TECH          |       6,944 |    10,112 |       445 |     1000 |      |        | Y     |
-| 0x6a5121ac… | Bizzzhh              | FINANCE               |      27,779 |    27,937 |       100 |      472 |      |        | Y     |
-| 0x90c23cb8… | cryptothan           | FINANCE               |      22,512 |   160,580 |       107 |     1000 |      |        | Y     |
-| 0x96489abc… | anoin123             | FINANCE               |      17,403 |    83,012 |       280 |      985 |      |        | Y     |
-| 0xf0ca28d5… | Hauchn               | FINANCE               |      17,308 |   105,410 |        61 |     1000 |      |        | Y     |
-| 0x53c48faa… | uma003               | FINANCE               |      12,751 |    35,367 |        43 |       89 |      | Y      | Y     |
-| 0x5085b938… | EeEeeYJ              | FINANCE               |      10,463 |    10,141 |        32 |      117 |      | Y      | Y     |
-| 0x17559efa… | CamelUp              | FINANCE               |       9,718 |   408,134 |       231 |     1000 |      |        | Y     |
-| 0x9c261644… | H4OP99               | FINANCE               |       8,691 |     8,691 |         1 |        7 |      | Y      |       |
-| 0x671a3260… | GingerMcKenna        | FINANCE               |       8,308 |    12,042 |       450 |     1000 |      |        | Y     |
-| 0x06b2934b… | 0x06b2934b382D4429D5 | FINANCE               |       8,001 |    75,528 |        96 |     1000 |      |        | Y     |
-| 0x50c80ae7… | flipforchanel        | FINANCE               |       7,554 |    47,359 |         6 |     1000 |      | Y      |       |
-| 0x67bc6af6… | waterfall0           | FINANCE               |       6,894 |    50,581 |       423 |     1000 |      |        | Y     |
-| 0x4dfa70b0… | RelaxRelaxLikeQuagsi | FINANCE               |       6,203 |     5,582 |        71 |      221 |      | Y      | Y     |
-| 0x1ee9a5fc… | vinii                | FINANCE               |       5,318 |     9,958 |       337 |     1000 |      |        | Y     |
-| 0x3a8aa345… | TheReturnOfDarthMaul | FINANCE               |       4,924 |    10,796 |       443 |     1000 |      |        | Y     |
-| 0x982a77e7… | grasstoucher69       | FINANCE               |       4,879 |    38,763 |       171 |     1000 |      |        | Y     |
-| 0x7df00357… | neverhackme          | FINANCE               |       4,811 |     4,985 |        17 |       19 |      |        |       |
-| 0x7dcf2357… | godblessme2026       | FINANCE               |       4,328 |    19,700 |       494 |     1000 |      |        | Y     |
-| 0x5a218c7a… | balthazar            | FINANCE,POLITICS,TECH |      25,914 |   375,300 |       245 |     1000 |      |        | Y     |
-| 0x03805a13… | donthackme           | FINANCE,TECH          |      33,941 |   120,441 |       387 |     1000 |      |        | Y     |
-| 0x511f9c77… | Bigggggggg           | FINANCE,TECH          |      10,083 |    60,207 |       291 |     1000 |      |        | Y     |
-| 0xc5187cb6… | mustbethewater       | FINANCE,TECH          |       6,378 |    27,937 |       287 |     1000 |      |        | Y     |
-| 0xa3282d3e… | korda77              | FINANCE,TECH          |       5,072 |    20,408 |       420 |     1000 |      |        | Y     |
-| 0xbc75cabb… | unknwnfnd            | POLITICS              |      40,111 |   113,920 |         9 |      331 |      | Y      |       |
-| 0xecaa8806… | Melody626            | POLITICS              |      36,281 |   186,596 |       349 |     1000 |      |        | Y     |
-| 0x182bd8bf… | peoplearestrange     | POLITICS              |      17,541 |    62,912 |        62 |      187 |      |        | Y     |
-| 0x134a63b7… | Bertapotamous        | POLITICS              |      17,182 |   481,086 |       494 |     1000 |      |        | Y     |
-| 0xa3a417e4… | 0xC03cE4d8Af842Ca625 | POLITICS              |      14,023 |   131,496 |       167 |     1000 |      |        | Y     |
-| 0x0c0e270c… | The Spirit of Ukrain | POLITICS              |      12,999 | 1,372,302 |       344 |     1000 |      |        | Y     |
-| 0xa61ef877… | risk-manager         | POLITICS              |      12,901 |   160,412 |       298 |     1000 |      |        | Y     |
-| 0x88c4919d… | QuietRiskisWrong     | POLITICS              |      12,129 |   723,470 |        69 |     1000 |      |        | Y     |
-| 0xbaa2bcb5… | denizz               | POLITICS              |      11,577 | 2,477,697 |       121 |     1000 |      |        | Y     |
-| 0xd44e974a… | KrackenSruster       | POLITICS              |      11,011 |   291,901 |       281 |     1000 |      |        | Y     |
-| 0xc8b9a301… | SnowLover7           | POLITICS              |      10,374 |   231,199 |       290 |      880 |      |        | Y     |
-| 0xed107a85… | elmcap2              | POLITICS              |       9,725 |   801,890 |       390 |     1000 |      |        | Y     |
-| 0x9d84ce03… | ImJustKen            | POLITICS              |       8,138 | 1,447,166 |       419 |     1000 |      |        | Y     |
-| 0x7f9e2d1d… | nojnn                | POLITICS              |       8,135 |   611,670 |        96 |     1000 |      |        | Y     |
-| 0x6d9fc316… | MEPP                 | POLITICS              |       7,718 |   451,006 |       163 |     1000 |      |        | Y     |
-| 0x05e26c77… | Llalalala            | POLITICS              |       7,541 |   383,364 |       110 |      790 |      |        | Y     |
-| 0xb9d89bef… | 0xB9d89bef8c935082F6 | POLITICS              |       7,045 |    70,678 |        20 |       54 |      |        | Y     |
-| 0x3c8ac6a9… | momom                | POLITICS              |       6,775 |   108,087 |        49 |      118 |      |        | Y     |
-| 0xb6658288… | Aeglos               | POLITICS              |       5,814 |    58,659 |        20 |      530 |      |        | Y     |
-| 0x43372356… | Anjun                | POLITICS              |       5,127 |   155,126 |       611 |     1000 |      |        | Y     |
-| 0x2974bd00… | 65765757             | POLITICS              |       5,110 |   241,455 |       119 |     1000 |      |        | Y     |
-| 0xb1ca909e… | NonceChaser          | POLITICS              |       5,107 |   635,803 |       258 |      415 |      |        | Y     |
-| 0xb687f004… | alwayslatetotheparty | POLITICS,TECH         |      17,388 |   238,558 |        53 |     1000 |      |        | Y     |
-| 0x095fbca2… | muchobliged          | SPORTS                |   3,310,134 | 3,437,233 |         8 |       43 |      | Y      |       |
-| 0x0346afae… | GoalLineGhost        | SPORTS                |     889,712 |   494,569 |       133 |     1000 |      |        | Y     |
-| 0x709e8dcb… | 0xd4aa6f8e91cfea29b6 | SPORTS                |     792,558 | 3,591,895 |       170 |      477 |      |        | Y     |
-| 0xbf323edb… | WhatARobbery         | SPORTS                |     586,865 |   498,190 |         4 |       12 |      | Y      |       |
-| 0xb61b2079… | hot2trot             | SPORTS                |     558,497 | 1,188,908 |        24 |       57 |      |        | Y     |
-| 0x924379a7… | Kch-Temp             | SPORTS                |     557,329 | 1,006,893 |        90 |      276 |      |        | Y     |
-| 0x5c3a1a60… | Crystiano            | SPORTS                |     526,668 | 1,863,922 |       476 |      653 |      |        | Y     |
-| 0x9f2fe025… | surfandturf          | SPORTS                |     478,593 | 4,025,883 |       265 |      651 |      |        | Y     |
-| 0x7c1ee865… | CandleHammerDrums    | SPORTS                |     442,021 |   858,963 |       139 |      229 |      |        | Y     |
-| 0xfea31bc0… | ndb1                 | SPORTS                |     394,004 | 1,212,892 |       411 |     1000 |      |        | Y     |
-| 0xf5fabdcd… | palegrit             | SPORTS                |     341,669 |   398,026 |        11 |      150 |      |        |       |
-| 0xe9a6ed2e… | Oneger               | SPORTS                |     309,542 |   771,845 |        86 |      132 |      |        | Y     |
-| 0x9ee8bbc3… | Qpkwks               | SPORTS                |     293,313 | 1,319,614 |        29 |      208 |      |        | Y     |
-| 0x2005d16a… | RN1                  | SPORTS                |     285,577 | 9,981,088 |       188 |     1000 |      |        | Y     |
-| 0xa49becb6… | sleepy-panda         | SPORTS                |     278,150 |   465,813 |       409 |     1000 |      |        | Y     |
-| 0x5257aa84… | NO-GOD-PLEASE-NO     | SPORTS                |     253,454 |   597,752 |       101 |      230 |      |        | Y     |
-| 0x37ee3bce… | 0x37ee3BCEb4fBf028fb | SPORTS                |     227,648 |   678,812 |        10 |       32 |      | Y      |       |
-| 0x10a6fadc… | rabbitfoot1          | SPORTS                |     215,323 |   610,993 |        78 |     1000 |      |        | Y     |
-| 0x5e945820… | pleaseplease123      | SPORTS                |     206,723 |   242,717 |       109 |      181 |      |        | Y     |
-| 0xbc1b1e93… | shijiebeifacai       | SPORTS                |     200,592 |   501,883 |        47 |      110 |      |        | Y     |
-| 0xf751fbd7… | 0xF751fbD76257AD498e | SPORTS                |     199,261 |   918,830 |       118 |      436 |      |        | Y     |
-| 0x7d787c72… | MD14                 | SPORTS                |     173,552 |   464,997 |       404 |      913 |      |        | Y     |
-| 0x25d3d4e4… |                      | SPORTS                |     170,370 |   170,370 |         1 |        2 |      | Y      |       |
-| 0xa6a872de… | eyeseethefuture      | SPORTS                |     162,361 |   162,361 |        17 |      149 |      |        |       |
-| 0xe221be3b… | Jokerxing7           | SPORTS                |     147,562 |   168,056 |        19 |       28 |      |        |       |
-| 0x16952717… | sakuralover          | TECH                  |       5,355 |    26,447 |        23 |       67 |      |        | Y     |
-| 0x335f4ee2… | codyqb               | TECH                  |       3,505 |     3,703 |         5 |       70 | Y    | Y      |       |
-| 0x8a524bca… | Ayanokoji67          | TECH                  |       2,457 |     3,567 |        35 |       80 |      | Y      | Y     |
-| 0xacdfeeeb… | obeymesubjects       | TECH                  |       2,158 |     2,233 |         1 |        1 |      | Y      |       |
-| 0x73ecf6a3… | ChampagneSocialist   | TECH                  |       1,677 |     7,806 |        77 |      381 |      |        | Y     |
-| 0x090af6fd… | VictorLudorum        | TECH                  |       1,657 |     3,796 |       220 |     1000 |      |        | Y     |
-| 0x7131cb61… | 0x7131cB618fb195C70E | TECH                  |       1,348 |    32,113 |       195 |     1000 |      |        | Y     |
-| 0x3594526e… | Linslav              | TECH                  |       1,257 |     6,483 |       207 |      579 |      |        | Y     |
-| 0x8e9eedf2… | Siziriv              | TECH                  |       1,117 |     2,325 |       244 |     1000 |      |        | Y     |
-| 0xf44dcf50… | Certify0148          | TECH                  |       1,000 |     5,575 |       103 |      267 |      | Y      | Y     |
-| 0xdacf9f8d… | CosmicCedar          | TECH                  |         980 |     2,519 |       635 |     1000 |      |        | Y     |
-| 0xd32ce89f… |                      | TECH                  |         920 |     2,213 |        86 |     1000 |      |        | Y     |
-| 0x0fbb51da… | jestergooning        | TECH                  |         840 |     2,049 |       266 |      318 |      |        | Y     |
-| 0xaa99a6c2… | willsom              | TECH                  |         822 |     1,674 |       416 |     1000 |      |        | Y     |
-| 0xb9df9898… | aqaaa                | TECH                  |         784 |    13,544 |         4 |       11 |      | Y      |       |
-| 0xbeb9d19f… | AnonymousElephant69  | TECH                  |         725 |     8,767 |       166 |     1000 |      |        | Y     |
-| 0x224089fc… | kilerz               | TECH                  |         659 |     5,190 |         4 |       11 |      | Y      |       |
+| wallet      | username             | categories                           |   pnl_month |   pnl/vol |   edge |   rbuys |   consist |   markets |   trades | MM   | conc   | cohorts   | sel   |
+|-------------|----------------------|--------------------------------------|-------------|-----------|--------|---------|-----------|-----------|----------|------|--------|-----------|-------|
+| 0x55be7aa0… | coinman2             | CRYPTO                               |      20,555 |      0.1  |   0.05 |    1094 |      0.38 |        63 |     1500 |      |        | ABC       | Y     |
+| 0x32ed2e54… | mo-money             | CRYPTO                               |      17,180 |      0.05 |  -0.01 |    1473 |      0.57 |       807 |     1500 |      |        | A         | Y     |
+| 0x38853725… | easypredict          | CRYPTO                               |      16,075 |      0.18 |   0.11 |    1369 |      0.46 |        43 |     1500 |      |        | ABC       | Y     |
+| 0xc2ad03f7… | bosona               | CRYPTO                               |      15,238 |      0.05 |   0.01 |    1479 |      0.58 |       821 |     1500 |      |        | A         | Y     |
+| 0xeebde7a0… | Bonereaper           | CRYPTO                               |      15,076 |      0    |  -0.01 |     486 |      0.57 |        61 |     1500 |      |        | A         | Y     |
+| 0xa7011667… | BadTattoo            | CRYPTO                               |      14,996 |           |   0.16 |      68 |      0.75 |        28 |      103 |      |        | AC        | Y     |
+| 0x20d2309c… |                      | CRYPTO                               |      13,776 |      0.01 |   0.05 |     447 |      0.53 |        54 |     1500 | Y    |        |           |       |
+| 0xf3531b23… | powerwinner          | CRYPTO                               |      13,726 |      0.01 |  -0.03 |     889 |      0.5  |        64 |     1500 |      |        | A         | Y     |
+| 0xed2f4c1a… | 0xeD2F4C1a5b2Ea42eb0 | CRYPTO                               |      12,686 |      0.3  |   0.12 |     272 |      0.39 |       125 |      287 |      |        | ABC       | Y     |
+| 0x48ac40fc… | BoneOhio             | CRYPTO                               |      12,177 |      0.02 |   0.04 |    1387 |      0.63 |       560 |     1500 |      |        | AC        | Y     |
+| 0x3725d52f… | almach               | CRYPTO                               |      12,085 |      0.04 |  -0    |    1490 |      0.64 |       882 |     1500 |      |        | A         | Y     |
+| 0x568b0798… |                      | CRYPTO                               |      11,919 |      0.01 |        |       0 |           |         0 |        0 |      |        |           |       |
+| 0x251c1a28… | 0xAAAAA              | CRYPTO                               |      11,708 |      0.02 |   0.02 |     791 |      0.51 |        69 |     1500 |      |        | A         | Y     |
+| 0xf9b7876b… |                      | CRYPTO                               |      11,648 |      0.01 |        |       0 |           |         0 |        0 |      |        |           |       |
+| 0xb55fa129… | 0xb55fa1296E6ec55D0c | CRYPTO                               |      10,160 |      0.01 |   0.05 |    1310 |      0.54 |       166 |     1500 |      |        | AC        | Y     |
+| 0x7f3c8979… | LucasMeow            | CRYPTO                               |       9,385 |           |   0.01 |     273 |      0.99 |       140 |      292 |      |        | A         | Y     |
+| 0xce25e214… | 0xcE25E214D5cfE4f459 | CRYPTO                               |       9,368 |      0.01 |   0.03 |    1286 |      0.55 |       121 |     1500 |      |        | A         | Y     |
+| 0x13e0d447… |                      | CRYPTO                               |       8,661 |      0    |   0.02 |    1500 |      0.54 |       279 |     1500 |      |        | A         | Y     |
+| 0xbf810a1a… | 0xBf810a1ab89672B841 | CRYPTO                               |       8,628 |      0.32 |  -0.02 |      65 |      0.2  |        34 |       76 |      |        | AB        | Y     |
+| 0xcc500cbc… | justdance            | CRYPTO                               |       8,358 |      0.03 |   0.02 |    1302 |      0.55 |       209 |     1500 |      |        | A         | Y     |
+| 0x5371f1b6… | oegdatam             | CRYPTO                               |       8,021 |      0.16 |   0.05 |     901 |      0.98 |       163 |     1184 |      |        | ABC       | Y     |
+| 0x31393e2f… | hot-garbage          | CRYPTO                               |       7,734 |      0.01 |   0.04 |    1482 |      0.57 |       243 |     1500 |      |        | AC        | Y     |
+| 0x04b6d7e9… | 0x04b6D7E930cf9e493c | CRYPTO                               |       7,607 |      0    |  -0.01 |    1500 |      0.51 |       205 |     1500 |      |        | A         | Y     |
+| 0xdf7930e8… | std0                 | CRYPTO                               |       7,346 |      0.01 |   0.03 |     385 |      0.72 |        49 |     1500 | Y    |        |           |       |
+| 0xd0f1c48f… | XRPisSH8T            | CRYPTO                               |       7,032 |           |   0.1  |     130 |      0.62 |        59 |      174 |      |        | AC        | Y     |
+| 0xb27bc932… |                      | CRYPTO                               |       6,635 |      0    |  -0    |    1499 |      0.53 |        81 |     1500 |      |        | A         | Y     |
+| 0x927f7694… | baloneigh            | CRYPTO                               |       6,079 |      0.02 |   0.02 |    1423 |      0.54 |       432 |     1500 |      |        | A         | Y     |
+| 0xb0143b38… | prostoludoman        | CRYPTO                               |       5,863 |      0.05 |   0.08 |    1498 |      0.52 |       213 |     1500 |      |        | AC        | Y     |
+| 0x34aba0ed… | 0x34aBa0ED4A752ce764 | CRYPTO                               |       5,801 |           |   0.11 |      65 |      0.57 |        40 |       75 |      |        | AC        | Y     |
+| 0x27091ce4… | dgcf                 | CRYPTO                               |       5,653 |      0    |   0.03 |     710 |      0.5  |        60 |     1500 |      |        | A         | Y     |
+| 0xa6657ab4… | MikeAddon            | CRYPTO                               |       5,633 |      0.05 |   0.03 |    1462 |      0.58 |       225 |     1500 |      |        | AB        | Y     |
+| 0x4ee29e4e… | IH2P                 | CRYPTO                               |       4,984 |      0.17 |   0.06 |    1492 |      0.52 |       153 |     1500 |      |        | ABC       | Y     |
+| 0xa6896d11… | 0xa6896d11f76dfa2820 | CRYPTO                               |       4,952 |      0.01 |   0.02 |    1360 |      0.51 |       248 |     1500 |      |        | A         | Y     |
+| 0x71a70f24… | easyclap             | CRYPTO                               |       4,936 |      0.03 |  -0.11 |    1145 |      0.47 |        50 |     1500 |      |        | A         | Y     |
+| 0x7e5d2991… | aswfadq1555          | CRYPTO                               |       4,863 |      0.01 |   0.05 |    1425 |      0.57 |       101 |     1500 |      |        | AC        | Y     |
+| 0x91aab8d0… | 0xfifr4t0g0vkdkefj   | CRYPTO                               |       4,651 |      0.02 |   0.02 |    1420 |      0.58 |       436 |     1500 |      |        | A         | Y     |
+| 0xd189664c… | rwo                  | CRYPTO                               |       4,526 |      0.07 |   0.01 |    1441 |      0.53 |       709 |     1500 |      |        | AB        | Y     |
+| 0x4f315c1f… | DFV2                 | CRYPTO                               |       4,466 |      0.28 |   0.06 |     911 |      0.98 |       159 |     1104 |      |        | ABC       | Y     |
+| 0xb0f85baa… | pspspsps5            | CRYPTO                               |       4,327 |      0.02 |   0.01 |    1497 |      0.98 |       360 |     1500 |      |        | A         | Y     |
+| 0x0484e640… | DoggyStyIe           | CRYPTO                               |       4,170 |      0.01 |   0    |     764 |      0.5  |        70 |     1500 |      |        | A         | Y     |
+| 0xe055d214… | AgropescaJacare      | CRYPTO                               |       4,111 |      0.02 |   0.03 |    1500 |      0.49 |       416 |     1500 |      |        | A         | Y     |
+| 0xee65685d… | 0x50f7               | CRYPTO                               |       3,993 |      0    |  -0    |    1434 |      0.57 |       878 |     1500 |      |        | A         | Y     |
+| 0xdb5ad26b… | 0xDB5                | CRYPTO                               |       3,663 |      0.01 |  -0.05 |     417 |      0.38 |       102 |     1500 | Y    |        |           |       |
+| 0x4228048e… | trinity42            | CRYPTO                               |       3,366 |      0.01 |   0.01 |     878 |      0.51 |       485 |     1500 |      |        | A         | Y     |
+| 0x5652090d… | AlphaBetaGamma2357   | CRYPTO                               |       3,362 |      0.32 |   0.11 |     124 |      0.75 |        60 |      159 |      |        | ABC       | Y     |
+| 0xf9a23d70… | bau7                 | CRYPTO                               |       3,349 |      0.16 |   0.02 |     513 |      0.59 |       660 |     1500 |      |        | AB        | Y     |
+| 0xfed8ff0b… | JudgeLance           | CRYPTO                               |       3,103 |           |  -0.12 |     151 |      0.53 |        76 |      164 |      |        | A         | Y     |
+| 0x885278f0… | gabigol              | CRYPTO                               |       3,095 |      0.01 |  -0.03 |    1499 |      0.41 |        77 |     1500 |      |        | A         | Y     |
+| 0x98f5d887… | gardenerCx           | CRYPTO                               |       3,067 |      0.24 |   0.09 |    1500 |      0.66 |       716 |     1500 |      |        | ABC       | Y     |
+| 0x674887d1… | nj23adsknml3         | CRYPTO                               |       2,848 |      0.01 |  -0.04 |     124 |      0.46 |        84 |     1500 | Y    |        |           |       |
+| 0xef104cc7… | fiankee              | CRYPTO                               |       2,819 |      0.06 |   0    |    1492 |      0.53 |      1057 |     1500 |      |        | AB        | Y     |
+| 0x8765c395… | buttonAllergy1       | CRYPTO                               |       2,519 |      0.01 |   0.01 |    1496 |      0.99 |       276 |     1500 |      |        | A         | Y     |
+| 0xc547326c… | 0x33d33              | CRYPTO                               |       2,455 |      0.01 |   0.01 |    1430 |      0.53 |       427 |     1500 |      |        | A         | Y     |
+| 0x951bd740… | 0x951bd740EF681d0589 | CRYPTO                               |       2,433 |      0.02 |   0    |    1242 |      0.5  |       239 |     1500 |      |        | A         | Y     |
+| 0x3b840769… | 0x0a2c53bd218c04da99 | CRYPTO                               |       2,396 |      0.06 |   0.02 |    1497 |      0.73 |       192 |     1500 |      |        | AB        | Y     |
+| 0x3c58ef42… | antsaslyku           | CRYPTO                               |       2,392 |      0.03 |   0.01 |    1432 |      0.54 |       505 |     1500 |      |        | A         | Y     |
+| 0xc1a58674… | amis                 | CRYPTO                               |       2,354 |     11.73 |   0.04 |     905 |      0.86 |       332 |     1298 |      |        | ABC       | Y     |
+| 0x726fd4fd… | ftrxc64afn           | CRYPTO                               |       2,231 |      0.01 |  -0.04 |    1061 |      0.55 |        64 |     1500 |      |        | A         | Y     |
+| 0x6fd089a1… | gt197                | CRYPTO                               |       2,196 |      0.02 |  -0.06 |     279 |      0.25 |       142 |      357 |      |        | A         | Y     |
+| 0x912a5810… | ratue                | CRYPTO                               |       2,125 |      0.03 |   0.05 |    1499 |      0.55 |       302 |     1500 |      |        | AC        | Y     |
+| 0xb305d384… | 0xb305d384400e3d7A15 | CRYPTO                               |       2,114 |      0.02 |   0.04 |    1434 |      0.42 |       585 |     1500 |      |        | AC        | Y     |
+| 0xdf0d2ccf… | 0xdf0D2CcfE3d7C2EF12 | CRYPTO                               |       2,096 |      0    |   0    |    1488 |      1    |      1418 |     1500 |      |        |           |       |
+| 0x5204cc05… | nndrekop             | CRYPTO                               |       2,092 |      0.01 |  -0    |    1477 |      0.51 |       450 |     1500 |      |        |           |       |
+| 0xfeb58108… | completion           | CRYPTO                               |       2,087 |           |  -0.03 |    1080 |      0.55 |       538 |     1500 |      |        |           |       |
+| 0xd9dea316… | GaliBooty            | CRYPTO                               |       2,069 |      0.02 |  -0.02 |    1500 |      0.55 |       544 |     1500 |      |        |           |       |
+| 0x9eb48be5… | SirMartingale        | CRYPTO                               |       1,980 |      0.03 |   0.03 |     695 |      0.61 |       958 |     1500 |      |        | C         | Y     |
+| 0x0c7c5204… | OhioRiskManagement   | CRYPTO                               |       1,966 |      0.01 |   0.1  |     699 |      0.53 |       114 |     1500 |      |        | C         | Y     |
+| 0x68f6c51d… | btc5mScour           | CRYPTO                               |       1,894 |      0.01 |   0.07 |     794 |      0.77 |       238 |      797 |      |        | C         | Y     |
+| 0x43d20d9b… | burnedout-croissant  | CRYPTO                               |       1,829 |      0.01 |   0.03 |    1392 |      0.52 |       136 |     1500 |      |        | C         | Y     |
+| 0x0389362a… | ffgghhhj             | CRYPTO                               |       1,778 |      0.01 |   0.02 |    1481 |      0.52 |       403 |     1500 |      |        |           |       |
+| 0x4582c771… | angry-bagel          | CRYPTO                               |       1,702 |      0.01 |   0.03 |    1452 |      0.54 |       208 |     1500 |      |        | C         | Y     |
+| 0xcfb103c3… | xuanxuan008          | CRYPTO                               |       1,673 |      0.01 |   0.04 |    1500 |      0.5  |       111 |     1500 |      |        | C         | Y     |
+| 0x9d57c42e… | Polkadot-Frog        | CRYPTO                               |       1,586 |      0    |   0.03 |     493 |      0.51 |        90 |     1500 |      |        | C         | Y     |
+| 0x88f2963c… | wwwise               | CRYPTO                               |       1,487 |      0.04 |   0.03 |    1194 |      0.55 |       252 |     1500 |      |        |           |       |
+| 0x9412cdfc… | gansinimen           | CRYPTO                               |       1,457 |      0    |   0.01 |    1290 |      0.54 |       227 |     1500 |      |        |           |       |
+| 0xeee92f1c… | ComTruise            | CRYPTO                               |       1,445 |      0    |  -0.03 |    1412 |      0.51 |       114 |     1500 |      |        |           |       |
+| 0x4705408c… |                      | CRYPTO                               |       1,445 |      0.01 |  -0.02 |    1500 |      0.51 |       146 |     1500 |      |        |           |       |
+| 0x21d0a97a… | PBot-6               | CRYPTO                               |       1,401 |      0.01 |   0    |    1496 |      0.41 |       758 |     1500 |      |        |           |       |
+| 0x18d317d3… | one-eyed-man         | CRYPTO                               |       1,346 |      0.03 |   0.02 |    1500 |      0.64 |       662 |     1500 |      |        |           |       |
+| 0xe0229e10… | JetFadil             | CRYPTO                               |       1,318 |      0.02 |   0.02 |    1044 |      0.52 |        73 |     1500 |      |        |           |       |
+| 0x9d32ad42… | 0x9D32aD42A0077Da197 | CRYPTO                               |       1,284 |           |   0.2  |     466 |      0.92 |        29 |      617 |      |        | C         | Y     |
+| 0x5fcf73bd… | 0x5fCf73bd4265F1D8F7 | CRYPTO                               |       1,273 |      0.01 |  -0.19 |      71 |      0.41 |        81 |      141 |      |        |           |       |
+| 0x8fe70c88… | amused85             | CRYPTO                               |       1,258 |      0.13 |  -0.02 |    1155 |      0.44 |       954 |     1500 |      |        | B         | Y     |
+| 0x1cd24cc4… | bitterfish           | CRYPTO                               |       1,245 |           |   0.22 |     118 |      0.4  |        90 |      149 |      |        | C         | Y     |
+| 0x06dce511… | asdafa               | CRYPTO                               |       1,225 |      0.13 |        |       0 |      0    |         9 |       14 |      | Y      |           |       |
+| 0x751a2b86… | Sharky6999           | CRYPTO                               |       1,219 |      0.02 |   0.02 |    1455 |      0.96 |      1179 |     1500 |      |        |           |       |
+| 0xb72b92ea… | ZHAOCHANGPENG        | CRYPTO                               |       1,212 |      0.04 |   0.17 |     150 |      0.57 |        88 |      193 |      |        | C         | Y     |
+| 0xf6ab262d… | Jarvisen             | CRYPTO                               |       1,208 |      0.02 |   0.05 |     644 |      0.52 |        37 |     1500 |      |        | C         | Y     |
+| 0xfcbecc7e… | ascetic0x            | CRYPTO                               |       1,151 |      0.02 |  -0.02 |    1159 |      0.91 |       763 |     1500 |      |        |           |       |
+| 0x476639d9… | slip-me              | CRYPTO                               |       1,111 |      0.02 |   0.02 |    1119 |      0.51 |        87 |     1500 |      |        |           |       |
+| 0xc387c2a4… | flippingsharks       | CRYPTO                               |       1,105 |      0.01 |  -0    |    1391 |      0.42 |       471 |     1500 |      |        |           |       |
+| 0x10fbc3d2… | choohkz23            | CRYPTO                               |       1,089 |           |   0.01 |    1269 |      0.76 |       427 |     1500 |      |        |           |       |
+| 0xa2c97a85… | shizzle99            | CRYPTO                               |       1,016 |      0.03 |   0.14 |     672 |      0.56 |        89 |     1181 |      |        | C         | Y     |
+| 0x500ae3db… | acc-2                | CRYPTO                               |         954 |      0.05 |  -0.01 |    1499 |      0.51 |       807 |     1500 |      |        |           |       |
+| 0x143732d8… | frozenriver          | CRYPTO                               |         933 |      0.04 |  -0.03 |    1478 |      0.13 |       293 |     1500 |      |        |           |       |
+| 0x8e77537e… | dwpoker              | CRYPTO                               |         901 |      0.08 |   0.02 |      72 |      0.59 |       109 |      128 |      |        | B         | Y     |
+| 0xa8ccda04… | UUDDLRLR             | CRYPTO                               |         866 |      0.01 |   0.02 |    1386 |      0.52 |       219 |     1500 |      |        |           |       |
+| 0x1f19c48a… | godspeed11           | CRYPTO                               |         836 |      0.01 |   0    |     881 |      0.52 |        68 |     1500 |      |        |           |       |
+| 0x6916cc00… | x6916Cc00AA1c3e75ECf | CRYPTO                               |         830 |      0.01 |   0.11 |     729 |      0.46 |        21 |     1500 | Y    |        |           |       |
+| 0x218f36c3… | dolita               | CRYPTO                               |         799 |      0.01 |   0.03 |     944 |      0.53 |        92 |     1500 |      |        | C         | Y     |
+| 0xfcdc071d… | neversmiling         | CRYPTO                               |         795 |      0    |  -0.05 |    1254 |      0.49 |       125 |     1500 |      |        |           |       |
+| 0x74a2b82f… | PBot-3               | CRYPTO                               |         769 |      0.02 |  -0.02 |    1500 |      0.56 |       648 |     1500 |      |        |           |       |
+| 0x16bc7fac… | screenSaver          | CRYPTO                               |         768 |      0    |  -0.04 |    1407 |      0.51 |        51 |     1500 |      |        |           |       |
+| 0x931cd225… | 0x931cd2259731f65ff3 | CRYPTO                               |         761 |      0.05 |   0.03 |    1129 |      0.24 |       616 |     1138 |      |        | C         | Y     |
+| 0xc2e01054… | referralfarmer       | CRYPTO                               |         734 |      0.01 |   0    |    1492 |      0.56 |       973 |     1500 |      |        |           |       |
+| 0x6765c1c0… | JanAMEX              | CRYPTO                               |         713 |      0.18 |   0.03 |    1460 |      0.96 |       175 |     1500 |      |        | BC        | Y     |
+| 0x269ced0e… | allen111             | CRYPTO                               |         700 |           |  -0.02 |     819 |      0.69 |       536 |      926 |      |        |           |       |
+| 0x05ab749a… | SeniorLaghetto       | CRYPTO                               |         662 |      0.7  |   0.03 |     833 |      0.5  |       109 |     1500 |      |        | B         | Y     |
+| 0x5b87d385… | Eknih                | CRYPTO                               |         606 |      0    |   0.02 |    1500 |      0.52 |       192 |     1500 |      |        |           |       |
+| 0xa0a50783… | 0xA0a5078359daD63993 | CRYPTO                               |         592 |      0.07 |   0.02 |    1489 |      0.55 |       561 |     1500 |      |        | B         | Y     |
+| 0xf0078630… | schwitzer            | CRYPTO                               |         560 |      0.02 |   0.01 |    1449 |      0.5  |       617 |     1500 |      |        |           |       |
+| 0x56d55bd3… | Petyaaa              | CRYPTO                               |         559 |      0.01 |   0.05 |     623 |      0.55 |       495 |     1408 |      |        | C         | Y     |
+| 0xc1200f03… | solomiy              | CRYPTO                               |         526 |      0.07 |   0.15 |    1500 |      0.64 |      1396 |     1500 |      |        | BC        | Y     |
+| 0xff165cf8… | solwizzo-onX         | CRYPTO                               |         497 |      0.6  |   0.07 |     318 |      0.6  |       289 |      490 |      |        | BC        | Y     |
+| 0x8970b565… | averagerandomman     | CRYPTO                               |         491 |      0    |   0.01 |    1236 |      0.82 |       367 |     1500 |      |        |           |       |
+| 0x8b4bca1d… | 0x8B4bcA1D794779E66e | CRYPTO,CULTURE                       |       8,418 |      0.02 |  -0    |     397 |      0.79 |       243 |      529 |      |        | A         | Y     |
+| 0x7c3db723… | Car                  | CRYPTO,CULTURE,POLITICS              |         809 |      0.01 |   0.01 |    1050 |      0.63 |       374 |     1500 |      |        |           |       |
+| 0xf66f1f8f… | ronm238              | CRYPTO,FINANCE                       |         707 |      0.21 |   0.04 |     714 |      0.45 |       333 |     1372 |      |        | BC        | Y     |
+| 0x43372356… | Anjun                | CRYPTO,FINANCE,POLITICS              |       5,571 |      0.04 |   0.01 |    1016 |      0.63 |       874 |     1500 |      |        | A         | Y     |
+| 0xfea31bc0… | ndb1                 | CRYPTO,SPORTS                        |     454,538 |      0.21 |   0.05 |    1193 |      0.82 |       583 |     1500 |      |        | ABC       | Y     |
+| 0xbacd00c9… | ScottyNooo           | CULTURE                              |      50,291 |      3.01 |   0.05 |    1194 |      0.56 |       269 |     1500 |      |        | ABC       | Y     |
+| 0xa2cd4ccd… | 0xA2cd4CcdA9A1f95949 | CULTURE                              |      30,242 |           |  -0.01 |      73 |      0.67 |        18 |       89 |      | Y      |           |       |
+| 0x53e55bc7… | Arbguy               | CULTURE                              |      24,248 |      0.21 |   0.02 |     828 |      0.49 |       403 |     1225 |      |        | AB        | Y     |
+| 0x2233849e… | dr3amweaver          | CULTURE                              |      18,280 |           |  -0.28 |       9 |      0.22 |        12 |       23 |      | Y      |           |       |
+| 0x254e913a… | 0x254E913A4465cDE1A6 | CULTURE                              |      11,664 |      1.17 |   0.2  |       5 |      0.5  |         8 |       20 |      | Y      |           |       |
+| 0x524db836… | 0x524db836890E08ACeB | CULTURE                              |       8,731 |      0.15 |  -0    |     136 |      0.33 |        36 |      229 |      |        | AB        | Y     |
+| 0xe089e5e7… | lox97                | CULTURE                              |       7,613 |      0.32 |  -0.01 |     301 |      0.04 |        81 |      323 |      |        | AB        | Y     |
+| 0xaca23974… | ellio8989            | CULTURE                              |       5,514 |      0.56 |  -0    |    1319 |      0.42 |       761 |     1500 |      |        | AB        | Y     |
+| 0xb9eb019d… | LuckyOne - 7118      | CULTURE                              |       4,762 |           |        |       0 |           |         1 |        2 |      | Y      |           |       |
+| 0x12ed45d2… | sazzaa               | CULTURE                              |       4,713 |      0.07 |   0.05 |      93 |      0.81 |        85 |     1500 |      |        | ABC       | Y     |
+| 0x04a2a707… | gordontradedc        | CULTURE                              |       4,544 |      0.11 |   0.05 |     919 |      0.44 |       101 |     1500 | Y    |        |           |       |
+| 0x45b39e1f… | onekey09             | CULTURE                              |       4,080 |           |  -0    |     919 |      0.97 |       579 |      970 |      |        | A         | Y     |
+| 0x77c812f7… | dudukos              | CULTURE                              |       3,829 |      0.32 |  -0.02 |    1390 |      0.18 |       774 |     1500 |      |        | AB        | Y     |
+| 0x60a92c86… | paddaa               | CULTURE                              |       3,820 |      0.29 |   0.09 |     726 |      0.5  |       250 |     1500 |      |        | ABC       | Y     |
+| 0x73836f35… | EricaXBT             | CULTURE                              |       3,599 |           |   0    |     243 |      0.85 |       153 |      334 |      |        | A         | Y     |
+| 0x6e131d6c… | gooppa               | CULTURE                              |       3,325 |           |   0.21 |      64 |      0.69 |        32 |       75 |      |        | AC        | Y     |
+| 0xa3a39a37… | charliealmanack      | CULTURE                              |       2,821 |           |   0.12 |     172 |      0.62 |       171 |      232 |      |        | AC        | Y     |
+| 0x0f7f9903… | Elonurmom            | CULTURE                              |       2,410 |      0.04 |  -0.01 |     688 |      0.78 |       644 |     1500 |      |        | A         | Y     |
+| 0xac482f27… | CryptoFortunate      | CULTURE                              |       2,326 |           |   0.04 |      87 |      0.76 |        45 |      100 |      | Y      |           |       |
+| 0xab197165… | SlenderMan           | CULTURE                              |       2,279 |      0.04 |  -0.17 |     774 |      0.65 |       210 |     1109 |      |        | A         | Y     |
+| 0xb028b82a… | Splatlouder          | CULTURE                              |       2,144 |      0.1  |   0.04 |    1159 |      0.57 |       238 |     1500 |      |        | ABC       | Y     |
+| 0x22027525… | aangelika            | CULTURE                              |       2,036 |           |   0.25 |      19 |      0.38 |        20 |       43 |      |        |           |       |
+| 0x52e3ddef… | 0x52e3dDefd4D851aDF4 | CULTURE                              |       2,013 |           |   0.07 |      22 |      1    |         9 |       34 |      | Y      |           |       |
+| 0x955c9661… |                      | CULTURE                              |       1,935 |      0.11 |   0    |     943 |      0.78 |       372 |     1025 |      |        | B         | Y     |
+| 0x913f5f69… | 0x913f5F691Ce0a947CF | CULTURE                              |       1,864 |      0.02 |   0.02 |    1202 |      0.68 |        69 |     1500 | Y    |        |           |       |
+| 0x1e1f1741… | Brokie               | CULTURE                              |       1,605 |           |   0.03 |     864 |      0.57 |       598 |     1196 |      |        | C         | Y     |
+| 0xceed6372… | jdmboy               | CULTURE                              |       1,486 |      0.25 |  -0.03 |     278 |      0.51 |       372 |      534 |      |        | B         | Y     |
+| 0x96964003… | ent1337              | CULTURE                              |       1,470 |      0.12 |   0.17 |    1090 |      0.47 |       162 |     1500 |      |        | BC        | Y     |
+| 0xf7bbfd45… | PiMaak               | CULTURE                              |       1,453 |      0.19 |   0.05 |     216 |      0.63 |       169 |      306 |      |        | BC        | Y     |
+| 0xe74d4976… | Pump                 | CULTURE                              |       1,444 |           |   0.1  |     821 |      0.39 |       289 |     1500 |      |        | C         | Y     |
+| 0x45269642… | neetbets             | CULTURE                              |       1,387 |      0.48 |   0.03 |    1296 |      0.83 |       531 |     1500 |      |        | B         | Y     |
+| 0xe904443b… | shovelingdigging     | CULTURE                              |       1,307 |      0.16 |   0.06 |    1050 |      0.6  |       454 |     1500 |      |        | BC        | Y     |
+| 0x05e2f520… | cledisidiot          | CULTURE                              |       1,262 |           |  -0.17 |      96 |      0.73 |        60 |      123 |      |        |           |       |
+| 0xd576b9ee… | inrock30             | CULTURE                              |       1,000 |           |   0.01 |     473 |      0.52 |        92 |      585 |      |        |           |       |
+| 0x7fa6c647… | PickleRick           | CULTURE                              |         917 |      0.08 |   0.03 |    1279 |      0.78 |       331 |     1500 |      |        | B         | Y     |
+| 0x038bca07… | triple-purple        | CULTURE                              |         853 |      0.73 |  -0.03 |     828 |      0.39 |       678 |     1500 |      |        | B         | Y     |
+| 0x5095e972… | 0x5095e97281f28d4d85 | CULTURE                              |         841 |      0.07 |   0.05 |     671 |      0.65 |       382 |     1038 |      |        | BC        | Y     |
+| 0x9c610b56… | gold-digger          | CULTURE                              |         775 |      0.05 |   0.06 |     377 |      0.64 |       171 |      582 |      |        | C         | Y     |
+| 0x8c76c478… | MajoriT              | CULTURE                              |         767 |           |   0    |     256 |      0.67 |       172 |      432 |      |        |           |       |
+| 0x49b60d2c… | pkz                  | CULTURE                              |         750 |      0.06 |   0.02 |    1141 |      0.62 |       652 |     1500 |      |        | B         | Y     |
+| 0xbd70eebd… | Pitter               | CULTURE                              |         724 |      0.05 |   0.09 |     953 |      0.42 |       196 |     1500 |      |        | C         | Y     |
+| 0xf29ff5f7… | cryptoaxel           | CULTURE                              |         703 |           |  -0.04 |      81 |      0.88 |        41 |       89 |      |        |           |       |
+| 0xf02105d6… | MollyParkets         | CULTURE                              |         670 |      0.09 |   0    |    1070 |      0.53 |       733 |     1500 |      |        | B         | Y     |
+| 0x2824ab45… | TheImpasse           | CULTURE                              |         662 |           |  -0.37 |     160 |      0.9  |       579 |      715 |      | Y      |           |       |
+| 0xdbade4c8… | SwissMiss            | CULTURE                              |         600 |           |  -0.02 |     834 |      0.7  |       319 |      994 |      |        |           |       |
+| 0xbe787350… | splatloud            | CULTURE                              |         580 |      0.14 |   0.02 |     987 |      0.55 |       217 |     1500 |      |        | B         | Y     |
+| 0x68642040… | hetacz               | CULTURE                              |         532 |      0    |   0    |     830 |      0.77 |       485 |     1500 |      |        |           |       |
+| 0xc851cd9b… | betwick              | CULTURE                              |         524 |      0.04 |  -0    |    1101 |      0.59 |       484 |     1500 |      |        |           |       |
+| 0x9ad091ca… | PaddyAlpha           | CULTURE                              |         523 |      0.03 |   0.02 |     732 |      0.55 |       359 |     1500 |      |        |           |       |
+| 0x128cd861… | zhangyu1377          | CULTURE                              |         449 |      0.2  |   0.03 |     449 |      0.59 |       231 |      687 |      |        | B         | Y     |
+| 0x471abf05… | Gustav4              | CULTURE                              |         438 |      0.05 |   0.01 |     972 |      0.72 |       290 |     1500 |      |        |           |       |
+| 0x1de92e09… | gorovi               | CULTURE                              |         389 |           |   0.02 |     275 |      0.82 |       291 |      473 |      |        |           |       |
+| 0x2924d14e… | 0x9b257ead1a6240d4ab | CULTURE                              |         383 |      0.01 |   0.03 |     622 |      0.83 |       152 |     1500 |      |        |           |       |
+| 0xfd5c9bbf… | dz1ft                | CULTURE                              |         380 |      0.02 |   0.03 |     942 |      0.43 |       361 |     1500 |      |        | C         | Y     |
+| 0x218f912f… | PrimaryPartner       | CULTURE                              |         375 |      0.02 |   0.01 |     172 |      0.66 |       126 |      216 |      |        |           |       |
+| 0x2127cf49… | thanhtam86           | CULTURE                              |         346 |      0.08 |  -0.05 |     865 |      0.63 |       701 |     1164 |      |        | B         | Y     |
+| 0x7413e847… | broitsravi           | CULTURE                              |         345 |      0.02 |   0.02 |    1141 |      0.26 |       752 |     1500 |      |        |           |       |
+| 0x0224bb9e… | zb8                  | CULTURE                              |         344 |      0.09 |   0.03 |    1241 |      0.63 |       575 |     1500 |      |        | BC        | Y     |
+| 0xaf4ed136… | polywanta            | CULTURE                              |         305 |           |   0.05 |     112 |      0.61 |        44 |      144 |      |        | C         | Y     |
+| 0x66cb857b… | fiImnerd             | CULTURE                              |         298 |      0.01 |   0.05 |     951 |      0.74 |       589 |     1500 |      |        | C         | Y     |
+| 0x1e1aed39… | Bitgod               | CULTURE                              |         283 |      0    |   0.02 |      90 |      0.74 |        83 |     1500 |      |        |           |       |
+| 0xe28a4240… | Jooba                | CULTURE                              |         273 |           |   0.07 |     522 |      0.68 |       245 |      604 |      |        | C         | Y     |
+| 0x477f156a… | TradeDeficitArchitec | CULTURE                              |         256 |      0.55 |   0.03 |    1199 |      0.65 |       633 |     1500 |      |        | B         | Y     |
+| 0xdaad6f96… | junkbonds            | CULTURE                              |         248 |      0.03 |   0.04 |     242 |      0.7  |       133 |      312 |      |        | C         | Y     |
+| 0x26a9db04… | Ztalic               | CULTURE                              |         247 |      1.88 |  -0    |    1202 |      0.8  |       576 |     1436 |      |        | B         | Y     |
+| 0x75d4c197… | whodet               | CULTURE                              |         243 |           |   0.11 |     574 |      0.8  |       128 |      652 |      |        | C         | Y     |
+| 0x76b8356b… | cryboy89             | CULTURE                              |         233 |      0.02 |   0.01 |     791 |      0.62 |       288 |     1500 |      |        |           |       |
+| 0xad89f899… | VivaMoldova          | CULTURE                              |         232 |      0.88 |   0.04 |     961 |      0.66 |       573 |     1500 |      |        | BC        | Y     |
+| 0x36e7e560… | pol76                | CULTURE                              |         221 |      0.07 |   0.05 |     755 |      0.49 |       496 |     1500 |      |        | BC        | Y     |
+| 0x2a019dc0… | aviato               | CULTURE                              |         216 |           |   0    |    1034 |      0.82 |       797 |     1500 |      |        |           |       |
+| 0x73541013… | Dr.napol             | CULTURE                              |         210 |      0.12 |  -0.03 |     429 |      0.48 |       322 |      834 |      |        | B         | Y     |
+| 0xac92f07c… | agggr                | CULTURE                              |         208 |           |   0.04 |     370 |      0.4  |       132 |      483 |      |        | C         | Y     |
+| 0x54e28926… | goldingboy           | CULTURE                              |         200 |           |   0.02 |     284 |      0.86 |        90 |      322 |      |        |           |       |
+| 0xfaf98181… | onekey02             | CULTURE                              |         199 |      0.01 |   0    |     222 |      0.94 |       145 |      293 |      |        |           |       |
+| 0x69645cea… | PredictionYogi       | CULTURE                              |         189 |      0    |   0.01 |    1222 |      0.85 |       336 |     1500 |      |        |           |       |
+| 0x1d4687b8… | airme                | CULTURE                              |         188 |      0.21 |  -0.01 |    1052 |      0.41 |       199 |     1500 | Y    |        |           |       |
+| 0xb260e618… | Hit-man              | CULTURE                              |         183 |      0.04 |   0.01 |    1193 |      0.6  |       405 |     1500 |      |        |           |       |
+| 0xbb8e6477… | Generator            | CULTURE                              |         176 |           |   0    |     814 |      0.53 |       342 |      976 |      |        |           |       |
+| 0x771264ff… | EMbrace              | CULTURE                              |         168 |      0.03 |   0.07 |     675 |      0.63 |       154 |     1500 | Y    |        |           |       |
+| 0x7a6192ea… | Gambler1968          | CULTURE                              |         161 |           |   0.13 |      31 |      0.41 |        91 |       98 |      |        | C         | Y     |
+| 0x75d1b199… | 0x75d1B199a96801338e | CULTURE                              |         133 |           |  -0.15 |     223 |      0.42 |       184 |      260 |      |        |           |       |
+| 0x07cf80fb… | Panopticon007        | CULTURE                              |         127 |      0.01 |   0    |     760 |      0.52 |       574 |     1500 |      |        |           |       |
+| 0x35f3f632… | RickRockRick         | CULTURE                              |         119 |      0    |  -0    |     614 |      0.81 |       364 |     1500 |      |        |           |       |
+| 0x97f3f9f1… | Investnow            | CULTURE                              |         116 |           |  -0.05 |     445 |      0.41 |       318 |      562 |      |        |           |       |
+| 0x8eab0c46… | LinaBell🦊           | CULTURE                              |          85 |      0    |  -0    |     829 |      0.68 |       283 |     1500 |      |        |           |       |
+| 0x1e9c662e… | AlmostRich           | CULTURE                              |          83 |      0.04 |  -0.01 |     840 |      0.42 |       271 |     1500 |      |        |           |       |
+| 0x5999ebfa… | kl1v                 | CULTURE                              |          77 |      0.01 |   0.03 |     714 |      0.74 |       366 |      906 |      |        | C         | Y     |
+| 0x1584cb3b… | flow-trader-at-optiv | CULTURE,FINANCE                      |       2,510 |           |  -0.01 |    1368 |      0.87 |       805 |     1500 |      |        | A         | Y     |
+| 0xa49b6ea0… | 38741100741561181409 | CULTURE,FINANCE                      |         891 |      0.15 |  -0.03 |     588 |      0.63 |       449 |     1500 |      |        | B         | Y     |
+| 0xc97b0b2a… | 0xC97b0b2A2547bB3eD5 | CULTURE,FINANCE                      |         486 |      0.01 |   0.03 |     519 |      0.76 |        47 |     1500 |      | Y      |           |       |
+| 0x38f50488… | misterflipster       | CULTURE,FINANCE                      |         175 |      0.03 |   0.14 |     851 |      0.5  |       368 |     1500 |      |        | C         | Y     |
+| 0x9a3fa403… | Rex416               | CULTURE,FINANCE,POLITICS             |       3,074 |      0.07 |   0.05 |    1057 |      0.73 |       636 |     1500 |      |        | ABC       | Y     |
+| 0x63d43bbb… | wokerjoesleeper      | CULTURE,FINANCE,POLITICS             |       1,284 |           |  -0.02 |    1455 |      0.82 |       532 |     1500 |      |        |           |       |
+| 0x5a218c7a… | balthazar            | CULTURE,FINANCE,POLITICS,SPORTS,TECH |      26,121 |      1.12 |   0.11 |      77 |      0.44 |       476 |     1500 |      |        | ABC       | Y     |
+| 0xed107a85… | elmcap2              | CULTURE,FINANCE,POLITICS,TECH        |      10,077 |      0.06 |   0.01 |    1286 |      0.88 |       574 |     1500 |      |        | AB        | Y     |
+| 0xfbd8c9c2… | 0xfBd8C9C22cA76B3662 | CULTURE,FINANCE,POLITICS,TECH        |       4,655 |      0.12 |        |       0 |           |       613 |     1500 |      |        | AB        | Y     |
+| 0xd23f8c8a… | Corlys               | CULTURE,FINANCE,TECH                 |      13,918 |      0.66 |   0.04 |      39 |      0.92 |       629 |     1500 |      | Y      |           |       |
+| 0xb0c85813… | lebron.bames.jond    | CULTURE,FINANCE,TECH                 |       8,834 |      0.34 |   0.01 |     209 |      0.83 |       549 |     1500 |      |        | AB        | Y     |
+| 0xcaab1965… | QMG-CORE             | CULTURE,FINANCE,TECH                 |         258 |      0.01 |   0.02 |     924 |      0.74 |       393 |     1500 |      |        |           |       |
+| 0x3c8ac6a9… | momom                | CULTURE,POLITICS                     |       8,251 |      0.72 |   0.08 |      77 |      0.88 |        49 |      118 |      |        | ABC       | Y     |
+| 0xdf17f4a8… | bahibahibahi         | CULTURE,POLITICS                     |       7,109 |      0.61 |   0.07 |     993 |      0.6  |       224 |     1500 |      |        | ABC       | Y     |
+| 0xac4a1fab… | HerrieDavis          | CULTURE,POLITICS                     |       4,928 |      0.03 |        |       0 |      0.79 |       200 |     1500 |      |        | A         | Y     |
+| 0xcd71fd53… | Kevindoto            | CULTURE,POLITICS                     |       4,186 |           |   0.03 |    1229 |      0.83 |       427 |     1500 |      |        | AC        | Y     |
+| 0x8c80d213… | SecondWindCapital    | CULTURE,POLITICS                     |       3,648 |           |  -0.06 |     220 |      0.42 |        75 |      276 |      |        | A         | Y     |
+| 0x9c261746… | Tigerofthehood       | CULTURE,POLITICS                     |       2,398 |      0.02 |   0    |     332 |      0.68 |       140 |      566 |      |        | A         | Y     |
+| 0x9ba9dec3… | TeamA                | CULTURE,POLITICS                     |       2,151 |           |   0.09 |       4 |      1    |         3 |       12 |      | Y      |           |       |
+| 0x7e35a2a8… | buoys                | CULTURE,POLITICS                     |         974 |      0.1  |   0.08 |     572 |      0.46 |       499 |     1500 |      |        | BC        | Y     |
+| 0x6bab41a0… | Dropper              | CULTURE,POLITICS                     |         880 |      0.11 |   0.04 |    1295 |      0.6  |       405 |     1500 |      |        | BC        | Y     |
+| 0x08458f7e… | GollumGekko          | CULTURE,POLITICS,TECH                |       1,897 |      0.01 |   0.07 |     570 |      0.56 |       277 |     1500 |      |        | C         | Y     |
+| 0x8597ca63… | Mr-Krabs             | CULTURE,TECH                         |       2,237 |      0.22 |   0.01 |    1003 |      0.63 |       458 |     1500 |      |        | AB        | Y     |
+| 0x44c1dfe4… | aenews2              | CULTURE,TECH                         |       1,852 |      0.04 |   0.01 |    1170 |      0.65 |       515 |     1500 |      |        |           |       |
+| 0xf44dcf50… | Certify0148          | CULTURE,TECH                         |         410 |      0.03 |   0.03 |     147 |      0.66 |       103 |      267 |      | Y      |           |       |
+| 0x8964b58c… | DegenerateJanet      | CULTURE,TECH                         |         326 |           |   0.02 |    1228 |      0.8  |       502 |     1500 |      |        |           |       |
+| 0xcd91a549… | Novus0rdoSeclorum    | CULTURE,TECH                         |         210 |      1.18 |   0.01 |     748 |      0.88 |       321 |     1500 |      |        | B         | Y     |
+| 0x04bf21c2… | Red781RuM            | CULTURE,TECH                         |         207 |      0.22 |   0.01 |    1113 |      0.59 |       681 |     1500 |      |        | B         | Y     |
+| 0xcb14f617… | ooops                | CULTURE,TECH                         |         185 |      0.32 |   0.02 |    1393 |      0.68 |       770 |     1500 |      |        | B         | Y     |
+| 0x355e5ae2… | Olcan                | CULTURE,TECH                         |         127 |      0.03 |  -0.02 |     363 |      0.61 |       249 |     1500 |      |        |           |       |
+| 0xe639e410… | 0xe639e41094bbeae18g | CULTURE,TECH                         |         105 |      0.01 |   0.03 |     667 |      0.7  |       193 |      916 |      |        | C         | Y     |
+| 0x6a5121ac… | Bizzzhh              | FINANCE                              |      27,779 |      0.56 |   0.15 |     354 |      0.44 |       100 |      472 |      |        | ABC       | Y     |
+| 0x90c23cb8… | cryptothan           | FINANCE                              |      22,512 |      0.11 |   0.11 |    1194 |      0.61 |       162 |     1500 |      |        | ABC       | Y     |
+| 0xf0ca28d5… | Hauchn               | FINANCE                              |      18,477 |      0.08 |  -0.05 |     862 |      0.54 |        81 |     1500 |      |        | AB        | Y     |
+| 0x5085b938… | EeEeeYJ              | FINANCE                              |      10,463 |      9.66 |   0.27 |     110 |      0.47 |        32 |      117 |      | Y      |           |       |
+| 0x17559efa… | CamelUp              | FINANCE                              |       9,719 |      0.07 |   0    |    1471 |      0.57 |       318 |     1500 |      |        | AB        | Y     |
+| 0x9c261644… | H4OP99               | FINANCE                              |       8,691 |      0.45 |   0.44 |       7 |      1    |         1 |        7 |      | Y      |           |       |
+| 0x671a3260… | GingerMcKenna        | FINANCE                              |       8,308 |      1.07 |  -0    |     485 |      0.81 |       658 |     1500 |      |        | AB        | Y     |
+| 0x06b2934b… | 0x06b2934b382D4429D5 | FINANCE                              |       8,001 |      0.13 |   0.18 |    1498 |      0.51 |       131 |     1500 |      |        | ABC       | Y     |
+| 0x50c80ae7… | flipforchanel        | FINANCE                              |       7,554 |      0.04 |   0.06 |    1497 |      0.5  |        10 |     1500 |      |        |           |       |
+| 0x53c48faa… | uma003               | FINANCE                              |       7,547 |      1.83 |   0    |      75 |      0.56 |        43 |       89 |      | Y      |           |       |
+| 0x3a8aa345… | TheReturnOfDarthMaul | FINANCE                              |       6,907 |      0.05 |   0.02 |     790 |      0.61 |       700 |     1500 | Y    |        |           |       |
+| 0x67bc6af6… | waterfall0           | FINANCE                              |       6,894 |           |  -0.03 |     653 |      0.9  |       450 |     1500 |      |        | A         | Y     |
+| 0x4dfa70b0… | RelaxRelaxLikeQuagsi | FINANCE                              |       6,203 |      0.75 |   0.39 |     145 |      0.55 |        72 |      222 |      | Y      |           |       |
+| 0x982a77e7… | grasstoucher69       | FINANCE                              |       4,879 |      0.1  |   0.09 |    1500 |      0.55 |       253 |     1500 |      |        | ABC       | Y     |
+| 0x7df00357… | neverhackme          | FINANCE                              |       4,806 |      3.18 |   0.01 |      17 |      0.6  |        17 |       19 |      |        |           |       |
+| 0x9f208e85… | mildwindow27         | FINANCE                              |       4,725 |      1.53 |   0.02 |      15 |      1    |       442 |     1500 |      |        | AB        | Y     |
+| 0x7dcf2357… | godblessme2026       | FINANCE                              |       4,328 |      1.73 |   0.01 |     281 |      0.93 |       638 |     1500 |      |        | AB        | Y     |
+| 0xfd557e6d… | northdrawer          | FINANCE                              |       3,994 |      0.9  |  -0.01 |     697 |      0.87 |       643 |     1500 |      |        | AB        | Y     |
+| 0x9e88f359… | apofett              | FINANCE                              |       3,870 |      0.05 |   0.05 |     788 |      0.75 |       706 |     1500 |      |        | AC        | Y     |
+| 0xe917ff33… | SteveTheFish         | FINANCE                              |       3,865 |      0.1  |  -0.13 |     119 |      0.69 |        39 |      226 |      |        | AB        | Y     |
+| 0x40604cb1… | C03B                 | FINANCE                              |       3,634 |      0.04 |   0.03 |     931 |      0.8  |       469 |     1500 |      |        | AC        | Y     |
+| 0xc3cd1d61… | UbuntuTrading        | FINANCE                              |       3,374 |      0.51 |  -0.02 |      92 |      0.41 |       709 |     1500 |      |        | AB        | Y     |
+| 0xc01ff768… | 0xc01Ff7687F1380629B | FINANCE                              |       2,900 |      2    |   0.01 |     429 |      0.33 |       311 |      976 |      |        | AB        | Y     |
+| 0x2b670a31… | 0x2b670A311561DcAF74 | FINANCE                              |       2,345 |      0.03 |   0.02 |     238 |      0.6  |       140 |      398 |      |        | A         | Y     |
+| 0xae5b31e2… | RexRegum             | FINANCE                              |       2,284 |      0.07 |   0.09 |     880 |      0.67 |        62 |     1500 |      |        | ABC       | Y     |
+| 0x5aec0193… | OmaJane              | FINANCE                              |       2,139 |           |  -0    |    1303 |      0.94 |       875 |     1500 |      |        | A         | Y     |
+| 0x606ffc68… | SleeperHunter        | FINANCE                              |       2,029 |      0.02 |   0.02 |     531 |      0.71 |       190 |      722 |      |        |           |       |
+| 0x5011224f… | GCNO1                | FINANCE                              |       1,761 |      0.08 |  -0.01 |     610 |      0.74 |       639 |     1384 |      |        | B         | Y     |
+| 0xbace5a5a… | kitten147            | FINANCE                              |       1,753 |      0.32 |   0.04 |     588 |      0.77 |       268 |      962 |      |        | BC        | Y     |
+| 0xb619ed5b… | tnl                  | FINANCE                              |       1,680 |           |   0.01 |     572 |      0.48 |       443 |      750 |      |        |           |       |
+| 0x41f3b515… | headsh0t             | FINANCE                              |       1,680 |      0.07 |   0.06 |     812 |      0.61 |       271 |     1500 | Y    |        |           |       |
+| 0x28bf066c… | plainfolder          | FINANCE                              |       1,606 |      0.39 |  -0.03 |     794 |      0.81 |       682 |     1500 |      |        | B         | Y     |
+| 0xc7d02944… | 0xc7D02944A76B9F83B1 | FINANCE                              |       1,596 |      0.04 |  -0.04 |     334 |      0.36 |       318 |     1500 |      |        |           |       |
+| 0x91572b16… | 0x91572B16dC769ef8b8 | FINANCE                              |       1,456 |      0.17 |   0.05 |     150 |      0.92 |        96 |      233 |      |        | BC        | Y     |
+| 0x6ffdf781… | ng6000               | FINANCE                              |       1,226 |      0.06 |   0.06 |     970 |      0.55 |       287 |     1500 |      |        | BC        | Y     |
+| 0xc7b84afa… | 0xC7b84aFAB9e144A258 | FINANCE                              |       1,222 |      0.07 |   0.01 |     808 |      0.76 |        22 |     1500 | Y    |        |           |       |
+| 0x8c446512… | nelbal8486           | FINANCE                              |       1,160 |      0.85 |   0.03 |     135 |      0.59 |        84 |      233 |      |        | B         | Y     |
+| 0x58c028e7… | residual             | FINANCE                              |       1,101 |      0.11 |   0.04 |     707 |      0.68 |       484 |     1049 |      |        | BC        | Y     |
+| 0x4f1d5ae2… | e46m3                | FINANCE                              |       1,073 |      0.71 |   0.03 |    1190 |      0.51 |       146 |     1500 |      |        | BC        | Y     |
+| 0x71abe97b… | groth                | FINANCE                              |         947 |      0.19 |   0.09 |     432 |      0.65 |       232 |      812 |      |        | BC        | Y     |
+| 0xd5555147… | mmmbop               | FINANCE                              |         897 |      0.06 |   0.07 |     921 |      0.76 |       630 |     1190 |      |        | BC        | Y     |
+| 0x264cbb72… | sdhyky               | FINANCE                              |         830 |      0.02 |   0.03 |     869 |      0.62 |       314 |     1500 |      |        |           |       |
+| 0x5667d8ac… | meower1337           | FINANCE                              |         795 |           |   0.12 |      30 |      0.9  |        19 |       38 |      |        |           |       |
+| 0xa16a1302… | KimiTalibantonelli   | FINANCE                              |         775 |      0.31 |   0    |    1440 |      0.98 |      1068 |     1500 |      |        | B         | Y     |
+| 0x69b9a231… | Croesus1             | FINANCE                              |         758 |      0.32 |   0.13 |     246 |      0.62 |        71 |      371 |      |        | BC        | Y     |
+| 0x853c37a9… | WarriorPooh          | FINANCE                              |         757 |      0.11 |   0.05 |     900 |      0.49 |       403 |     1500 |      |        | BC        | Y     |
+| 0xedc84058… | 0xJasonSan           | FINANCE                              |         735 |      0.03 |   0.11 |     683 |      0.73 |       343 |     1500 | Y    |        |           |       |
+| 0x38d812af… | thanksforplayin      | FINANCE                              |         724 |      0    |   0.02 |     639 |      0.54 |       269 |     1500 | Y    |        |           |       |
+| 0xecbeba24… | Maximus22            | FINANCE                              |         711 |      0.16 |   0    |     761 |      0.4  |       707 |     1500 |      |        | B         | Y     |
+| 0x74b4f944… | 0x74B4F9447B14b12308 | FINANCE                              |         641 |      0.04 |   0.03 |    1149 |      0.7  |       195 |     1500 |      |        |           |       |
+| 0xd5b97d08… | Optimus-             | FINANCE                              |         612 |      0.18 |   0.04 |    1197 |      0.58 |       761 |     1500 |      |        | BC        | Y     |
+| 0x08c897e4… | Folletin             | FINANCE                              |         589 |           |   0.03 |    1011 |      0.68 |       518 |     1240 |      |        |           |       |
+| 0x5a7b3328… | notssf3              | FINANCE                              |         585 |           |   0.07 |     185 |      0.67 |       150 |      217 |      |        | C         | Y     |
+| 0xbadaf319… |                      | FINANCE                              |         582 |      0.03 |  -0.05 |     256 |      0.61 |       392 |     1500 |      |        |           |       |
+| 0x41816fc1… | BobInvestments       | FINANCE                              |         577 |      0.12 |  -0.04 |     964 |      0.61 |       260 |     1494 |      |        | B         | Y     |
+| 0xfbfd14dd… | XAE12Archangel       | FINANCE                              |         542 |      0.18 |   0.03 |     590 |      0.65 |       252 |     1500 |      |        | BC        | Y     |
+| 0x701488c6… | 0x701488C648CA157Ce0 | FINANCE                              |         524 |      0.03 |   0.2  |      67 |      0.88 |         7 |       74 |      | Y      |           |       |
+| 0x46992d0e… | anon.1980.123        | FINANCE                              |         520 |      0.02 |   0.02 |    1332 |      0.96 |       906 |     1500 |      |        |           |       |
+| 0x34b017fb… | mikecoin1            | FINANCE                              |         448 |      0.07 |   0.02 |     248 |      0.69 |       141 |      340 |      |        | B         | Y     |
+| 0x3b7ed124… | phdcapital           | FINANCE                              |         425 |           |   0.08 |      22 |      0.54 |        44 |       46 |      |        |           |       |
+| 0x4388640a… | Started-with-20-USD  | FINANCE                              |         422 |      0.12 |   0.07 |     785 |      0.51 |       416 |     1500 |      |        | BC        | Y     |
+| 0x731a2417… | CoinTrick            | FINANCE                              |         413 |      0    |  -0.02 |    1434 |      0.97 |      1191 |     1500 |      |        |           |       |
+| 0x46a121e4… | 0x46a121E4DF5FdD6CF0 | FINANCE                              |         390 |      0.05 |   0.05 |     744 |      0.61 |       524 |     1021 |      |        | C         | Y     |
+| 0x215adbb6… | BikesAreTheBikes     | FINANCE                              |         369 |      0.08 |   0.18 |      15 |      0.66 |       302 |     1500 |      |        | BC        | Y     |
+| 0x09e672e5… | RIC25                | FINANCE                              |         367 |           |   0.03 |     855 |      0.54 |       316 |     1227 |      |        | C         | Y     |
+| 0xf3505345… | BettingQuant         | FINANCE                              |         361 |      0.15 |  -0.04 |    1060 |      0.61 |       396 |     1500 |      |        | B         | Y     |
+| 0xe7bd61ac… | XuRi888              | FINANCE                              |         322 |           |   0    |     820 |      0.93 |       409 |      934 |      |        |           |       |
+| 0xf797d4d1… | DerDon               | FINANCE                              |         320 |      0.06 |   0.03 |    1027 |      0.56 |       892 |     1500 |      |        | BC        | Y     |
+| 0x8b8762de… | MickyMauldib         | FINANCE                              |         315 |      0.22 |  -0.09 |     349 |      0.86 |        76 |      515 |      |        | B         | Y     |
+| 0x299cb401… | polopilo             | FINANCE                              |         314 |      0.05 |   0.03 |    1339 |      0.96 |       442 |     1500 |      |        |           |       |
+| 0x4e25605f… |                      | FINANCE                              |         290 |           |   0.01 |    1241 |      0.79 |       536 |     1500 |      |        |           |       |
+| 0x4d3e6f88… | bitcoinmafia         | FINANCE                              |         289 |           |  -0.02 |    1238 |      0.59 |       829 |     1433 |      |        |           |       |
+| 0x8b8b9c56… | 0x8B8b9c565C8dCA43cf | FINANCE                              |         284 |      0.23 |   0.01 |     832 |      0.53 |       588 |     1500 |      |        | B         | Y     |
+| 0x4207c4f5… | 0x4207c4f53b785c6dOd | FINANCE                              |         267 |      0.06 |   0.08 |     291 |      0.7  |       333 |     1500 |      |        | BC        | Y     |
+| 0x97ead83e… | Hakei.               | FINANCE                              |         267 |      0.01 |   0.08 |    1073 |      0.67 |       659 |     1500 |      |        | C         | Y     |
+| 0xf9e1aa52… | wagonwheel           | FINANCE                              |         243 |      0.01 |   0.2  |     801 |      0.33 |        10 |     1500 | Y    |        |           |       |
+| 0x5a455659… | FFIE.                | FINANCE                              |         237 |      0.01 |   0.05 |    1024 |      0.64 |       224 |     1500 |      |        | C         | Y     |
+| 0x7f334b1b… | pp101                | FINANCE                              |         233 |      2.47 |  -0    |     800 |      0.37 |       533 |     1500 |      |        | B         | Y     |
+| 0xa1d57d32… | 1kto1m               | FINANCE                              |         233 |      0.01 |   0.01 |    1023 |      0.53 |       430 |     1500 | Y    |        |           |       |
+| 0xa53ba9d6… | Vagabund97           | FINANCE                              |         216 |      0.06 |   0.14 |     886 |      0.58 |       373 |     1387 |      |        | BC        | Y     |
+| 0xc427980d… | kastetem             | FINANCE                              |         210 |      0.08 |   0.04 |     775 |      0.42 |       314 |     1220 |      |        | BC        | Y     |
+| 0x6dc4bf9d… | RealMaxNick          | FINANCE                              |         200 |      0.02 |  -0.01 |    1065 |      0.67 |       278 |     1500 |      |        |           |       |
+| 0xba8c5fbc… | Rock.San             | FINANCE                              |         197 |      0.01 |  -0.01 |    1463 |      0.76 |       620 |     1500 |      |        |           |       |
+| 0x27abdfc9… | pd.unique            | FINANCE                              |         194 |      0.05 |   0.03 |     312 |      0.76 |       582 |     1500 |      |        |           |       |
+| 0xcfff4295… | graynotebook19       | FINANCE                              |         187 |      0.05 |   0.01 |     692 |      0.92 |       714 |     1500 |      |        |           |       |
+| 0x87684f29… | 10000Bets            | FINANCE                              |         187 |           |   0.04 |     953 |      0.79 |       525 |     1234 |      |        | C         | Y     |
+| 0xe1541657… | Nadmi                | FINANCE                              |         184 |      0.02 |  -0.27 |     146 |      0.76 |      1012 |     1500 |      |        |           |       |
+| 0x956718c6… | Pippones             | FINANCE                              |         169 |      0.13 |  -0.03 |     964 |      0.55 |       600 |     1500 |      |        | B         | Y     |
+| 0xa61ef877… | risk-manager         | FINANCE,POLITICS                     |      12,846 |      0.1  |   0.02 |     469 |      0.74 |       412 |     1383 |      |        | AB        | Y     |
+| 0x2974bd00… | 65765757             | FINANCE,POLITICS                     |       5,251 |      1.61 |   0.04 |     917 |      0.68 |       154 |     1500 |      |        | ABC       | Y     |
+| 0x21d0c129… | DEGENKHAN            | FINANCE,POLITICS                     |       1,415 |      0.02 |   0.02 |     485 |      0.73 |       469 |     1500 |      |        |           |       |
+| 0xb51b3bef… | cambridgeisaac       | FINANCE,POLITICS                     |       1,062 |      0.06 |   0.14 |     954 |      0.57 |       235 |     1500 |      |        | BC        | Y     |
+| 0xb687f004… | alwayslatetotheparty | FINANCE,POLITICS,SPORTS,TECH         |      19,446 |      0.03 |        |       0 |           |        95 |     1500 |      |        | A         | Y     |
+| 0xa3282d3e… | korda77              | FINANCE,POLITICS,TECH                |       6,897 |      0.34 |  -0.05 |     354 |      0.91 |       627 |     1500 |      |        | AB        | Y     |
+| 0x03805a13… | donthackme           | FINANCE,POLITICS,TECH                |       4,794 |      0.07 |  -0.12 |      24 |      0.93 |       474 |     1500 |      |        | AB        | Y     |
+| 0xa8c63f77… | Tenebrus7            | FINANCE,POLITICS,TECH                |       3,726 |      0.02 |  -0.03 |     520 |      0.52 |       456 |     1500 |      |        | A         | Y     |
+| 0x95074f70… | 95074f700f93bdf6e62f | FINANCE,POLITICS,TECH                |       2,623 |      0.05 |   0.01 |    1234 |      0.94 |       745 |     1500 |      |        | A         | Y     |
+| 0x96489abc… | anoin123             | FINANCE,TECH                         |      17,403 |      0.08 |  -0.07 |     721 |      0.47 |       280 |      985 |      |        | AB        | Y     |
+| 0x511f9c77… | Bigggggggg           | FINANCE,TECH                         |      10,083 |      0.9  |   0.08 |      65 |      0.93 |       417 |     1500 |      |        | ABC       | Y     |
+| 0xc5187cb6… | mustbethewater       | FINANCE,TECH                         |       6,386 |      0.64 |  -0.01 |     670 |      0.89 |       374 |     1500 |      |        | AB        | Y     |
+| 0x1ee9a5fc… | vinii                | FINANCE,TECH                         |       5,328 |      0.14 |   0.1  |     362 |      0.53 |       496 |     1500 |      |        | ABC       | Y     |
+| 0x090af6fd… | VictorLudorum        | FINANCE,TECH                         |       2,803 |      1.02 |   0.13 |      87 |      0.91 |       293 |     1500 |      |        | ABC       | Y     |
+| 0x077cc945… | .moar.766Dd-94077Cc9 | FINANCE,TECH                         |       1,730 |      0.78 |   0    |     732 |      0.9  |       567 |     1500 |      |        | B         | Y     |
+| 0x73653992… | cqk                  | FINANCE,TECH                         |         920 |      0.02 |   0.06 |     869 |      0.65 |       404 |     1500 |      |        | C         | Y     |
+| 0x564f2274… | molodoyy             | FINANCE,TECH                         |         292 |      0.2  |   0.08 |     786 |      0.72 |       574 |     1500 |      |        | BC        | Y     |
+| 0x28b291aa… | libratus1            | FINANCE,TECH                         |         238 |      0.02 |   0.05 |     981 |      0.66 |       441 |     1500 |      |        | C         | Y     |
+| 0xbc75cabb… | unknwnfnd            | POLITICS                             |      39,884 |     32.22 |        |       0 |      0    |         9 |      331 |      | Y      |           |       |
+| 0xecaa8806… | Melody626            | POLITICS                             |      35,865 |      0.39 |  -0.02 |    1219 |      0.56 |       491 |     1500 |      |        | AB        | Y     |
+| 0x182bd8bf… | peoplearestrange     | POLITICS                             |      17,541 |           |  -0.11 |     101 |      0.43 |        62 |      187 |      |        | A         | Y     |
+| 0x134a63b7… | Bertapotamous        | POLITICS                             |      17,194 |      2.86 |   0.03 |    1324 |      0.89 |       743 |     1500 |      |        | AB        | Y     |
+| 0xa3a417e4… | 0xC03cE4d8Af842Ca625 | POLITICS                             |      14,059 |      0.09 |        |       0 |           |       206 |     1500 |      |        | AB        | Y     |
+| 0x0c0e270c… | The Spirit of Ukrain | POLITICS                             |      13,540 |      0.03 |   0.01 |     976 |      0.85 |       480 |     1500 |      |        | A         | Y     |
+| 0x88c4919d… | QuietRiskisWrong     | POLITICS                             |      12,163 |     28.61 |  -0.08 |    1063 |      0.55 |       104 |     1500 |      |        | AB        | Y     |
+| 0xbaa2bcb5… | denizz               | POLITICS                             |      12,146 |      0.09 |  -0.02 |     942 |      0.61 |       144 |     1500 |      |        | AB        | Y     |
+| 0xd44e974a… | KrackenSruster       | POLITICS                             |      10,459 |      0.65 |   0.1  |     869 |      0.61 |       338 |     1500 |      |        | ABC       | Y     |
+| 0xc8b9a301… | SnowLover7           | POLITICS                             |      10,016 |      0.47 |   0.12 |     564 |      0.73 |       290 |      880 |      |        | ABC       | Y     |
+| 0x7f9e2d1d… | nojnn                | POLITICS                             |       8,249 |      0.21 |  -0.06 |     932 |      0.56 |       120 |     1500 |      |        | AB        | Y     |
+| 0x6d9fc316… | MEPP                 | POLITICS                             |       8,121 |      0.16 |   0.05 |     706 |      0.58 |       228 |     1500 |      |        | ABC       | Y     |
+| 0x05e26c77… | Llalalala            | POLITICS                             |       7,541 |           |   0.03 |     535 |      0.59 |       113 |      798 |      |        | AC        | Y     |
+| 0x9d84ce03… | ImJustKen            | POLITICS                             |       7,262 |      0.09 |   0.07 |     920 |      0.6  |       627 |     1500 |      |        | ABC       | Y     |
+| 0xb9d89bef… | 0xB9d89bef8c935082F6 | POLITICS                             |       7,080 |           |   0.02 |      39 |      0.89 |        20 |       54 |      |        | A         | Y     |
+| 0xb6658288… | Aeglos               | POLITICS                             |       5,814 |      0.83 |   0.04 |     303 |      0.78 |        20 |      530 |      |        | ABC       | Y     |
+| 0xdfe3fedc… | cqs                  | POLITICS                             |       5,585 |           |  -0.01 |     608 |      0.64 |       307 |     1041 |      |        | A         | Y     |
+| 0xb1ca909e… | NonceChaser          | POLITICS                             |       4,921 |      0.03 |  -0.02 |     265 |      0.8  |       259 |      416 |      |        | A         | Y     |
+| 0xc15b833b… | makinta              | POLITICS                             |       4,637 |      0.07 |  -0.01 |      45 |      0.6  |        32 |       60 |      |        | AB        | Y     |
+| 0x23d81ba9… | flawfence            | POLITICS                             |       4,616 |      0.06 |   0.23 |     225 |      0.64 |       129 |      411 |      |        | ABC       | Y     |
+| 0xbf961d0c… | browne               | POLITICS                             |       4,323 |      0.09 |   0.11 |     265 |      0.64 |       143 |      469 |      |        | ABC       | Y     |
+| 0x70d94a4f… | puipui2486           | POLITICS                             |       4,314 |      0.03 |        |       0 |      0.95 |       423 |     1500 |      |        | A         | Y     |
+| 0xc03ce4d8… | NyetRisk             | POLITICS                             |       4,290 |      0.07 |        |       0 |           |        30 |     1500 |      | Y      |           |       |
+| 0x68558d37… | 25xp                 | POLITICS                             |       4,000 |           |   0.96 |       6 |      1    |         2 |       17 |      | Y      |           |       |
+| 0x614dc8d3… | mr.ozi               | POLITICS                             |       3,955 |      1.9  |   0.04 |     875 |      0.62 |       239 |     1500 |      |        | ABC       | Y     |
+| 0x98d04f9e… | mrworldwide          | POLITICS                             |       3,817 |      0.06 |   0.06 |     993 |      0.71 |       544 |     1500 |      |        | ABC       | Y     |
+| 0x2d99e29c… | scout                | POLITICS                             |       3,813 |      0.69 |   0    |    1320 |      0.89 |       541 |     1500 |      |        | AB        | Y     |
+| 0x22e4248b… | ProfessionalPunter   | POLITICS                             |       3,799 |      0.04 |   0.05 |    1063 |      0.78 |       258 |     1500 |      |        | AC        | Y     |
+| 0xfc2f4f50… | 0xFc2F4f50ce2F6045d3 | POLITICS                             |       3,790 |      0.24 |   0.14 |     788 |      0.36 |       157 |     1500 |      |        | ABC       | Y     |
+| 0xa022ba0a… | yungstalin           | POLITICS                             |       3,291 |      0.01 |   0.05 |    1114 |      0.53 |       180 |     1500 |      |        | AC        | Y     |
+| 0x162f6fff… | Valen9               | POLITICS                             |       3,281 |      0.02 |   0.08 |     618 |      0.5  |       351 |     1287 |      |        | AC        | Y     |
+| 0xdd9ed02b… | Binotto              | POLITICS                             |       3,205 |      0.02 |   0.03 |      80 |      0.67 |       227 |     1500 |      |        | AC        | Y     |
+| 0x0d15e272… | e88888               | POLITICS                             |       3,111 |           |  -0.08 |     235 |      0.64 |       132 |      333 |      |        | A         | Y     |
+| 0x000d257d… | scottilicious        | POLITICS                             |       3,109 |      0.1  |   0.02 |     932 |      0.76 |       344 |     1500 |      |        | AB        | Y     |
+| 0x21064fd3… | rainbowlilies        | POLITICS                             |       2,974 |      0.02 |  -0.03 |      92 |      0.89 |       875 |     1500 |      |        | A         | Y     |
+| 0x9ca119b8… | JoeBlack01           | POLITICS                             |       2,835 |      0.1  |   0.02 |     854 |      0.58 |       461 |     1500 |      |        | AB        | Y     |
+| 0x24c8cf69… | debased              | POLITICS                             |       2,518 |      0.04 |   0.02 |     935 |      0.56 |       164 |     1500 |      |        | A         | Y     |
+| 0x4478d7bd… | Warren-Buffett       | POLITICS                             |       2,500 |      0.02 |   0.04 |     791 |      0.61 |       332 |     1500 |      |        | AC        | Y     |
+| 0xfffadf38… | GoriIIa              | POLITICS                             |       2,442 |      0.03 |   0.02 |     911 |      0.78 |       352 |     1362 |      |        | A         | Y     |
+| 0x368ba695… | RockyZet             | POLITICS                             |       2,335 |      0.06 |  -0.06 |     489 |      0.64 |       257 |      785 |      |        | AB        | Y     |
+| 0x8e5c0cc5… | cocos228             | POLITICS                             |       2,328 |           |   0.2  |     250 |      0.77 |       108 |      331 |      |        | AC        | Y     |
+| 0xd5ccdf77… | tsybka               | POLITICS                             |       2,318 |      0.53 |   0.01 |     876 |      0.71 |       302 |     1500 |      |        | AB        | Y     |
+| 0x6000bd08… | timmythewhale        | POLITICS                             |       2,280 |           |   0.04 |      91 |      0.7  |        29 |      143 |      |        | AC        | Y     |
+| 0x95bf944d… | hideo                | POLITICS                             |       2,073 |      0.15 |  -0.03 |     168 |      0.58 |       179 |      328 |      |        | B         | Y     |
+| 0xd426adbc… | 881112               | POLITICS                             |       2,073 |      0.04 |   0.07 |     936 |      0.47 |       400 |     1500 |      |        | C         | Y     |
+| 0xb1a279ad… | TwoEyes              | POLITICS                             |       2,004 |           |   0.01 |     996 |      0.62 |       579 |     1151 |      |        |           |       |
+| 0x1f0a3435… | archaic              | POLITICS                             |       1,973 |      0.03 |   0.03 |     541 |      0.64 |       453 |     1500 |      |        |           |       |
+| 0x0c2619b9… | tugator              | POLITICS                             |       1,919 |      0.15 |  -0.05 |      31 |      0.41 |        46 |       71 |      | Y      |           |       |
+| 0xe3ae7670… | BabyKangroo          | POLITICS                             |       1,824 |           |  -0.05 |     100 |      0.45 |        61 |      154 |      |        |           |       |
+| 0xd6b6f692… | sciuboi              | POLITICS                             |       1,557 |      0.23 |  -0.05 |     333 |      0.68 |       206 |     1500 |      |        | B         | Y     |
+| 0xe52c0a13… | aff3                 | POLITICS                             |       1,553 |           |   0.04 |     362 |      0.82 |       210 |      543 |      |        | C         | Y     |
+| 0x16cbe223… | MRF                  | POLITICS                             |       1,550 |      0.26 |  -0.02 |    1006 |      0.67 |       519 |     1500 |      |        | B         | Y     |
+| 0x1c144e30… | bernardbulletin      | POLITICS                             |       1,538 |      0.02 |   0.09 |    1013 |      0.75 |       670 |     1500 |      |        | C         | Y     |
+| 0xc3db6a07… | 0xC3Db6a07351313cc68 | POLITICS                             |       1,496 |      0.3  |   0.14 |     247 |      0.41 |       175 |      301 |      |        | BC        | Y     |
+| 0x6f87226f… | johndoez             | POLITICS                             |       1,458 |           |   0.11 |     277 |      0.68 |       143 |      390 |      |        | C         | Y     |
+| 0xd1c76931… | 033033033            | POLITICS                             |       1,430 |      0    |   0    |    1455 |      0.99 |       564 |     1500 |      |        |           |       |
+| 0xa30e4513… | SAPolitcsSeer        | POLITICS                             |       1,384 |           |  -0.01 |     126 |      0.8  |        63 |      187 |      |        |           |       |
+| 0x0dde1b35… | DFK                  | POLITICS                             |       1,378 |      0.07 |  -0.01 |     826 |      0.65 |       166 |     1500 |      |        | B         | Y     |
+| 0x7d5d1533… | SILF                 | POLITICS                             |       1,360 |           |   0.01 |     913 |      0.6  |       184 |     1457 |      |        |           |       |
+| 0xb6c83e34… | shibagege            | POLITICS                             |       1,347 |      0.05 |   0.02 |     312 |      0.49 |       244 |      525 |      |        |           |       |
+| 0x1f9e15f3… | CopyTradersDESTROYER | POLITICS                             |       1,301 |      0.04 |   0.11 |     390 |      0.49 |       562 |     1374 |      |        | C         | Y     |
+| 0x5e73afb2… | Newshound            | POLITICS                             |       1,293 |      0.04 |   0.06 |    1184 |      0.51 |       620 |     1500 |      |        | C         | Y     |
+| 0x40cfb294… | whig                 | POLITICS                             |       1,292 |      0.04 |   0.12 |     590 |      0.55 |       385 |     1500 |      |        | C         | Y     |
+| 0x56ebe2a8… | just.some.guy.2026   | POLITICS                             |       1,241 |           |   0.11 |     389 |      0.54 |       216 |      588 |      |        | C         | Y     |
+| 0xb4f2592e… | M2sx92kljs42         | POLITICS                             |       1,202 |      1.81 |   0.02 |     714 |      0.69 |       391 |      930 |      |        | B         | Y     |
+| 0xb40e8967… | Poligarch            | POLITICS                             |       1,194 |      0.03 |   0.12 |    1466 |      0.51 |       438 |     1500 |      |        | C         | Y     |
+| 0xe25b9180… | WordleAddict         | POLITICS                             |       1,160 |           |   0.02 |    1137 |      0.6  |       579 |     1500 |      |        |           |       |
+| 0xf0ed9e68… | LinaBell             | POLITICS                             |       1,149 |      0.63 |  -0.02 |     805 |      0.63 |       554 |     1500 |      |        | B         | Y     |
+| 0x0b219cf3… | TerreMoto            | POLITICS                             |       1,142 |      1.14 |   0.04 |     468 |      0.69 |       183 |      611 |      |        | BC        | Y     |
+| 0xf5c49ad2… | 0xdamocles           | POLITICS                             |       1,100 |      0.08 |   0.03 |     234 |      0.58 |       160 |      406 |      |        | BC        | Y     |
+| 0x63b10df4… | mostobesegoldfish    | POLITICS                             |       1,069 |      0.4  |   0.05 |     216 |      0.62 |       152 |      343 |      |        | BC        | Y     |
+| 0x9dfe2f73… | Moond                | POLITICS                             |       1,061 |      0.22 |   0.05 |    1000 |      0.64 |       556 |     1500 |      |        | BC        | Y     |
+| 0x784feec3… | diadjaid             | POLITICS                             |       1,045 |      0.11 |   0.05 |     760 |      0.57 |       278 |     1500 |      |        | BC        | Y     |
+| 0xa8af4c79… | studmuffin6969       | POLITICS                             |       1,018 |           |  -0.01 |     912 |      0.58 |       362 |     1500 |      |        |           |       |
+| 0x44d9200a… | Loyalty-Crash        | POLITICS                             |       1,015 |           |   0.15 |     128 |      0.62 |        72 |      179 |      |        | C         | Y     |
+| 0x6ffb4354… | AgricultureSecretary | POLITICS                             |       1,011 |      0    |   0.02 |    1393 |      0.9  |      1161 |     1500 |      |        |           |       |
+| 0x33559240… | ranger44             | POLITICS                             |       1,006 |           |   0.08 |      28 |      0.64 |        14 |       33 |      |        |           |       |
+| 0xb48ef6de… | 100x                 | POLITICS                             |         991 |           |   0.03 |     116 |      0.9  |        88 |      147 |      |        |           |       |
+| 0xc0402e52… | 23449                | POLITICS                             |         958 |      0.05 |   0.28 |     584 |      0.55 |       145 |     1500 | Y    |        |           |       |
+| 0x3f3bfc6d… | eNakeVets            | POLITICS                             |         953 |      1.03 |   0.09 |     633 |      0.4  |       154 |     1500 |      |        | BC        | Y     |
+| 0xc9dcc3d9… | keribit              | POLITICS                             |         939 |      0.19 |   0.02 |     865 |      0.69 |       297 |     1500 |      |        | B         | Y     |
+| 0x5685bf67… | SirHarryOakes        | POLITICS                             |         923 |      0.03 |   0.03 |     852 |      0.84 |       277 |     1386 |      |        |           |       |
+| 0xc25427ea… | TeemuPukki           | POLITICS                             |         922 |      0.9  |   0.01 |    1028 |      0.76 |       570 |     1500 |      |        | B         | Y     |
+| 0xf3f9dd7b… | apple3333            | POLITICS                             |         897 |           |   0.2  |     222 |      0.72 |        31 |      329 |      |        | C         | Y     |
+| 0x88e2b1b6… | pakukudolphi         | POLITICS                             |         855 |      0.09 |   0.06 |     390 |      0.48 |       149 |      698 |      |        | BC        | Y     |
+| 0xf9b71663… | siick                | POLITICS                             |         821 |      0.14 |   0.06 |     929 |      0.49 |       655 |     1500 |      |        | BC        | Y     |
+| 0xdaef2be2… | UCF-BIGGEST-FAN      | POLITICS                             |         806 |      2.01 |  -0    |    1242 |      0.51 |       541 |     1500 |      |        | B         | Y     |
+| 0x6f40bd79… | Fuentes31            | POLITICS                             |         802 |           |   0.01 |     954 |      0.46 |       711 |     1500 |      |        |           |       |
+| 0xdbf73adb… | ydxistheking         | POLITICS                             |         789 |      0.11 |   0.1  |     306 |      0.53 |       211 |      505 |      |        | BC        | Y     |
+| 0x97036762… | AnonymousUsername    | POLITICS,SPORTS                      |       2,105 |      0.36 |   0.01 |     991 |      0.8  |       581 |     1500 |      |        | B         | Y     |
+| 0x3dd2db2d… | paspor               | POLITICS,TECH                        |       5,040 |      0.44 |   0.02 |     405 |      0.93 |       679 |     1500 |      |        | AB        | Y     |
+| 0x25257a6a… | Trading4Fridge       | POLITICS,TECH                        |       4,690 |      0.1  |   0.03 |     996 |      0.52 |       372 |     1500 |      |        | ABC       | Y     |
+| 0xe0f1e775… | CompulsiveGambler    | POLITICS,TECH                        |       1,608 |      0.13 |   0.04 |     897 |      0.66 |       516 |     1500 |      |        | BC        | Y     |
+| 0x0a6d26d3… | Bikesarethebest      | POLITICS,TECH                        |         973 |      0.03 |        |       0 |      0.15 |       194 |     1500 |      |        |           |       |
+| 0x095fbca2… | muchobliged          | SPORTS                               |   3,199,143 |      0.4  |   0.43 |      39 |      0.86 |         8 |       43 |      | Y      |           |       |
+| 0x0346afae… | GoalLineGhost        | SPORTS                               |   1,016,136 |      0.07 |   0.05 |    1409 |      0.53 |       187 |     1500 |      |        | ABC       | Y     |
+| 0xbf323edb… | WhatARobbery         | SPORTS                               |     958,125 |      0.22 |  -0.13 |      12 |      0.5  |         4 |       12 |      | Y      |           |       |
+| 0x7c1ee865… | CandleHammerDrums    | SPORTS                               |     861,454 |      0.26 |   0.03 |     219 |      0.47 |       139 |      229 |      |        | AB        | Y     |
+| 0x709e8dcb… | 0xd4aa6f8e91cfea29b6 | SPORTS                               |     792,558 |      0.17 |   0.21 |     462 |      0.52 |       170 |      477 |      |        | ABC       | Y     |
+| 0xb61b2079… | hot2trot             | SPORTS                               |     528,650 |      0.22 |  -0.06 |      50 |      0.55 |        25 |       58 |      |        | AB        | Y     |
+| 0x924379a7… | Kch-Temp             | SPORTS                               |     422,934 |      0.42 |   0.21 |     165 |      0.54 |        90 |      276 |      |        | ABC       | Y     |
+| 0x5c3a1a60… | Crystiano            | SPORTS                               |     420,769 |      0.11 |   0.02 |     588 |      0.55 |       476 |      653 |      |        | AB        | Y     |
+| 0x3dfb153c… | 0x3DFb153c197D4C19D3 | SPORTS                               |     372,685 |      0.06 |   0.03 |    1350 |      0.5  |       480 |     1500 |      |        | ABC       | Y     |
+| 0xe9a6ed2e… | Oneger               | SPORTS                               |     350,806 |      0.28 |   0.16 |     127 |      0.55 |        86 |      132 |      |        | ABC       | Y     |
+| 0xf5fabdcd… | palegrit             | SPORTS                               |     341,669 |      0.14 |   0.17 |     150 |      0.82 |        11 |      150 |      |        |           |       |
+| 0x9f2fe025… | surfandturf          | SPORTS                               |     314,361 |      0.05 |   0.04 |     571 |      0.56 |       265 |      651 |      |        | AC        | Y     |
+| 0x7d787c72… | MD14                 | SPORTS                               |     306,299 |      0.3  |   0.07 |     718 |      0.64 |       404 |      913 |      |        | ABC       | Y     |
+| 0x9ee8bbc3… | Qpkwks               | SPORTS                               |     293,313 |      0.13 |   0.14 |     207 |      0.37 |        29 |      208 |      |        | ABC       | Y     |
+| 0xa49becb6… | sleepy-panda         | SPORTS                               |     277,975 |      0.19 |   0.04 |    1456 |      0.83 |       475 |     1500 |      |        | ABC       | Y     |
+| 0x5257aa84… | NO-GOD-PLEASE-NO     | SPORTS                               |     253,454 |      0.17 |   0.02 |     170 |      0.44 |       101 |      230 |      |        | AB        | Y     |
+| 0xbc1b1e93… | shijiebeifacai       | SPORTS                               |     232,771 |      0.13 |   0.08 |      84 |      0.93 |        48 |      117 |      |        | ABC       | Y     |
+| 0x37ee3bce… | 0x37ee3BCEb4fBf028fb | SPORTS                               |     231,143 |      0.01 |        |       0 |      1    |        10 |       32 |      | Y      |           |       |
+| 0x2005d16a… | RN1                  | SPORTS                               |     227,060 |      0.01 |   0.02 |    1459 |      0.5  |       275 |     1500 |      |        | A         | Y     |
+| 0x10a6fadc… | rabbitfoot1          | SPORTS                               |     215,332 |      0.09 |   0.03 |    1499 |      0.48 |       129 |     1500 |      |        | ABC       | Y     |
+| 0xfaa2b543… | easymoney9           | SPORTS                               |     200,242 |      0.33 |  -0.17 |     123 |      0.58 |        90 |      131 |      |        | AB        | Y     |
+| 0xf1528f12… | phonesculptor        | SPORTS                               |     198,033 |      0.21 |   0.02 |     827 |      0.68 |       648 |     1082 |      |        | AB        | Y     |
+| 0xa6a872de… | eyeseethefuture      | SPORTS                               |     174,927 |      0.11 |   0.32 |     128 |      0.64 |        25 |      158 |      |        | ABC       | Y     |
+| 0x25d3d4e4… |                      | SPORTS                               |     170,370 |      0.46 |   0.46 |       2 |      1    |         1 |        2 |      | Y      |           |       |
+| 0x9b89ef1f… | Woaifacai            | SPORTS                               |     164,596 |      0.06 |   0.11 |     171 |      0.59 |       130 |      363 |      |        | ABC       | Y     |
+| 0x545129ec… | balekadyr            | SPORTS                               |     154,989 |      0.1  |   0.04 |      48 |      0.85 |        34 |       69 |      |        | ABC       | Y     |
+| 0xf751fbd7… | 0xF751fbD76257AD498e | SPORTS                               |     148,177 |      0.08 |   0.18 |     379 |      0.45 |       124 |      443 |      |        | ABC       | Y     |
+| 0xe221be3b… | Jokerxing7           | SPORTS                               |     147,562 |      0.29 |   0.04 |      27 |      0.53 |        19 |       28 |      |        |           |       |
+| 0x28059b3f… | RISK-IS-NEVER-OK     | SPORTS                               |     138,404 |      0.16 |   0.03 |     675 |      0.46 |       402 |      714 |      |        | AB        | Y     |
+| 0xa6cd8300… | lookaon              | SPORTS                               |     135,150 |      0.24 |  -0.81 |       5 |      0.5  |         7 |       10 |      | Y      |           |       |
+| 0x65018f9f… | cnyek                | SPORTS                               |     118,839 |      0.2  |   0.2  |      81 |      0.67 |        46 |      160 |      |        | ABC       | Y     |
+| 0x000c8cb9… |                      | SPORTS                               |     114,974 |      0.06 |   0.21 |     704 |      0.27 |        65 |     1500 |      | Y      |           |       |
+| 0x580d9dcc… | warluigi             | SPORTS                               |     113,987 |      0.05 |   0.08 |       8 |      0.5  |         6 |        8 |      | Y      |           |       |
+| 0x2663daca… | Q96s3kwozynxpau      | SPORTS                               |     112,081 |      0.01 |   0.24 |      33 |      0.92 |       145 |     1500 |      |        | AC        | Y     |
+| 0x83255595… | Mind.The.Gap         | SPORTS                               |      99,512 |      0.02 |   0.07 |    1112 |      0.58 |       359 |     1500 |      |        | AC        | Y     |
+| 0x1cfd617a… | kilumbuyampakilumbuy | SPORTS                               |      98,176 |      0.17 |        |       0 |           |         2 |        2 |      | Y      |           |       |
+| 0x73c5701a… | n.magas              | SPORTS                               |      93,531 |      0.02 |   0.05 |     872 |      0.58 |        81 |     1500 | Y    |        |           |       |
+| 0xd86ec82a… | fgdfhr666            | SPORTS                               |      93,370 |      0.23 |   0.17 |     104 |      0.66 |        66 |      114 |      |        | ABC       | Y     |
+| 0xb22598b3… | 0xb22598b366c9ec16A3 | SPORTS                               |      90,592 |      0.13 |  -0.19 |       9 |      0.3  |        10 |       12 |      |        |           |       |
+| 0x8806a6f1… | spendingmoney        | SPORTS                               |      88,269 |      0.07 |  -0.01 |     581 |      0.55 |       289 |      840 |      |        | AB        | Y     |
+| 0x7dddf196… | pingan123            | SPORTS                               |      87,302 |      0.52 |   0.13 |       5 |      0.5  |         5 |        6 |      | Y      |           |       |
+| 0xc41d736b… | 0xC41D736bDed9ED1acC | SPORTS                               |      85,773 |      0.04 |   0.03 |     302 |      0.41 |       145 |      352 |      |        | AC        | Y     |
+| 0xd202bf6d… | meoooow              | SPORTS                               |      85,450 |      0.26 |   0    |     690 |      0.46 |       505 |      717 |      |        | AB        | Y     |
+| 0xa804390f… | riverskew            | SPORTS                               |      83,606 |      0.12 |   0.07 |     836 |      0.56 |       337 |      839 |      |        | ABC       | Y     |
+| 0x0c787cc2… | bbb17367162806       | SPORTS                               |      82,870 |      0.13 |   0.12 |       3 |      0.75 |         5 |        5 |      | Y      |           |       |
+| 0x8b887c9a… | lluucckkyy           | SPORTS                               |      81,550 |      0.18 |   0.05 |     421 |      0.49 |       299 |      460 |      |        | ABC       | Y     |
+| 0x0b064251… | hk04as04             | SPORTS                               |      81,097 |      0.22 |   0.15 |       5 |      1    |         6 |        6 |      |        |           |       |
+| 0x6db568e6… |                      | SPORTS                               |      80,063 |      0.3  |   0.09 |    1500 |      0.53 |        92 |     1500 |      |        | ABC       | Y     |
+| 0xba389f76… | joblessfinalboss     | SPORTS                               |      79,775 |           |   0.03 |     979 |      0.55 |       476 |      984 |      |        | A         | Y     |
+| 0xc57f19fd… | CK61                 | SPORTS                               |      75,729 |      0.08 |   0.19 |      89 |      0.57 |        40 |       89 |      |        | ABC       | Y     |
+| 0x381b9294… | hansama231           | SPORTS                               |      73,835 |      0.24 |   0.13 |      75 |      0.51 |        63 |       93 |      |        | ABC       | Y     |
+| 0xca97f546… | LarryDaddy           | SPORTS                               |      73,041 |      0.13 |   0.05 |     392 |      0.35 |       125 |      486 |      |        | ABC       | Y     |
+| 0x547f2917… | 0x547f2917D51F2e63ab | SPORTS                               |      71,377 |      0.07 |  -0.03 |     135 |      0.63 |        27 |      139 |      |        | AB        | Y     |
+| 0xd1ed1219… | curie                | SPORTS                               |      71,165 |      0.03 |  -0.02 |    1347 |      0.57 |       211 |     1500 |      |        | A         | Y     |
+| 0xb1073a8d… | bossanov             | SPORTS                               |      71,090 |      0.15 |  -0.13 |       5 |      0.5  |         5 |       12 |      | Y      |           |       |
+| 0xe5241830… | Sportbetting76       | SPORTS                               |      70,820 |      0.13 |   0.03 |     952 |      0.48 |       788 |     1062 |      |        | ABC       | Y     |
+| 0x55f544a5… | KevinEasyMoney27     | SPORTS                               |      69,737 |      0.1  |   0.04 |     276 |      0.88 |       213 |      296 |      |        | ABC       | Y     |
+| 0x26437896… | Latina               | SPORTS                               |      68,433 |      0.23 |   0.06 |    1099 |      0.58 |       134 |     1500 |      |        | ABC       | Y     |
+| 0xf3c73f43… | Swooferdeluxe        | SPORTS                               |      67,599 |      0.22 |   0.09 |     170 |      0.61 |       124 |      245 |      |        | ABC       | Y     |
+| 0x45721362… | maksimsoldout        | SPORTS                               |      64,673 |      0.18 |   0.16 |      95 |      0.51 |        97 |      151 |      |        | ABC       | Y     |
+| 0xa7e2bdc8… | NemecGhudini         | SPORTS                               |      63,224 |      0.25 |   0.12 |      10 |      0.88 |         9 |       16 |      | Y      |           |       |
+| 0xd49f5853… | juliannagelsmann     | SPORTS                               |      63,158 |      0.08 |   0.07 |      43 |      0.16 |        19 |       59 |      |        |           |       |
+| 0x5e945820… | pleaseplease123      | SPORTS                               |      63,096 |      0.03 |   0.06 |     181 |      0.53 |       109 |      181 |      |        | AC        | Y     |
+| 0xd4aea3e8… | shijiebeiyingshibei  | SPORTS                               |      59,718 |      0.13 |   0.04 |     952 |      0.26 |       219 |     1005 |      |        | ABC       | Y     |
+| 0x0f003f00… |                      | SPORTS                               |      58,535 |      0.73 |   0.28 |      50 |      0.41 |        34 |       55 |      |        | ABC       | Y     |
+| 0xe6535d86… | Kluivert9            | SPORTS                               |      58,095 |      0.13 |  -0    |     608 |      0.65 |       338 |      621 |      |        | AB        | Y     |
+| 0xe72bb501… | norrisfan            | SPORTS                               |      54,248 |      0.03 |  -0.04 |    1172 |      0.5  |       671 |     1500 |      |        | A         | Y     |
+| 0xe91171f6… | 0xE91171f655bE1568e4 | SPORTS                               |      52,108 |      0.06 |   0.04 |    1028 |      0.5  |       289 |     1500 |      |        | ABC       | Y     |
+| 0x1153f2cd… | halamadridynadamas   | SPORTS                               |      52,051 |      0.38 |   0.14 |      20 |      0.5  |        10 |       23 |      | Y      |           |       |
+| 0xae2b0aae… | TB14                 | SPORTS                               |      51,752 |      0.12 |  -0.04 |    1162 |      0.37 |       577 |     1500 |      |        | AB        | Y     |
+| 0x122b758a… | 3e6kk                | SPORTS                               |      51,438 |      0.03 |   0.05 |    1010 |      0.54 |       183 |     1500 | Y    |        |           |       |
+| 0x18b84caa… | Bibi555              | SPORTS                               |      47,340 |      0.12 |   0.07 |     903 |      0.44 |       369 |     1146 |      |        | ABC       | Y     |
+| 0x56f4f054… | heitheo              | SPORTS                               |      47,043 |      0.04 |   0.02 |    1132 |      0.46 |       234 |     1500 |      |        | A         | Y     |
+| 0x447d7eb8… | GRINGOMATE           | SPORTS                               |      46,664 |      0.05 |   0.11 |     118 |      0.45 |        76 |      144 |      |        | AC        | Y     |
+| 0x122cb94c… | 0x122Cb94C437EA5e6f0 | SPORTS                               |      45,485 |      0.04 |   0.06 |     502 |      0.47 |        83 |     1500 | Y    |        |           |       |
+| 0xe613b515… | Gucky-45             | SPORTS                               |      41,941 |      0.02 |   0.08 |      43 |      0.92 |       536 |     1500 |      |        | AC        | Y     |
+| 0x9fcfbb4a… | 0x9FcFBb4a9B536e5bA8 | SPORTS                               |      41,310 |      0.04 |   0.03 |     636 |      0.71 |       272 |      868 |      |        | A         | Y     |
+| 0x02afdf21… | minhui7788           | SPORTS                               |      40,513 |      0.06 |   0.05 |     630 |      0.46 |        96 |      638 |      |        | ABC       | Y     |
+| 0x64e93f87… | oudine2              | SPORTS                               |      40,309 |      0.08 |   0.05 |     473 |      0.48 |       685 |     1500 |      |        | ABC       | Y     |
+| 0xc82f0a25… | bobbityy101          | SPORTS                               |      39,265 |      0.18 |  -0.06 |    1206 |      0.84 |       608 |     1500 |      |        | AB        | Y     |
+| 0x20d64368… | 0x20D6436849F9305848 | SPORTS                               |      39,166 |      0.04 |  -0.03 |    1158 |      0.48 |       757 |     1500 |      |        | A         | Y     |
+| 0x6e82b93e… | DLEK                 | SPORTS                               |      38,431 |      2.47 |   0.04 |    1476 |      0.58 |       749 |     1500 |      |        | ABC       | Y     |
+| 0x2c8e9123… | Importante           | SPORTS                               |      37,580 |      0.18 |   0.12 |     326 |      0.34 |       158 |      409 |      |        | ABC       | Y     |
+| 0xd9e0aaca… | 0xD9E0AACa471f48F91A | SPORTS                               |      36,467 |      0.01 |   0.07 |    1463 |      0.49 |       237 |     1500 |      |        | AC        | Y     |
+| 0x36a74fda… | nerongod             | SPORTS                               |      36,322 |      0.17 |   0.12 |      50 |      0.41 |        41 |       73 |      |        | ABC       | Y     |
+| 0xf1649daa… | Jargs                | SPORTS                               |      35,577 |      0.03 |   0.02 |    1061 |      0.54 |       751 |     1098 |      |        | A         | Y     |
+| 0x228b8d11… | 0x228B8d11EBa89BF1c5 | SPORTS                               |      34,827 |      0    |   0.04 |     206 |      0.51 |        89 |      206 |      |        | AC        | Y     |
+| 0xc07d5961… | 0xc07                | SPORTS                               |      34,787 |      0.03 |   0.05 |    1057 |      0.61 |       195 |     1500 |      |        | AC        | Y     |
+| 0xdbdd4515… | 0xdbdd45150249e229eB | SPORTS                               |      34,634 |      0.07 |   0.12 |    1410 |      0.5  |       464 |     1500 |      |        | ABC       | Y     |
+| 0xa18c5cf2… | gmtrader             | SPORTS                               |      33,909 |      0.13 |   0.11 |     250 |      0.68 |       167 |      325 |      |        | ABC       | Y     |
+| 0xd60419ae… | thegreatjeff         | SPORTS                               |      33,249 |      0.38 |   0.34 |       7 |      1    |        10 |       17 |      |        |           |       |
+| 0x98db8cca… | Eulhunter            | SPORTS                               |      33,045 |      0.03 |   0.02 |    1423 |      0.52 |       151 |     1500 |      |        | A         | Y     |
+| 0x10ff6cd4… | 02-                  | SPORTS                               |      32,422 |      0.03 |   0.04 |     970 |      0.47 |        37 |     1500 | Y    |        |           |       |
+| 0x52685279… | HomeRunHazard        | SPORTS                               |      32,129 |      0.01 |   0.02 |    1479 |      0.51 |       405 |     1500 |      |        | A         | Y     |
+| 0x088ba590… | IQdegen              | SPORTS                               |      31,338 |      0.13 |   0.1  |     154 |      0.44 |        64 |      205 |      |        | ABC       | Y     |
+| 0xd776f0a0… | bomber               | SPORTS                               |      31,210 |      0.09 |   0.03 |     317 |      0.46 |       247 |      337 |      |        | AB        | Y     |
+| 0x0d2d845a… | 38791873984189       | SPORTS                               |      31,000 |      0.01 |  -0.06 |     436 |      0.53 |       658 |     1500 |      |        | A         | Y     |
+| 0xa974826f… | tmoneeey             | SPORTS                               |      30,936 |      0.08 |   0.07 |     532 |      0.42 |       453 |      680 |      |        | ABC       | Y     |
+| 0x2e78d7a7… | Kidfp                | SPORTS                               |      30,035 |      0.03 |   0.08 |    1153 |      0.51 |       218 |     1500 |      |        | AC        | Y     |
+| 0xfe787d2d… | ferrariChampions2026 | SPORTS                               |      28,795 |      0    |   0.1  |    1494 |      0.46 |       351 |     1500 |      |        | AC        | Y     |
+| 0x92d8a88f… | pfk.bgd              | SPORTS                               |      28,074 |      0.29 |   0.08 |     375 |      0.53 |       384 |      591 |      |        | ABC       | Y     |
+| 0x9e86ad1c… | 911lover             | SPORTS                               |      28,016 |      0.02 |   0.07 |     374 |      0.5  |       124 |      680 | Y    |        |           |       |
+| 0x89cd944a… |                      | SPORTS                               |      27,982 |      0.08 |   0    |     972 |      0.47 |       475 |     1390 |      |        | AB        | Y     |
+| 0x54525ee7… | DavidShekel          | SPORTS                               |      27,734 |      0.1  |   0.05 |     729 |      0.85 |       671 |     1500 |      |        | ABC       | Y     |
+| 0x96a3a4d0… | master-wuji          | SPORTS                               |      27,494 |      0.2  |   0.22 |      48 |      0.54 |        96 |      108 |      |        | ABC       | Y     |
+| 0x6157d529… | DaBossHogg           | SPORTS                               |      26,495 |      0.12 |   0.11 |     414 |      0.58 |       404 |      617 |      |        | ABC       | Y     |
+| 0xc96e5287… | wigglew              | SPORTS                               |      26,290 |      0.08 |  -0.05 |     572 |      0.76 |       277 |      698 |      |        | AB        | Y     |
+| 0x9eb2783e… | Smartbizonwow        | SPORTS                               |      26,247 |      0.37 |   0.36 |       5 |      0.8  |         6 |        6 |      |        |           |       |
+| 0xf5198df6… | sbimbg               | SPORTS                               |      25,956 |      0.02 |  -0.02 |     958 |      0.67 |       857 |     1500 |      |        | A         | Y     |
+| 0x3da89a55… | 0x3DA89a55CdD4b5c69F | SPORTS                               |      25,716 |      0.05 |   0.05 |     713 |      0.63 |       627 |      749 |      |        | AC        | Y     |
+| 0x2759769c… | SharkbetX-com        | SPORTS                               |      25,516 |      0.05 |   0.08 |     446 |      0.28 |       196 |      492 |      |        | AC        | Y     |
+| 0x620c9b16… | laog                 | SPORTS                               |      25,287 |      0.3  |   0.2  |      30 |      0.76 |        30 |       38 |      |        |           |       |
+| 0x1a2f6712… | uptime0724           | SPORTS                               |      25,200 |      0.02 |   0.06 |    1458 |      0.55 |       219 |     1500 |      |        | AC        | Y     |
+| 0xec8f3197… | N0wh3r3T0YEETT0n1ght | SPORTS                               |      24,887 |      0.19 |   0.07 |    1478 |      0.62 |       224 |     1500 |      |        | ABC       | Y     |
+| 0x1c66c88a… | sporteo              | SPORTS                               |      24,521 |      0.08 |   0.07 |    1256 |      0.56 |       100 |     1500 |      |        | ABC       | Y     |
+| 0x355d6c74… | Cs2skin              | SPORTS                               |      24,484 |      0.28 |   0.15 |      37 |      0.63 |        20 |       49 |      |        |           |       |
+| 0x16952717… | sakuralover          | TECH                                 |       5,334 |      1.5  |   0.1  |      27 |      0.71 |        23 |       67 |      |        | ABC       | Y     |
+| 0x335f4ee2… | codyqb               | TECH                                 |       3,509 |      0.07 |        |       0 |           |         5 |       70 | Y    | Y      |           |       |
+| 0x8a524bca… | Ayanokoji67          | TECH                                 |       2,457 |      3.33 |   0.42 |      55 |      0.78 |        35 |       81 |      |        | ABC       | Y     |
+| 0xacdfeeeb… | obeymesubjects       | TECH                                 |       2,295 |      0.44 |        |       0 |           |         1 |        1 |      | Y      |           |       |
+| 0x73ecf6a3… | ChampagneSocialist   | TECH                                 |       1,805 |      0.31 |   0.17 |     326 |      0.68 |        77 |      385 |      |        | BC        | Y     |
+| 0x7131cb61… | 0x7131cB618fb195C70E | TECH                                 |       1,364 |           |   0.01 |    1018 |      0.64 |       238 |     1467 |      |        |           |       |
+| 0x3594526e… | Linslav              | TECH                                 |       1,259 |      0.44 |   0.08 |     380 |      0.36 |       207 |      579 |      |        | BC        | Y     |
+| 0x8e9eedf2… | Siziriv              | TECH                                 |       1,117 |      0.03 |   0.03 |     622 |      0.86 |       398 |     1500 |      |        | C         | Y     |
+| 0xdacf9f8d… | CosmicCedar          | TECH                                 |       1,084 |      3.97 |   0.03 |    1352 |      0.93 |       918 |     1500 |      |        | BC        | Y     |
+| 0xd32ce89f… |                      | TECH                                 |         993 |      0.03 |   0.01 |     232 |      0.74 |       144 |     1500 |      |        |           |       |
+| 0xb9df9898… | aqaaa                | TECH                                 |         860 |           |   0.56 |       9 |      0.75 |         4 |       11 |      | Y      |           |       |
+| 0x0fbb51da… | jestergooning        | TECH                                 |         840 |           |   0.07 |     310 |      0.36 |       266 |      318 |      |        | C         | Y     |
+| 0xaa99a6c2… | willsom              | TECH                                 |         803 |      0.38 |   0.04 |     652 |      0.59 |       453 |     1170 |      |        | BC        | Y     |
+| 0x224089fc… | kilerz               | TECH                                 |         723 |      0.21 |   0.28 |       9 |      1    |         4 |       11 |      | Y      |           |       |
+| 0xbeb9d19f… | AnonymousElephant69  | TECH                                 |         598 |      0.18 |  -0.11 |     878 |      0.5  |       186 |     1059 |      |        | B         | Y     |
+| 0xc6dd7225… | tourists             | TECH                                 |         516 |      0.1  |   0.02 |     904 |      0.65 |       191 |     1500 |      |        | B         | Y     |
+| 0x1bfd792c… | 4e2fbc2acf           | TECH                                 |         422 |      0.06 |   0.02 |     494 |      0.94 |        97 |      537 |      |        | B         | Y     |
+| 0xa445c59c… | AnimalEater          | TECH                                 |         421 |      0    |   0.01 |     169 |      0.45 |       200 |      333 |      | Y      |           |       |
+| 0x0bfb8009… | melganis             | TECH                                 |         339 |      0.01 |   0.01 |     948 |      0.65 |       697 |     1500 |      |        |           |       |
+| 0x93a93d84… |                      | TECH                                 |         330 |      0.92 |  -0.05 |     402 |      0.55 |       190 |      774 |      |        | B         | Y     |
+| 0xc2b0a76b… | 0xc2B0a76bD58663A500 | TECH                                 |         315 |      0.05 |   0.13 |      17 |      0.73 |        14 |       27 |      | Y      |           |       |
+| 0x07db1171… | 0x07dB11718242d61E87 | TECH                                 |         301 |      0.03 |   0    |      12 |      0.67 |        11 |       30 |      | Y      |           |       |
+| 0x36901eb0… | melchior1248         | TECH                                 |         219 |           |   0.16 |      21 |      0.67 |        43 |     1500 |      |        | C         | Y     |
+| 0xc682d794… | zthunderfury         | TECH                                 |         218 |      0.14 |  -0.02 |     734 |      0.72 |       342 |     1246 |      |        | B         | Y     |
+| 0xad96914d… | 0xAD96914D7762DAC84E | TECH                                 |         202 |           |   0.03 |     108 |      0.78 |        49 |      144 |      |        | C         | Y     |
+| 0xa6b7ebd5… | Relaccsed            | TECH                                 |         178 |      0.38 |  -0.01 |    1067 |      0.55 |       579 |     1500 |      |        | B         | Y     |
+| 0xbf93328f… | hell0pia             | TECH                                 |         175 |      0.11 |   0.03 |     149 |      0.64 |        92 |      195 |      |        | BC        | Y     |
+| 0x5ce3c43f… | JJJx1                | TECH                                 |         158 |      0.07 |  -0.01 |     686 |      0.67 |       317 |     1199 |      |        | B         | Y     |
+| 0x57c02fb1… | 0xhanxyz             | TECH                                 |         158 |           |  -0.02 |      65 |      0.38 |        32 |       93 |      |        |           |       |
+| 0x9aeb534c… | The-Joker            | TECH                                 |         134 |      0.07 |   0.03 |    1203 |      0.71 |       539 |     1500 |      |        | B         | Y     |
+| 0x73d225c8… | Dapsy                | TECH                                 |         123 |      0.13 |  -0.02 |     720 |      0.57 |       790 |     1500 |      |        | B         | Y     |
+| 0xd029b13f… | bignewsagencypro     | TECH                                 |         102 |      0.02 |   0.24 |    1463 |      0.6  |      1155 |     1500 |      |        | C         | Y     |
+| 0x9690d9f5… | Djibooty             | TECH                                 |          91 |     10.94 |   0.02 |    1106 |      0.5  |       418 |     1500 |      |        | B         | Y     |
+| 0xa37a2bd2… | NewNameWhoThis       | TECH                                 |          87 |      0.04 |   0.14 |     227 |      0.44 |       141 |      420 |      |        | C         | Y     |
+| 0x0dba1031… | Dzibra1998.          | TECH                                 |          78 |      0.08 |   0.07 |      30 |      0.78 |        19 |       43 |      |        |           |       |
+| 0x1057e7d3… | Macks22              | TECH                                 |          77 |           |   0.11 |     391 |      0.82 |        93 |      410 |      |        | C         | Y     |
+| 0xb89f5425… | iutwpfal             | TECH                                 |          62 |      0    |   0.02 |     921 |      0.73 |       316 |     1500 |      |        |           |       |
+| 0xb10047d6… | Parz1vaI             | TECH                                 |          61 |      0.03 |   0    |     908 |      0.71 |       333 |     1500 |      |        |           |       |
+| 0x68d1b156… | aikko                | TECH                                 |          55 |           |   0.04 |     733 |      0.77 |       277 |     1001 |      |        | C         | Y     |
+| 0x1fc684f0… | Singularityinvestmen | TECH                                 |          44 |      0.01 |   0.18 |      92 |      0.75 |        42 |      157 |      | Y      |           |       |
+| 0x9f83f83b… | Naropoly             | TECH                                 |          42 |           |   0.04 |    1199 |      0.73 |       407 |     1500 |      |        | C         | Y     |
+| 0xbc605ab1… | spacegliderr         | TECH                                 |          40 |           |   0.02 |     354 |      0.64 |       220 |      456 |      |        |           |       |
+| 0xd12f443b… | jijitmu              | TECH                                 |          39 |      0    |   0.06 |     713 |      0.81 |       431 |     1278 |      |        | C         | Y     |
+| 0x562bc806… | SweetChariot         | TECH                                 |          33 |      0.04 |   0.03 |    1042 |      0.83 |       531 |     1500 |      |        | C         | Y     |
+| 0x79929dfb… | Larry88              | TECH                                 |          32 |      0    |   0.01 |     924 |      0.66 |        65 |     1496 | Y    |        |           |       |
+| 0x9f52dcbb… | Maidez               | TECH                                 |          29 |      0.01 |   0.19 |      54 |      0.5  |        60 |      101 |      |        | C         | Y     |
+| 0xcbfa13c4… | enjoyevery           | TECH                                 |          27 |      0.01 |  -0    |      85 |      0.9  |        64 |      123 |      |        |           |       |
+| 0xd3fb3aa0… | Yomba                | TECH                                 |          25 |           |   0.05 |    1078 |      0.73 |       577 |     1500 |      |        | C         | Y     |
+| 0x4cb5ec56… | TheEmprah            | TECH                                 |          20 |           |   0.02 |     243 |      0.7  |       140 |      297 |      |        |           |       |
+| 0x714f682e… | Poivre               | TECH                                 |          20 |      0.01 |  -0.11 |    1000 |      0.31 |       648 |     1500 |      |        |           |       |
+| 0x4985153f… | mikka101             | TECH                                 |          19 |      0.76 |   0.04 |     187 |      0.73 |        53 |      205 |      |        | BC        | Y     |
+| 0x15479479… | PMTraderAdam         | TECH                                 |          18 |      0.03 |   0.02 |     801 |      0.67 |       551 |     1147 |      |        |           |       |
+| 0x0a7aaf83… | Perypery             | TECH                                 |          16 |      0.03 |  -0.37 |      42 |      0.91 |       976 |     1500 |      |        |           |       |
+| 0xdf8103a3… | gummy-usb            | TECH                                 |          15 |      0.2  |   0.02 |     276 |      0.42 |       111 |      404 |      |        | B         | Y     |
+| 0x86cd9352… | IlIIllIIIllIIl       | TECH                                 |          14 |           |  -0.01 |     323 |      0.73 |        76 |      463 |      |        |           |       |
+| 0xf4baccff… | Treadmilled          | TECH                                 |          14 |           |   0.02 |     324 |      0.59 |       121 |      412 |      |        |           |       |
+| 0xcc792a28… | enrico-vasaio        | TECH                                 |          13 |           |  -0    |     960 |      0.68 |       564 |     1096 |      |        |           |       |
+| 0x99bce72f… |                      | TECH                                 |          13 |      0.02 |  -0.1  |     858 |      0.27 |      1029 |     1500 |      |        |           |       |
+| 0xb3bd9945… | megafom              | TECH                                 |          13 |           |  -0.01 |      82 |      0.57 |        79 |      194 |      |        |           |       |
+| 0x63c65227… | big-short            | TECH                                 |          12 |           |   0.05 |    1115 |      0.69 |       583 |     1500 |      |        | C         | Y     |
+| 0x11e829d2… | Justitia             | TECH                                 |          12 |           |   0.02 |    1109 |      0.71 |       385 |     1500 |      |        |           |       |
+| 0xfc7612db… | lisra                | TECH                                 |          11 |           |   0.15 |     570 |      0.59 |        60 |      695 |      |        | C         | Y     |
+| 0xdd225a03… | Euan                 | TECH                                 |           9 |      0.08 |   0.03 |    1109 |      0.59 |       477 |     1500 |      |        | BC        | Y     |
+| 0xcdbfdac4… | FrankyFourFingers    | TECH                                 |           9 |           |   0.02 |     881 |      0.51 |       838 |     1500 |      |        |           |       |
+| 0x01de0048… | FermatsLastFruit     | TECH                                 |           8 |           |   0.01 |      71 |      0.47 |        45 |      133 |      |        |           |       |
+| 0x217eac42… | flamingfish          | TECH                                 |           7 |           |   0.04 |     384 |      0.56 |       213 |      548 |      |        | C         | Y     |
+| 0x0b644e44… | Gdub                 | TECH                                 |           6 |           |   0.02 |    1006 |      0.78 |       608 |     1310 |      |        |           |       |
+| 0x59db0bd8… | jadebasilisk         | TECH                                 |           6 |           |   0.11 |     353 |      0.59 |       152 |      498 |      |        | C         | Y     |
+| 0xff9152ac… | doubleone2           | TECH                                 |           5 |           |   0.05 |     707 |      0.51 |       226 |     1500 |      |        | C         | Y     |
+| 0x6b44cdcc… | nufonehudis67        | TECH                                 |           4 |      0.06 |   0.05 |     333 |      0.55 |       887 |     1500 |      |        | BC        | Y     |
+| 0x2d4bf8f8… | Gohst                | TECH                                 |           4 |           |   0.03 |     572 |      0.41 |       451 |      871 |      |        | C         | Y     |
+| 0x97382307… | igloosarecool        | TECH                                 |           4 |           |   0.33 |      11 |      0.71 |         7 |       15 |      | Y      |           |       |
+| 0x6560abb7… | 1walrus              | TECH                                 |           3 |           |   0.03 |    1006 |      0.7  |       580 |     1500 |      |        | C         | Y     |
+| 0xec981ed7… | 0xheavy888           | TECH                                 |           3 |           |   0.02 |    1497 |      0.5  |       196 |     1500 |      |        |           |       |
+| 0x2bd6a5c4… | eugenii              | TECH                                 |           3 |           |   0.07 |      38 |      0.49 |        47 |      118 |      |        | C         | Y     |
+| 0xf0d5eb1c… | yen4u                | TECH                                 |           3 |      0    |   0.01 |    1060 |      0.89 |       388 |     1500 |      |        |           |       |
+| 0xd8b5d757… | CalOne1              | TECH                                 |           3 |           |  -0.01 |     245 |      0.52 |       187 |      423 |      |        |           |       |
+| 0x22dbd51e… | SusanWarrenHR        | TECH                                 |           3 |           |   0.02 |    1039 |      0.67 |       420 |     1500 |      |        |           |       |
+| 0x357ecb19… | MasonsConqueredRome  | TECH                                 |           2 |           |  -0.03 |    1076 |      0.64 |       570 |     1500 |      |        |           |       |
+| 0x6bab66c4… | 0x6bAB66c4BB24c96Ed1 | TECH                                 |           2 |      0.02 |   0.06 |     957 |      0.56 |       288 |     1484 |      |        | C         | Y     |
+| 0xcdb1f1ef… | Ahpo                 | TECH                                 |           2 |           |   0.07 |     763 |      0.78 |       338 |     1500 |      |        | C         | Y     |
+| 0xe542afd3… | leegunner            | TECH                                 |           2 |           |   0.04 |     667 |      0.42 |       512 |     1500 |      |        | C         | Y     |
+| 0xa1635419… | th2                  | TECH                                 |           2 |           |   0.04 |     416 |      0.71 |       154 |      624 |      |        | C         | Y     |
+| 0x7a1849ac… | huatimus             | TECH                                 |           2 |           |  -0.09 |      77 |      0.82 |        77 |       99 |      |        |           |       |
+
+Filter rejections (of 638 vetted, overlapping): {'min_markets': 45, 'min_trades': 41, 'market_maker': 24}
+Cohort membership within the selected union: A=250, B=250, C=250
+Cohort overlap: A,B,C: 86, C: 75, A: 68, A,B: 58, B: 55, B,C: 51, A,C: 38
 
 Selected per category (wallets may count in several):
-  CRYPTO: 21
-  CULTURE: 20
-  FINANCE: 22
-  POLITICS: 24
-  SPORTS: 18
-  TECH: 21
-Total selected: 113 of 137 vetted candidates
+  CRYPTO: 81
+  CULTURE: 71
+  FINANCE: 81
+  POLITICS: 96
+  SPORTS: 93
+  TECH: 73
+Total selected: 431 of 638 vetted candidates
