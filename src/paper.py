@@ -176,12 +176,12 @@ class PaperTrader:
                (condition_id, outcome_index, side, signal_time, n_traders, wallets,
                 entry_price, exit_type, resolved, category, token_id,
                 book_entry_price, midpoint_at_signal, avg_trader_price, alpha_decay,
-                status, tx_hashes)
-               VALUES (?,?,?,?,?,?,?,?,0,?,?,?,?,?,?,?,?)""",
+                status, tx_hashes, position_usd)
+               VALUES (?,?,?,?,?,?,?,?,0,?,?,?,?,?,?,?,?,?)""",
             (s["condition_id"], s["outcome_index"], "BUY", s["signal_time"], s["n_traders"],
              json.dumps(s["wallets"]), entry, self.pcfg["exit_strategy"],
              market.get("category"), token, entry, mid, s["avg_trader_price"], decay,
-             status, json.dumps([t["tx_hash"] for t in s["trades"]])))
+             status, json.dumps([t["tx_hash"] for t in s["trades"]]), self.position_usd))
         self.conn.commit()
         if fill:
             self.stats_today["opened"] += 1
@@ -263,7 +263,10 @@ class PaperTrader:
         entry = p["entry_price"]
         if not entry:
             return
-        shares = self.position_usd / entry
+        # size at OPEN, not the current config — a config change must not
+        # retroactively reprice positions opened at a different stake
+        stake = p["position_usd"] or self.position_usd
+        shares = stake / entry
         pnl = (exit_price - entry) * shares
         self.conn.execute(
             """UPDATE paper_trades SET status='CLOSED', exit_price=?, exit_time=?, exit_type=?,
@@ -290,7 +293,8 @@ class PaperTrader:
             except ApiError:
                 mid = None
             if mid and p["entry_price"]:
-                unrealized += (mid - p["entry_price"]) * (self.position_usd / p["entry_price"])
+                stake = p["position_usd"] or self.position_usd
+                unrealized += (mid - p["entry_price"]) * (stake / p["entry_price"])
         lines = [
             f"\n## {self.today.isoformat()}",
             f"- signals fired today: {self.stats_today['signals']}"

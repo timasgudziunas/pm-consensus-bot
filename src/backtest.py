@@ -168,7 +168,7 @@ def cell_metrics(results: list, size: float) -> dict:
 
 
 def main() -> None:
-    """Run the full parameter sweep for train / validate / full splits."""
+    """Run the full parameter sweep per wallet cohort for train/validate/full splits."""
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     cfg = load_config()
     sweep = cfg["sweep"]
@@ -177,6 +177,7 @@ def main() -> None:
     if not trades:
         raise SystemExit("no trades in DB — run ingest.py first")
 
+    # one calendar boundary from ALL trades so every cohort's split is comparable
     t_min = trades[0]["timestamp"]
     t_max = trades[-1]["timestamp"]
     boundary = int(t_min + cfg["backtest"]["train_months"] * SECONDS_PER_MONTH)
@@ -185,11 +186,8 @@ def main() -> None:
              datetime.fromtimestamp(t_max, tz=timezone.utc).date(),
              datetime.fromtimestamp(boundary, tz=timezone.utc).date())
 
-    splits = {
-        "train": [t for t in trades if t["timestamp"] < boundary],
-        "validate": [t for t in trades if t["timestamp"] >= boundary],
-        "full": trades,
-    }
+    # copy-exit evaluation only reads the signal wallets' own trades, so the
+    # global by-condition index is correct for every cohort
     trades_by_cond: dict = defaultdict(list)
     for t in trades:
         trades_by_cond[t["condition_id"]].append(t)
@@ -199,49 +197,68 @@ def main() -> None:
     conn.commit()
 
     combos = list(itertools.product(sweep["n_traders"], sweep["window_hours"], sweep["size_floor_usd"]))
+    cohorts = sweep["cohorts"]
     n_cells = len(combos) * len(sweep["exit_strategy"]) * len(sweep["position_size"])
-    log.info("sweeping %d signal combos x %d exits x %d sizes x 3 splits (%d cells)",
-             len(combos), len(sweep["exit_strategy"]), len(sweep["position_size"]), n_cells)
+    log.info("sweeping %d combos x %d exits x %d sizes x 3 splits (%d cells) x %d cohorts",
+             len(combos), len(sweep["exit_strategy"]), len(sweep["position_size"]),
+             n_cells, len(cohorts))
 
     started = time.time()
-    for ci, (n, wh, floor) in enumerate(combos, 1):
-        params = {"n_traders": n, "window_seconds": int(wh * 3600), "size_floor_usd": floor}
-        for split_name, split_trades in splits.items():
-            detected = sig.detect_signals(split_trades, params)
-            for exit_strategy in sweep["exit_strategy"]:
-                results = [evaluate_signal(s, exit_strategy, markets, prices, trades_by_cond, cfg)
-                           for s in detected]
-                sig_rows = []
-                for s, r in zip(detected, results):
-                    if r is None:
-                        continue
-                    sig_rows.append((
-                        s["condition_id"], s["outcome_index"], "BUY", s["signal_time"],
-                        n, json.dumps(s["wallets"]), r["entry_price"], r["exit_price"],
-                        r["exit_time"], exit_strategy, r["pnls"][20], r["pnls"][50],
-                        r["resolved"], r["category"], wh, floor, split_name))
-                conn.executemany(
-                    """INSERT INTO signals (condition_id, outcome_index, side, signal_time,
-                       n_traders, wallets, entry_price, exit_price, exit_time, exit_type,
-                       pnl_20, pnl_50, resolved, category, window_hours, size_floor, split)
-                       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""", sig_rows)
-                for size in sweep["position_size"]:
-                    m = cell_metrics(results, size)
-                    conn.execute(
-                        """INSERT OR REPLACE INTO backtest_results
-                           (n_traders, window_hours, size_floor, exit_strategy, position_size, split,
-                            signal_count, resolved_count, unresolved_count, win_rate, avg_pnl,
-                            total_pnl, return_on_capital, max_drawdown, category_breakdown)
-                           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-                        (n, wh, floor, exit_strategy, size, split_name,
-                         m["signal_count"], m["resolved_count"], m["unresolved_count"],
-                         m["win_rate"], m["avg_pnl"], m["total_pnl"],
-                         m["return_on_capital"], m["max_drawdown"], m["category_breakdown"]))
-            conn.commit()
-        log.info("combo %d/%d (N=%d W=%gh F=$%d) done, %.0fs elapsed",
-                 ci, len(combos), n, wh, floor, time.time() - started)
+    for cohort in cohorts:
+        wset = db.get_cohort_wallets(conn, cohort)
+        ctrades = [t for t in trades if t["wallet"] in wset]
+        if not ctrades:
+            log.warning("cohort %s: no wallets/trades — skipped", cohort)
+            continue
+        splits = {
+            "train": [t for t in ctrades if t["timestamp"] < boundary],
+            "validate": [t for t in ctrades if t["timestamp"] >= boundary],
+            "full": ctrades,
+        }
+        log.info("cohort %s: %d wallets, %d trades (%d train / %d validate)",
+                 cohort, len(wset), len(ctrades), len(splits["train"]), len(splits["validate"]))
+        for ci, (n, wh, floor) in enumerate(combos, 1):
+            params = {"n_traders": n, "window_seconds": int(wh * 3600), "size_floor_usd": floor}
+            for split_name, split_trades in splits.items():
+                detected = sig.detect_signals(split_trades, params)
+                for exit_strategy in sweep["exit_strategy"]:
+                    results = [evaluate_signal(s, exit_strategy, markets, prices, trades_by_cond, cfg)
+                               for s in detected]
+                    sig_rows = []
+                    for s, r in zip(detected, results):
+                        if r is None:
+                            continue
+                        sig_rows.append((
+                            s["condition_id"], s["outcome_index"], "BUY", s["signal_time"],
+                            n, json.dumps(s["wallets"]), r["entry_price"], r["exit_price"],
+                            r["exit_time"], exit_strategy,
+                            r["pnls"].get(20), r["pnls"].get(50), r["pnls"].get(100),
+                            r["resolved"], r["category"], wh, floor, split_name, cohort))
+                    conn.executemany(
+                        """INSERT INTO signals (condition_id, outcome_index, side, signal_time,
+                           n_traders, wallets, entry_price, exit_price, exit_time, exit_type,
+                           pnl_20, pnl_50, pnl_100, resolved, category, window_hours, size_floor,
+                           split, cohort)
+                           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""", sig_rows)
+                    for size in sweep["position_size"]:
+                        m = cell_metrics(results, size)
+                        conn.execute(
+                            """INSERT OR REPLACE INTO backtest_results
+                               (cohort, n_traders, window_hours, size_floor, exit_strategy,
+                                position_size, split, signal_count, resolved_count, unresolved_count,
+                                win_rate, avg_pnl, total_pnl, return_on_capital, max_drawdown,
+                                category_breakdown)
+                               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                            (cohort, n, wh, floor, exit_strategy, size, split_name,
+                             m["signal_count"], m["resolved_count"], m["unresolved_count"],
+                             m["win_rate"], m["avg_pnl"], m["total_pnl"],
+                             m["return_on_capital"], m["max_drawdown"], m["category_breakdown"]))
+                conn.commit()
+            if ci % 20 == 0 or ci == len(combos):
+                log.info("cohort %s: combo %d/%d (N=%d W=%gh F=$%d), %.0fs elapsed",
+                         cohort, ci, len(combos), n, wh, floor, time.time() - started)
 
-    log.info("sweep complete: %d cells", n_cells * 3)
+    log.info("sweep complete: %d cells across %d cohorts", n_cells * 3 * len(cohorts), len(cohorts))
 
 
 if __name__ == "__main__":

@@ -139,6 +139,24 @@ def ingest_markets(conn, candidates: set) -> None:
         if (i // batch) % 10 == 0:
             log.info("markets %d/%d", min(i + batch, len(cond_ids)), len(cond_ids))
 
+    # discover.py caches sample-market metadata with category left NULL — the
+    # metadata-skip above would otherwise leave those candidates UNMAPPED forever
+    uncat = [r for r in conn.execute(
+        """SELECT condition_id, event_slug FROM markets
+           WHERE category IS NULL AND event_slug IS NOT NULL AND clob_token_ids IS NOT NULL""")
+        if r["condition_id"] in candidates]
+    if uncat:
+        log.info("backfilling categories for %d candidate markets ...", len(uncat))
+        for r in uncat:
+            cat = db.get_event_category(conn, r["event_slug"])
+            if cat is None:
+                cat, labels = gamma.resolve_category(r["event_slug"])
+                db.set_event_category(conn, r["event_slug"], cat, labels)
+            if cat:
+                conn.execute("UPDATE markets SET category = ? WHERE condition_id = ?",
+                             (cat, r["condition_id"]))
+        conn.commit()
+
 
 def ingest_price_history(conn, candidates: set) -> None:
     """Fetch hourly price history for both outcome tokens of candidate markets.
