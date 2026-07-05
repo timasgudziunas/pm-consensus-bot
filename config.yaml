@@ -100,9 +100,10 @@ paper:
   default_size_floor: 1000
   exit_strategy: hold_to_resolution     # beat copy_exits in all top validate cells
   position_size_usd: 50
-  # gate clock: first start of the final config (cohort B, N=5/12h/$1000, $50)
-  # from data/paper.log — day-3 review due exactly 72h later (2026-07-06 09:49:30Z)
-  gate_start_utc: "2026-07-03T09:49:30Z"
+  # gate clock RESTARTED by the owner 2026-07-05 09:00 EDT after the
+  # global-feed undersampling fix (days 1-2 had ~5% trade coverage — invalid).
+  # Day-3 review due exactly 72h later: 2026-07-08 13:00 UTC (09:00 EDT).
+  gate_start_utc: "2026-07-05T13:00:00Z"
   # day-3 decision-gate thresholds agreed with the owner 2026-07-03 (PLAN.md)
   gate:
     min_fills: 15               # OPEN+CLOSED paper positions by day 3

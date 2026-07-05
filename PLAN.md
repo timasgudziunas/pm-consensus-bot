@@ -254,8 +254,10 @@ Before going live, ALL of these must be true:
 - [ ] At least 5 of the paper-mode signal markets exist on Polymarket US.
 
 Quantitative thresholds agreed with the owner 2026-07-03 (fixed BEFORE the paper
-data arrived, so the numbers can't negotiate with us; paper clock restarted
-2026-07-03 ~05:50 on cohort B / N=5 / 12h / $1000 / hold / $50):
+data arrived, so the numbers can't negotiate with us). Gate clock: restarted by
+the owner at **2026-07-05 09:00 EDT** (gate review due 2026-07-08 09:00 EDT)
+after the global-feed undersampling bug invalidated Jul 3–5 collection — paper
+runs cohort B / N=5 / 12h / $1000 / hold / $50 with per-wallet polling:
 - [ ] Sample floor: >= 15 paper signals with real fills (OPEN or CLOSED; SKIPPED
       and STALE don't count) by gate day.
 - [ ] Win rate: >= 55% over closed positions if >= 10 have closed; with fewer
