@@ -75,7 +75,12 @@ slippage:
 
 paper:
   poll_interval_seconds: 20
-  poll_trade_limit: 500
+  # per-wallet rotating poll (2026-07-05): the GLOBAL /trades feed silently
+  # drops ~95% of watchlist trades during busy periods (500-trade page vs
+  # platform-wide volume) — user-filtered /trades is complete and has correct
+  # outcome_index. 50 wallets/cycle sweeps a 250-wallet watchlist every ~2 min.
+  wallets_per_poll: 50
+  poll_trade_limit: 100                 # per wallet per poll; >> any wallet's 2-min burst
   exit_poll_interval_seconds: 300       # copy-exit check on signal wallets
   resolution_poll_interval_seconds: 3600
   # set to the best ROBUST validate cell of the winning cohort from the

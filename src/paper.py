@@ -70,15 +70,8 @@ def ensure_market(conn, gamma: GammaApi, condition_id: str) -> dict:
     return mrow
 
 
-def outcome_index_for_asset(market_row: dict, asset: str) -> int:
-    """Map a token id to its outcome index via the market's clobTokenIds.
-
-    Needed because the global /trades feed returns outcomeIndex=999 (Phase 0)."""
-    try:
-        tokens = json.loads(market_row["clob_token_ids"] or "[]")
-        return tokens.index(asset)
-    except (ValueError, TypeError):
-        return -1
+# (the asset->outcome_index mapper that lived here is gone with the global
+# feed: user-filtered /trades returns correct outcome_index — Phase 0 finding)
 
 
 class PaperTrader:
@@ -101,6 +94,8 @@ class PaperTrader:
             "size_floor_usd": self.pcfg["default_size_floor"],
         }
         self.position_usd = float(self.pcfg["position_size_usd"])
+        self.wallet_ring = sorted(self.watchlist)   # rotating per-wallet poll order
+        self.poll_cursor = 0
         self.start_time = int(time.time())
         self.last_exit_poll = 0.0
         self.last_resolution_poll = 0.0
@@ -112,30 +107,31 @@ class PaperTrader:
     # ---------- polling ----------
 
     def poll_feed(self) -> int:
-        """Pull the global feed, keep watchlist trades, insert new ones. Returns count."""
-        try:
-            feed = self.data.get_trades(limit=self.pcfg["poll_trade_limit"])
-        except ApiError as e:
-            log.warning("feed poll failed: %s", e)
-            return 0
+        """Poll the next slice of watchlist wallets via user-filtered /trades.
+
+        Replaces the global-feed poll (2026-07-05): the global feed is a
+        platform-wide window of at most 500 trades per request and silently
+        drops ~95% of watchlist activity during busy periods — verified by
+        comparing per-wallet /trades against live captures. User-filtered
+        /trades is complete per wallet and its outcome_index is correct
+        (Phase 0), so no Gamma asset-mapping is needed here."""
+        k = min(self.pcfg["wallets_per_poll"], len(self.wallet_ring))
+        batch = [self.wallet_ring[(self.poll_cursor + i) % len(self.wallet_ring)] for i in range(k)]
+        self.poll_cursor = (self.poll_cursor + k) % len(self.wallet_ring)
+        # keep only trades recent enough to matter for the detection window
+        cutoff = int(time.time()) - 2 * self.params["window_seconds"]
         rows = []
-        for t in feed:
-            if t.get("proxy_wallet") not in self.watchlist or t.get("side") not in ("BUY", "SELL"):
+        for w in batch:
+            try:
+                page = self.data.get_trades(user=w, limit=self.pcfg["poll_trade_limit"])
+            except ApiError as e:
+                log.debug("wallet poll failed for %s: %s", w[:10], e)
                 continue
-            row = db.trade_row_from_api(t)
-            if not row:
-                continue
-            # global feed outcome_index is bogus (999) — resolve via asset
-            market = ensure_market(self.conn, self.gamma, row["condition_id"])
-            if not market:
-                log.debug("no market metadata for %s — skipping trade", row["condition_id"])
-                continue
-            idx = outcome_index_for_asset(market, t.get("asset", ""))
-            if idx < 0:
-                log.debug("cannot map asset to outcome for %s — skipping", row["condition_id"])
-                continue
-            row["outcome_index"] = idx
-            rows.append(row)
+            for t in page:
+                row = db.trade_row_from_api(t)
+                if row and row["timestamp"] >= cutoff and row["outcome_index"] >= 0 \
+                        and t.get("side") in ("BUY", "SELL"):
+                    rows.append(row)
         return db.insert_trades(self.conn, rows) if rows else 0
 
     def detect_and_open(self) -> None:
