@@ -21,7 +21,7 @@ config.yaml, or report paths that code writes to without checking.**
 | Any tunable/threshold | `config.yaml` | Sole source of truth; `paper.gate` = live gate thresholds |
 | Latest wallet-skill analysis | `reports/wallet_quality_analysis.md` | Condensed in handoff §0 |
 | Latest category analysis | `reports/category_analysis.md` **§8+ only** + `reports/deep_analysis.md` | §1–7 are superseded v1, kept for audit |
-| Paper-trading results | `reports/paper_checkins.md` (freshest) or `reports/paper_daily.md` (daily) | Both append-only, written by code |
+| Paper-trading results (net PnL, gate status) | `reports/paper_dashboard.md` | Regenerated from DB by `paper_status.py`; run it for fresh numbers |
 | Open proposals (drafted, NOT applied) | `reports/proposals/` | |
 | Chosen-parameter provenance | `reports/backtest_report.md` | ⚠ numbers rest on old capped data / 431-wallet cohort — see its banner |
 
@@ -49,7 +49,7 @@ config.yaml, or report paths that code writes to without checking.**
     ├── backtest.py         # parameter sweep engine
     ├── report.py           # writes reports/backtest_report.md + csvs
     ├── paper.py            # LIVE paper loop (running process)
-    ├── paper_status.py     # gate check-ins → reports/paper_checkins.md
+    ├── paper_status.py     # regenerates reports/paper_dashboard.md
     ├── watchdog.py         # restarts paper.py (Windows scheduled task)
     ├── category_stats.py   # read-only per-category aggregation
     ├── live.py             # STUB ONLY — never implement

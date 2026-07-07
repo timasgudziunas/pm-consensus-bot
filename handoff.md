@@ -101,7 +101,7 @@ fires ~09:03 EDT.
 - Day-3 **decision gate review due 2026-07-08 09:00 EDT**; day-2 check-in due
   2026-07-07 ~09:06 EDT (`python src\paper_status.py`, then sanity-check
   `data/logs/watchdog.log`; backstop scheduled tasks pm-copybot-checkin-day2/3
-  append raw stats to `reports/paper_checkins.md`). Gate criteria: config
+  regenerate `reports/paper_dashboard.md` (the single paper report; old paper_checkins/paper_daily archived 2026-07-07)). Gate criteria: config
   `paper.gate` + PLAN.md.
 - API keys in gitignored `.env` — never read/print/log/commit. `live.py`
   stays a stub; no order/wallet/key code without direct owner authorization.
