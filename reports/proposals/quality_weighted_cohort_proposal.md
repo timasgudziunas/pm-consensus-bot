@@ -54,7 +54,8 @@ Nothing changes now. Concretely:
    aesthetics.
 3. **Re-validation date:** ~2026-08-05 (30 days of post-selection,
    post-WC paper-era data), rerun with the July+ window as the held-out
-   half. **Pre-registered pass criteria** (all three):
+   half. *(Amended 2026-07-07 — see Amendment below: two checkpoints, and
+   the expected-outcome clause.)* **Pre-registered pass criteria** (all three):
    - raw-edge persistence Spearman > 0 with permutation p < 0.05;
    - top-vs-bottom quintile held-out edge gap > 0;
    - result survives the per-share (price-controlled) variant.
@@ -84,3 +85,46 @@ Nothing changes now. Concretely:
   **participation cap** (no single wallet in more than X% of live signals),
   which is luck-neutral and needs no skill claim. Not configured tonight —
   it touches live signal logic, which was out of scope.
+
+## Amendment (2026-07-07, owner-approved) — checkpoints & expected-outcome clause
+
+Basis: the Monte-Carlo power analysis in
+`reports/proposals/persistence_power_and_strict45_analysis.md`
+(`src/persistence_power_mc.py`), calibrated to the observed same-period
+reliability (ρ≈0.22). The original criteria in §C.3 are unchanged; this
+amendment adds schedule and interpretation, logged BEFORE any forward data
+is looked at.
+
+**1. Two checkpoints instead of one:**
+
+- **Early peek: 2026-07-21 → 2026-07-28.** Best-case power 64–73% (n≈200–207
+  wallets, median ~48–61 resolved forward positions). Run the identical
+  pre-registered test; a *pass* at the early peek is a valid pass. A
+  non-pass is uninformative (see clause 2) and simply defers to the main
+  checkpoint. Note the forward window at this date is still mostly WC-era —
+  sports-driven results get the standing WC caveat.
+- **Main checkpoint: 2026-08-05 (unchanged), honest 80%-power date
+  ≈ Aug 8–11.** Best-case power at Aug 4 is ~77% (62–94% across the σ_T
+  calibration bracket 0.040–0.060).
+
+**2. Expected-outcome clause (read this before reading the result):**
+The test is adequately powered ONLY against strong persistence
+(ρ_true≈1 → ~77–84% power in August). If true persistence is moderate
+(ρ_true≈0.7) power is ~54–61%, and at the level implied by the current
+point estimate (ρ_true≈0.4 after de-attenuating +0.08 against the ~0.22
+reliability ceiling) power is ~27–39% at ANY feasible date this year —
+the expected observable ρ (~+0.07) sits below the n≈250 Fisher floor
+(~0.165) permanently. Therefore:
+
+- **"Cannot distinguish from noise" is an EXPECTED outcome, not a failed
+  experiment or a failed strategy** — it is the most likely result if
+  persistence is weak-but-real. Do not second-guess the test design or
+  re-shop metrics if it comes back inconclusive.
+- An inconclusive result keeps option A (status quo) and does NOT justify
+  either a quality tilt (§C.4) or a cohort cut (§B).
+- Detecting weak persistence would need ~750–1,000 wallets or a materially
+  more efficient estimator — a scope decision for the owner, not something
+  more calendar time fixes at n≈250.
+
+**3. Waiting past mid-August buys little** (best-case power 84% on Aug 18 →
+94% on Oct 1): there is no reason to postpone the main checkpoint.

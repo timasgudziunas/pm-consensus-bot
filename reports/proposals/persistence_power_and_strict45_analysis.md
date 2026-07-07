@@ -1,5 +1,13 @@
 # Analysis: persistence-test power by date + strict-45 cohort paper preview
 
+> **Owner decisions 2026-07-07 based on this doc:** (a) strict-45 paper cohort
+> **DROPPED** — confirmed dead by replay (0–1 signals/month at live consensus
+> settings); no further work unless the underlying wallet pool grows
+> substantially. (b) Persistence pre-registration amended with a Jul 21–28
+> early peek + expected-outcome clause (see
+> `quality_weighted_cohort_proposal.md`). (c) New tracked checkpoints in
+> PLAN.md: WC cliff ~Jul 19, post-WC steady-state read ~Jul 26–31.
+>
 > Written 2026-07-07 (owner-directed, analysis only — nothing live touched).
 > Q1: what is the minimum new data to get the persistence test out of
 > "undetectable" territory, and is the pre-registered ~Aug 5 checkpoint real?

@@ -1,9 +1,46 @@
-# handoff.md — Session Handoff (updated 2026-07-07 ~06:15 UTC, supersedes earlier 2026-07-07 version)
+# handoff.md — Session Handoff (updated 2026-07-07 ~18:30 UTC, supersedes earlier 2026-07-07 versions)
 
 > For a fresh Claude session with no memory of prior conversations. Read this,
 > then CLAUDE.md for standing rules. Previous session did a full day of
 > category analysis on 2026-07-06 (owner-directed, autonomous); cleared for
 > token cost, nothing wrong.
+
+## 0a. AFTERNOON 2026-07-07 (owner-directed): power analysis, WC cliff, checkpoints
+
+Analysis-only session (nothing live touched). Full doc:
+`reports/proposals/persistence_power_and_strict45_analysis.md`
+(scripts: `src/persistence_power_mc.py`, `src/replay_strict45.py`). Committed.
+
+1. **Persistence-test timeline (MC power model, calibrated to the observed
+   ρ≈0.22 same-period reliability): NO date this year guarantees a clean
+   answer at the current wallet count.** Aug 5 has ~77% power ONLY if true
+   persistence is strong (ρ_true≈1); at the persistence level the current
+   +0.08 point estimate actually implies (ρ_true≈0.4), power is ~27–39% at
+   any feasible date — the expected observable ρ (~+0.07) sits permanently
+   below the n≈250 Fisher floor (~0.165). Reliably detecting weak
+   persistence would need **~750–1,000 wallets** or a materially more
+   efficient estimator, not more weeks. The pre-registration
+   (`quality_weighted_cohort_proposal.md`) was amended accordingly:
+   **Jul 21–28 early peek** (64–73% best-case power; pass valid, non-pass
+   defers) + **Aug 5–11 main checkpoint**, plus an expected-outcome clause —
+   *"cannot distinguish from noise" is the EXPECTED result under weak
+   persistence, not a failed test; do not second-guess or metric-shop.*
+2. **WC volume cliff expected ~Jul 19.** Replay through the live detector:
+   the 250-wallet cohort at live params ran ~1.0 signal/day in May (pre-WC)
+   vs ~7–11/day now — expect roughly a 10× volume drop when the World Cup
+   ends. Corollary: tomorrow's day-3 gate grades WC-inflated flow and is NOT
+   representative of steady state. **New tracked checkpoints in PLAN.md**
+   (gate section): WC cliff watch ~Jul 19; **post-WC steady-state
+   performance read ~Jul 26–31** (separate from the day-3 gate); plus the
+   two persistence checkpoints above.
+3. **Strict-45 cohort idea DROPPED (owner decision).** Replaying the 45
+   strict-consistency wallets through live consensus settings
+   (N=5/12h/$1000) yields 0–1 signals/MONTH — dead on arrival; only N≤3
+   keeps it alive and that abandons the consensus design. No further work
+   unless the underlying wallet pool grows substantially.
+4. Reporting change (earlier today, committed): `reports/paper_dashboard.md`
+   (regenerated from DB by `paper_status.py`) replaced the old
+   paper_checkins/paper_daily pair; net PnL incl. MTM is its headline.
 
 ## 0. OVERNIGHT 2026-07-07 (owner asleep ~05:00–13:00 UTC): wallet-level skill verification
 
@@ -149,7 +186,9 @@ includes zero; sports is one-period). Evidence, not policy: nothing changed.
    partly resolved — if the edge was event-specific it won't reappear.
 2. **Sports persistence test (mid-July onward)**: World Cup ends mid-July;
    the weeks after are the natural experiment for whether sports consensus
-   survives the tournament.
+   survives the tournament. *(2026-07-07: now formalized as tracked
+   checkpoints in PLAN.md — WC cliff ~Jul 19, steady-state read ~Jul 26–31,
+   persistence peek Jul 21–28, main checkpoint Aug 5–11; see §0a.)*
 3. Day-3 gate (2026-07-08) proceeds as planned — it effectively grades
    WC-sports copying only (all live signals so far are sports).
 4. If floors are ever revisited post-gate: F≥$500 is the safety boundary,

@@ -269,3 +269,22 @@ runs cohort B / N=5 / 12h / $1000 / hold / $50 with per-wallet polling:
       comfortable zone).
 
 If any of these fail, do not proceed to live. Revisit the strategy or parameters first.
+
+### Tracked checkpoints after the day-3 gate (added 2026-07-07, owner-directed)
+
+Context: the day-3 gate is measured on World-Cup-inflated volume (~7–11
+signals/day vs ~1/day at the May pre-WC baseline) and shouldn't be read as
+representative of steady state. Power analysis:
+`reports/proposals/persistence_power_and_strict45_analysis.md`.
+
+- [ ] **~Jul 19 — WC volume cliff watch.** World Cup ends 2026-07-19; expect
+      live signal volume to drop roughly 10× toward the May baseline.
+- [ ] **Mid-to-late July (once volume settles, ~Jul 26–31) — steady-state
+      performance read.** Fresh look at fills/day, win rate, decay, and PnL
+      on post-WC flow only. Separate from (and NOT a rerun of) the day-3 gate.
+- [ ] **Jul 21–28 — persistence early peek** (64–73% best-case power; a pass
+      is valid, a non-pass defers to the main checkpoint).
+- [ ] **Aug 5–11 — persistence main checkpoint** (pre-registered criteria in
+      `reports/proposals/quality_weighted_cohort_proposal.md`, incl. the
+      2026-07-07 amendment: an inconclusive result is an EXPECTED outcome
+      under weak persistence, not a failure).
