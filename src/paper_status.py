@@ -15,6 +15,7 @@ import time
 from collections import Counter
 from datetime import datetime, timezone
 
+import category_stats
 import db
 from clob_api import ClobApi
 from data_api import ApiError, load_config
@@ -89,6 +90,9 @@ def build_report() -> str:
         f"- win rate >= {gate['min_win_rate']:.0%} "
         f"(needs >= {gate['min_closed_for_win_rate']} closed): {win_v}",
         f"- mean decay < {gate['max_mean_alpha_decay'] * 100:.0f}c/share: {decay_v}",
+        "",
+        f"By category (watchlist cohort {pcfg['watchlist_cohort']}; paper stats since gate start):",
+        category_stats.category_table(conn, pcfg["watchlist_cohort"], start_ts),
     ]
     return "\n".join(lines)
 

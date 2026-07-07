@@ -114,6 +114,68 @@ paper:
 live:
   max_loss_usd: 200  # kill switch threshold — not used yet
 
+# offline analysis scripts only (backtest_category.py) — nothing live reads this
+analysis:
+  # trades after this are paper-poll trades of signal wallets only (ingest ran
+  # 2026-07-02) — including them would skew the tail toward watchlist activity
+  window_end_utc: "2026-07-02T00:00:00Z"
+  # lifetime-volume thresholds used to flag possibly-illiquid signal markets
+  # (proxy — true historical order-book depth is not available anywhere)
+  volume_flags_usd: [100000, 500000, 1000000]
+  # size floors for the signal-availability / liquidity sensitivity scan
+  sensitivity_size_floors: [100, 250, 500, 1000]
+  # a category needs at least this many closed signals in a half before we
+  # state a hypothesis about it (below that it's noise)
+  min_closed_for_hypothesis: 15
+  # deep_analysis.py grids and stats (offline only)
+  floor_sweep:
+    size_floors: [100, 250, 500, 750, 1000]
+    volume_floors: [0, 100000, 250000, 500000, 1000000, 2000000, 5000000]
+  bootstrap:
+    iterations: 10000
+    seed: 20260706          # fixed so reruns reproduce the same intervals
+    min_n_stable: 30        # below this, interval flagged as unstable
+    min_n_report: 10        # below this, no interval reported at all
+  politics:
+    timing_buckets_days: [1, 7, 30]   # signal-to-resolution buckets
+    concentration_top_k: 3            # wallets excluded in the robustness pass
+  walk_forward:
+    n_windows: 6
+  # deep-history pull (ingest_full.py) — walks /trades backwards via the
+  # undocumented `end` param to get past the 3000-offset cap
+  full_pull:
+    history_start_utc: "2026-01-01T00:00:00Z"  # matches existing data floor
+    page_size: 1000               # API silently caps at 1000
+    window_offset_max: 3000       # hard API cap per end-window
+    max_pages_per_wallet: 1200    # ~1.2M trades; hit only by bot-grade wallets
+    recent_guard_seconds: 86400   # never insert trades newer than now-24h
+                                  # (live loop only reads the last 24h window)
+
+  # wallet-level skill verification (2026-07-07 overnight, owner-directed):
+  # wallet_quality_fetch.py + wallet_quality.py — offline analysis only,
+  # nothing live reads this block
+  wallet_quality:
+    fetch:
+      # resolution metadata for markets traded by cohort wallets but absent
+      # from the markets table (only signal/vetting markets were ever fetched)
+      batch_size: 20              # condition_ids per Gamma request (= ingest.gamma_batch_size)
+      commit_every_markets: 500   # bulk upsert cadence, keeps writer contention low vs paper.py
+      misses_file: data/wq_fetch_misses.json  # condition_ids Gamma returns nothing for (skip on restart)
+    # per-wallet consistency testing
+    min_resolved_markets_split: 40  # below this a time split-half is too noisy to attempt
+    min_resolved_markets_any: 10    # below this the wallet is reported UNTESTABLE, no stats forced
+    walk_forward_windows: 6         # monthly-ish windows over the wallet's own span
+    min_span_days_split: 60         # wallet history shorter than this -> market-split fallback only
+    bootstrap_iterations: 2000      # per wallet; 250 wallets makes 10k/cell too slow
+    bootstrap_seed: 20260707
+    concentration_top_k: 3          # winners removed in the breadth test
+    # cohort B was selected on the JUNE leaderboard (month PnL/vol as of
+    # 2026-07-02) — any persistence test whose outcome half includes June is
+    # collider-biased by that selection, so the clean gate ends outcomes here:
+    selection_window_start_utc: "2026-06-01T00:00:00Z"
+    # market-level position accounting
+    negative_inventory_tolerance: 0.02  # net shares < -2% of bought shares -> pre-history position, excluded
+
 # Event tag label -> our category. First match wins, checked in this order.
 # Discovered in Phase 0: Gamma market.category and market.tags are null;
 # category comes from GET /events?slug=... -> tags[].label.

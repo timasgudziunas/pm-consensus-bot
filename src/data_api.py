@@ -134,9 +134,17 @@ class DataApi(BaseClient):
 
     def get_trades(self, user: Optional[str] = None, limit: int = 100, offset: int = 0,
                    side: Optional[str] = None, taker_only: bool = True,
-                   filter_type: Optional[str] = None, filter_amount: Optional[float] = None) -> list:
-        """Trades, newest first. No user -> global feed (outcome_index unreliable there)."""
+                   filter_type: Optional[str] = None, filter_amount: Optional[float] = None,
+                   end: Optional[int] = None) -> list:
+        """Trades, newest first. No user -> global feed (outcome_index unreliable there).
+
+        `end` (unix ts) is UNDOCUMENTED but verified live 2026-07-06: returns
+        only trades with timestamp < end, composes with offset. This is the
+        only way past the hard 3000-offset cap — walk backwards by setting
+        end = oldest_seen + 1 per window (ingest_full.py)."""
         params: dict = {"limit": limit, "offset": offset, "takerOnly": str(taker_only).lower()}
+        if end is not None:
+            params["end"] = end
         if user:
             params["user"] = user
         if side:
