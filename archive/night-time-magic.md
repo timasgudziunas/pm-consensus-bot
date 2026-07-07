@@ -1,5 +1,11 @@
 # night-time-magic.md — Overnight Work Order & Session Handoff
 
+> **⚠ ARCHIVED 2026-07-07 — DO NOT USE FOR CURRENT STATE.** This work order is
+> complete. Its "current state" (113 wallets, N=5/24h/$500/$20) and its
+> landmine #1 ("use the global /trades feed") are both **reversed** — live is
+> 250 wallets, N=5/12h/$1000/$50, per-wallet rotating poll only. Read
+> `handoff.md`.
+
 > Written 2026-07-03 by Claude (previous session) at the owner's request.
 > Purpose: a fresh Claude Code session should be able to read THIS file and
 > execute the overnight plan without any other context.

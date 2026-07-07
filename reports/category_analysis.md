@@ -11,8 +11,8 @@ Owner question: does the data support down-weighting SPORTS (cap or category
 multiplier) in favor of categories whose traders "know something" (POLITICS,
 TECH)? **No changes were made** — this document is evidence only.
 
-Companion artifacts: `reports/category_backtest.md` (full two-half tables),
-`reports/category_backtest.csv`, `reports/autonomous_log_2026-07-06.md`
+Companion artifacts: `archive/category_backtest.md` (full two-half tables),
+`archive/category_backtest.csv`, `archive/autonomous_log_2026-07-06.md`
 (session log), `src/backtest_category.py` (methodology, rerunnable),
 `src/category_stats.py` (per-category paper reporting, now wired into
 check-ins and the daily summary).
@@ -68,7 +68,7 @@ $50/position and F=$1000.**
 
 Protocol: history 2026-01-01 → 2026-07-02 (ingest boundary), split at
 2026-04-02. Patterns were stated from H1 only and mechanically re-tested on
-H2 (nothing tuned on H2). Full tables in `reports/category_backtest.md`.
+H2 (nothing tuned on H2). Full tables in `archive/category_backtest.md`.
 
 | half | exit | category | signals | closed | win% | PnL $ | PnL/$ |
 |---|---|---|---|---|---|---|---|

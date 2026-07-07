@@ -1,5 +1,11 @@
 # Backtest Report — Polymarket Consensus Copy-Trading (cohort sweep)
 
+> **⚠ STALE DATA BASIS (banner added 2026-07-07).** This report chose the live
+> parameters (N=5, W=12h, F=$1000, hold_to_resolution), but its numbers rest on
+> the old 4,000-trade-capped ingestion and the 431-wallet union cohort. Live
+> cohort is now 250 wallets (cohort B) at $50/position, not the $100 headline
+> cell. For current numbers read `reports/deep_analysis.md` and `handoff.md`.
+
 _Generated 2026-07-03 09:47 UTC. Lookback 6 months, train = first 4 months, validate = remainder. Cohorts: A = raw month PnL (control), B = PnL per dollar of volume, C = stake-weighted entry edge, union = all selected wallets._
 
 ## 1. Executive summary

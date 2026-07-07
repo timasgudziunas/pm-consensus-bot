@@ -42,7 +42,7 @@ there is nothing to count yet.
 +  # liquidity exposure metric (report-only: printed + stored, NOT a filter).
 +  # Stake-weighted share of a candidate's BUY volume in markets whose
 +  # lifetime volume is under this — sub-$1M signal markets lost money in the
-+  # 2026-07-06 sensitivity analysis (reports/category_backtest.md)
++  # 2026-07-06 sensitivity analysis (archive/category_backtest.md)
 +  thin_market_volume_usd: 1000000
 ```
 

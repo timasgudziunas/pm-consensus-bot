@@ -69,7 +69,7 @@ the proposal doc BEFORE anyone sees that data.
   applied**; recommends no switch now, pre-registers the August
   re-validation, and explains why a naive quality switch would gut sports
   to ~10 wallets
-- `reports/autonomous_log_2026-07-07.md` — full chronology incl. dead-ends
+- `archive/autonomous_log_2026-07-07.md` — full chronology incl. dead-ends
 - New infra: `src/wallet_quality.py` / `wallet_quality_fetch.py` /
   `wallet_quality_report.py`; additive `analysis.wallet_quality` config
   block; scratch DB `data/wq_positions.sqlite` (gitignored). All analysis
@@ -163,8 +163,8 @@ includes zero; sports is one-period). Evidence, not policy: nothing changed.
 | `reports/category_analysis.md` | Main findings doc; §1–7 = v1 (capped data), §8–13 = v2 (full data) — read v2 first |
 | `reports/deep_analysis.md` | All v2 tables: floor grid, politics dive, bootstrap CIs, walk-forward |
 | `reports/floor_sweep.csv` | Machine-readable F×V grid results per half |
-| `reports/category_backtest.md` / `.csv` | v1 two-half category backtest (superseded by deep_analysis but kept for audit) |
-| `reports/autonomous_log_2026-07-06.md` | Chronological log of both autonomous sessions, incl. dead-ends and the walk-verification scare |
+| `archive/category_backtest.md` / `.csv` | v1 two-half category backtest (superseded by deep_analysis but kept for audit) |
+| `archive/autonomous_log_2026-07-06.md` | Chronological log of both autonomous sessions, incl. dead-ends and the walk-verification scare |
 | `reports/proposals/fill_rate_vetting_proposal.md` | Draft diff (NOT applied): `thin_market_share` discovery vetting metric |
 | `src/ingest_full.py` | Deep-history puller (resumable, checkpoints in `full_history_progress` table); rerun-safe |
 | `src/deep_analysis.py` | Rerunnable v2 analysis driver (P2 grid, politics dive, bootstrap, walk-forward) |
