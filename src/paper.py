@@ -12,6 +12,7 @@ import sys
 import time
 from datetime import datetime, timezone
 
+import category_stats
 import db
 import signals as sig
 from clob_api import ClobApi
@@ -316,6 +317,9 @@ class PaperTrader:
             f"- running realized PnL (all closed): ${closed['p']:+.2f} over {closed['c']} positions",
             f"- avg alpha decay: {decay:+.4f}" if decay is not None else "- avg alpha decay: n/a",
             f"- open positions: {len(open_pos)}, unrealized PnL est: ${unrealized:+.2f}",
+            "",
+            "By category (all-time paper stats):",
+            category_stats.category_table(self.conn, self.pcfg["watchlist_cohort"]),
         ]
         text = "\n".join(lines) + "\n"
         print(text)
