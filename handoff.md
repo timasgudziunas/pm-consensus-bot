@@ -1,4 +1,4 @@
-# handoff.md — Session Handoff (updated 2026-07-07 ~18:30 UTC, supersedes earlier 2026-07-07 versions)
+# handoff.md — Session Handoff (updated 2026-07-08 ~05:30 UTC, supersedes all 2026-07-07 versions)
 
 > For a fresh Claude session with no memory of prior conversations. Read this,
 > then CLAUDE.md for standing rules. Previous session did a full day of
@@ -41,6 +41,9 @@ Analysis-only session (nothing live touched). Full doc:
 4. Reporting change (earlier today, committed): `reports/paper_dashboard.md`
    (regenerated from DB by `paper_status.py`) replaced the old
    paper_checkins/paper_daily pair; net PnL incl. MTM is its headline.
+   2026-07-08: new scheduled task `pm-copybot-dashboard-daily` regenerates it
+   DAILY at 09:05 local (the old day1/2/3 check-in tasks were one-time and
+   are exhausted after the Jul-8 gate).
 
 ## 0. OVERNIGHT 2026-07-07 (owner asleep ~05:00–13:00 UTC): wallet-level skill verification
 
@@ -123,23 +126,28 @@ fires ~09:03 EDT.
 
 ## 1. Current state
 
-- **Paper trading is LIVE and untouched**: cohort B (250 wallets), N=5 W=12h
-  F=$1000 hold, $50/position. As of 2026-07-07 00:40 UTC: **21 fills
-  (6 open, 15 closed), 53% win rate, +$43.88 realized, −$64.13 MTM**, mean
-  decay −1.13¢/share. PID in `data/logs/paper.pid`, resurrected by scheduled
-  task **pm-copybot-paper-watchdog** (disable it first if stopping on purpose).
+- **Paper trading is LIVE**: cohort B (250 wallets), N=5 W=12h F=$1000 hold,
+  $50/position — signal params untouched since gate start. As of 2026-07-08
+  05:20 UTC: **35 fills (3 open, 32 closed), 47% win rate, −$159.63 realized,
+  +$29.81 MTM, net −$129.83**, mean decay +3.95¢/share (2026-07-07 was a
+  −$203 day). Always-current numbers: `reports/paper_dashboard.md`. PID in
+  `data/logs/paper.pid`, resurrected by scheduled task
+  **pm-copybot-paper-watchdog** (disable it first if stopping on purpose).
 - The 2026-07-06 category-analysis outputs (list in §5) and the 2026-07-07
   wallet-quality outputs (§0) were **committed 2026-07-07 morning** at the
   owner's request. No changes to live trading logic, cohort weighting,
   category caps, or size/volume floors were made in either session.
-- `src/paper.py` got a reporting-only edit (category table in
-  `daily_summary()`); the RUNNING process predates it and picks it up on its
-  next restart. Do not restart just for that.
-- Day-3 **decision gate review due 2026-07-08 09:00 EDT**; day-2 check-in due
-  2026-07-07 ~09:06 EDT (`python src\paper_status.py`, then sanity-check
-  `data/logs/watchdog.log`; backstop scheduled tasks pm-copybot-checkin-day2/3
-  regenerate `reports/paper_dashboard.md` (the single paper report; old paper_checkins/paper_daily archived 2026-07-07)). Gate criteria: config
-  `paper.gate` + PLAN.md.
+- The running `paper.py` process was cleanly restarted 2026-07-07 ~17:45 UTC
+  (via watchdog) and runs current code, including the reporting change that
+  retired `paper_daily.md`.
+- Day-3 **decision gate review due 2026-07-08 09:00 EDT**. Going into it:
+  fills (35≥15) and decay (+4¢<10¢) pass; **win rate 47% vs the 55%
+  threshold is failing** — and per PLAN.md's 2026-07-07 checkpoint note, the
+  gate grades WC-inflated sports flow either way. Gate criteria: config
+  `paper.gate` + PLAN.md. Reporting: `reports/paper_dashboard.md` is the
+  single paper report (old paper_checkins/paper_daily archived 2026-07-07),
+  regenerated DAILY at 09:05 local by task **pm-copybot-dashboard-daily**;
+  the one-time day1/2/3 check-in tasks are exhausted after Jul 8.
 - API keys in gitignored `.env` — never read/print/log/commit. `live.py`
   stays a stub; no order/wallet/key code without direct owner authorization.
 - DB is now ~5.1GB (4.5M trades) after the deep history pull (§2).
