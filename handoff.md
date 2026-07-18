@@ -1,9 +1,45 @@
-# handoff.md — Session Handoff (updated 2026-07-08 ~05:30 UTC, supersedes all 2026-07-07 versions)
+# handoff.md — Session Handoff (updated 2026-07-18 ~13:50 UTC, supersedes all 2026-07-08 and earlier versions)
 
 > For a fresh Claude session with no memory of prior conversations. Read this,
 > then CLAUDE.md for standing rules. Previous session did a full day of
 > category analysis on 2026-07-06 (owner-directed, autonomous); cleared for
 > token cost, nothing wrong.
+
+## 0b. OUTAGE 2026-07-16/17 + scheduled-task fix (2026-07-18)
+
+1. **paper.py was fully down for ~24.5h**: 2026-07-16 02:52 UTC →
+   2026-07-17 03:27 UTC (2026-07-15 22:52 → 2026-07-16 23:27 EDT). Ingestion,
+   signal detection, and paper trading all stopped together — they're one
+   process (`paper.py`), there is no separate always-on ingester. Confirmed
+   zero signals entered in the window (`paper_trades.signal_time` has no
+   rows in range). Watchdog eventually caught it and restarted (PID 21440,
+   still the live PID as of this update).
+2. **Root cause**: both `pm-copybot-paper-watchdog` and
+   `pm-copybot-dashboard-daily` scheduled tasks were `Logon Mode: Interactive
+   only`, and the watchdog task additionally had `Power Management: No Start
+   On Batteries` / `Stop On Battery Mode`. Neither task fires unless the
+   laptop is awake, logged on, and (watchdog) on AC power — this contradicts
+   `watchdog.py`'s own docstring claim of surviving "reboots into a
+   logged-in session." The same cause silently broke
+   `pm-copybot-dashboard-daily` too: it hadn't run since 2026-07-14 09:05,
+   so `reports/paper_dashboard.md` sat 2+ days stale on disk (the script
+   only rewrites the file when passed `--append`; a bare run just prints).
+3. **Fixed 2026-07-18** (required an elevated/admin PowerShell session —
+   changing a task's LogonType is a privileged Task Scheduler operation, a
+   plain user session gets `Access is denied`): both tasks switched to
+   `LogonType: S4U` ("run whether logged on or not," no password stored)
+   and `DisallowStartIfOnBatteries` / `StopIfGoingOnBatteries` set to
+   `False`. Verified: manual `Start-ScheduledTask` run on the watchdog
+   returned `LastTaskResult: 0`, paper.py (PID 21440) confirmed still alive
+   afterward. **If either task is ever recreated (e.g. via `schtasks
+   /Create`), it will default back to Interactive-only + battery-restricted
+   — reapply this fix.**
+4. Net effect on data quality: no signals appear lost beyond what's already
+   explained by the pre-registered WC volume cliff (§0a predicted ~Jul 19;
+   2026-07-15, -17, -18 all show 0 closes, -16 only 1 close) — the drought
+   was already underway before the outage started, so the outage most likely
+   cost at most one incremental quiet day, not a gap in an otherwise-active
+   period.
 
 ## 0a. AFTERNOON 2026-07-07 (owner-directed): power analysis, WC cliff, checkpoints
 
@@ -127,27 +163,41 @@ fires ~09:03 EDT.
 ## 1. Current state
 
 - **Paper trading is LIVE**: cohort B (250 wallets), N=5 W=12h F=$1000 hold,
-  $50/position — signal params untouched since gate start. As of 2026-07-08
-  05:20 UTC: **35 fills (3 open, 32 closed), 47% win rate, −$159.63 realized,
-  +$29.81 MTM, net −$129.83**, mean decay +3.95¢/share (2026-07-07 was a
-  −$203 day). Always-current numbers: `reports/paper_dashboard.md`. PID in
-  `data/logs/paper.pid`, resurrected by scheduled task
-  **pm-copybot-paper-watchdog** (disable it first if stopping on purpose).
+  $50/position — signal params untouched since gate start. As of 2026-07-18
+  13:46 UTC (day 13.03 of the original day-3 gate window): **58 fills (0
+  open, 58 closed), 52% win rate, −$324.20 realized, +$0.00 MTM, net
+  −$324.20**, mean decay +3.76¢/share. Fill volume has been near-zero the
+  last several days (0 closes 07-15/07-17/07-18, 1 on 07-16) — consistent
+  with the pre-registered WC volume cliff (§0a), see §0b for the
+  outage/fix that also happened in this window. Always-current numbers:
+  `reports/paper_dashboard.md`. PID in `data/logs/paper.pid` (currently
+  21440), resurrected by scheduled task **pm-copybot-paper-watchdog**
+  (disable it first if stopping on purpose) — as of 2026-07-18 this task
+  and **pm-copybot-dashboard-daily** run via S4U logon (survive sleep/
+  logoff/battery), see §0b.
+- **Gate verdict unchanged since day 3**: fills (58≥15) and decay
+  (+3.76¢<10¢) pass; **win rate 52% vs the 55% threshold is still failing**.
+  This has not resolved itself over ~10 extra days — treat it as the
+  standing result pending the Jul 21–28 / Aug 5–11 checkpoints (§0a), not as
+  something a fresh session should re-litigate from scratch.
 - The 2026-07-06 category-analysis outputs (list in §5) and the 2026-07-07
   wallet-quality outputs (§0) were **committed 2026-07-07 morning** at the
   owner's request. No changes to live trading logic, cohort weighting,
   category caps, or size/volume floors were made in either session.
-- The running `paper.py` process was cleanly restarted 2026-07-07 ~17:45 UTC
-  (via watchdog) and runs current code, including the reporting change that
-  retired `paper_daily.md`.
-- Day-3 **decision gate review due 2026-07-08 09:00 EDT**. Going into it:
-  fills (35≥15) and decay (+4¢<10¢) pass; **win rate 47% vs the 55%
-  threshold is failing** — and per PLAN.md's 2026-07-07 checkpoint note, the
-  gate grades WC-inflated sports flow either way. Gate criteria: config
-  `paper.gate` + PLAN.md. Reporting: `reports/paper_dashboard.md` is the
-  single paper report (old paper_checkins/paper_daily archived 2026-07-07),
-  regenerated DAILY at 09:05 local by task **pm-copybot-dashboard-daily**;
-  the one-time day1/2/3 check-in tasks are exhausted after Jul 8.
+- The running `paper.py` process's most recent clean (watchdog-triggered)
+  restart was 2026-07-17 03:27 UTC, PID 21440 (see §0b for why); it runs
+  current code, including the reporting change that retired
+  `paper_daily.md`.
+- The original day-3 gate review (2026-07-08 09:00 EDT) found win rate
+  failing (47%) and fills/decay passing — per PLAN.md's 2026-07-07
+  checkpoint note, that gate graded WC-inflated sports flow either way, so
+  the owner deferred a hard call and let paper trading keep running past
+  day 3. See the top of §1 for the current (2026-07-18) numbers, which show
+  the same win-rate-failing verdict. Gate criteria: config `paper.gate` +
+  PLAN.md. Reporting: `reports/paper_dashboard.md` is the single paper
+  report, regenerated DAILY at 09:05 local by task
+  **pm-copybot-dashboard-daily**; the one-time day1/2/3 check-in tasks are
+  exhausted (were only ever meant to cover through Jul 8).
 - API keys in gitignored `.env` — never read/print/log/commit. `live.py`
   stays a stub; no order/wallet/key code without direct owner authorization.
 - DB is now ~5.1GB (4.5M trades) after the deep history pull (§2).

@@ -18,7 +18,7 @@ import os
 import sys
 import time
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 
 import category_stats
 import db
@@ -72,16 +72,27 @@ def price_open_positions(fills: list[dict], clob: ClobApi) -> tuple[float, int, 
 
 
 def daily_pnl_table(conn) -> str:
-    """Markdown table of realized PnL by exit date, with running cumulative."""
+    """Markdown table of realized PnL by exit date (UTC), with running cumulative.
+
+    Emits a zero row for quiet days — every date from the first exit through
+    today appears, so a day with no closes is visible rather than skipped.
+    """
+    by_day = {r["d"]: (r["n"], r["p"]) for r in conn.execute(
+        "SELECT date(exit_time,'unixepoch') d, COUNT(*) n, SUM(pnl_20) p "
+        "FROM paper_trades WHERE status='CLOSED' AND exit_time IS NOT NULL "
+        "GROUP BY 1")}
     lines = ["| exit date | closed | realized $ | cumulative $ |",
              "|---|---|---|---|"]
+    if not by_day:
+        return "\n".join(lines)
+    day = date.fromisoformat(min(by_day))
+    last = max(date.fromisoformat(max(by_day)), datetime.now(timezone.utc).date())
     cum = 0.0
-    for r in conn.execute(
-            "SELECT date(exit_time,'unixepoch') d, COUNT(*) n, SUM(pnl_20) p "
-            "FROM paper_trades WHERE status='CLOSED' AND exit_time IS NOT NULL "
-            "GROUP BY 1 ORDER BY 1"):
-        cum += r["p"]
-        lines.append(f"| {r['d']} | {r['n']} | {r['p']:+.2f} | {cum:+.2f} |")
+    while day <= last:
+        n, p = by_day.get(day.isoformat(), (0, 0.0))
+        cum += p
+        lines.append(f"| {day.isoformat()} | {n} | {p:+.2f} | {cum:+.2f} |")
+        day += timedelta(days=1)
     return "\n".join(lines)
 
 
