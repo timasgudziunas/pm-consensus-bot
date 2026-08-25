@@ -104,12 +104,17 @@ paper:
   # global-feed undersampling fix (days 1-2 had ~5% trade coverage — invalid).
   # Day-3 review due exactly 72h later: 2026-07-08 13:00 UTC (09:00 EDT).
   gate_start_utc: "2026-07-05T13:00:00Z"
-  # day-3 decision-gate thresholds agreed with the owner 2026-07-03 (PLAN.md)
+  # gate REWRITTEN 2026-08-25 (owner decision; supersedes the 2026-07-03
+  # win-rate gate, which said ON TRACK on a losing book — 56% win rate, net
+  # -$277 — because it never tested net expectancy). Ongoing evaluation gate,
+  # day-3 framing retired. Applies to the current window and any future v2
+  # signal window (reset gate_start_utc when the signal changes).
   gate:
-    min_fills: 15               # OPEN+CLOSED paper positions by day 3
-    min_win_rate: 0.55          # over closed positions...
-    min_closed_for_win_rate: 10 # ...once at least this many have closed
-    max_mean_alpha_decay: 0.10  # $/share; ~50% of the backtested ~20c/share edge
+    min_closed_for_verdict: 30              # closed fills before the expectancy verdict is final
+    min_expectancy_per_dollar: 0.0          # net (realized+MTM) per $ staked — keep-testing floor
+    live_ready_expectancy_per_dollar: 0.05  # margin over breakeven required before any live discussion
+    min_fills_per_day: 0.5                  # volume viability over the gate window
+    max_mean_alpha_decay: 0.10              # $/share; unchanged mechanism check from the old gate
 
 live:
   max_loss_usd: 200  # kill switch threshold — not used yet

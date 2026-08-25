@@ -1,4 +1,4 @@
-"""Paper-trading dashboard + day-3 gate check-in.
+"""Paper-trading dashboard + decision-gate check-in (net-expectancy gate since 2026-08-25).
 
 Regenerates reports/paper_dashboard.md in full from data/copybot.db
 (paper_trades is the single source of truth). The dashboard leads with the
@@ -118,13 +118,19 @@ def build_dashboard() -> tuple[str, str]:
         return "n/a yet" if na else ("ON TRACK" if ok else "AT RISK")
 
     g = in_gate
-    pace = len(g["fills"]) / day * 3 if day > 0 else 0.0
-    fills_v = verdict(len(g["fills"]) >= gate["min_fills"] or pace >= gate["min_fills"])
-    if len(g["closed"]) >= gate["min_closed_for_win_rate"]:
-        win_v = verdict(g["win_rate"] >= gate["min_win_rate"])
-    else:
-        win_v = verdict(g["realized"] + mtm >= 0) + \
-            f" (only {len(g['closed'])} closed — using MTM-neutral-or-positive criterion)"
+    # mtm is priced over all-time open positions; the gate window starts two
+    # days after paper began, so window fills == all-time fills in practice
+    fills_per_day = len(g["fills"]) / day if day > 0 else 0.0
+    staked = sum(r["position_usd"] for r in g["fills"])
+    expectancy = (g["realized"] + mtm) / staked if staked else None
+    final_verdict = len(g["closed"]) >= gate["min_closed_for_verdict"]
+    exp_v = verdict(expectancy is not None and expectancy >= gate["min_expectancy_per_dollar"],
+                    na=expectancy is None)
+    if expectancy is not None and not final_verdict:
+        exp_v += f" (provisional — {len(g['closed'])} closed of {gate['min_closed_for_verdict']} needed)"
+    live_ready = (expectancy is not None and final_verdict
+                  and expectancy >= gate["live_ready_expectancy_per_dollar"])
+    vol_v = verdict(fills_per_day >= gate["min_fills_per_day"])
     decay_v = verdict(g["mean_decay"] is not None and g["mean_decay"] < gate["max_mean_alpha_decay"],
                       na=g["mean_decay"] is None)
 
@@ -152,14 +158,16 @@ def build_dashboard() -> tuple[str, str]:
         f"- Filtered out (never filled): {alltime['by_status'].get('SKIPPED', 0)} SKIPPED "
         f"(book too thin/gone), {alltime['by_status'].get('STALE', 0)} STALE (detected too late)",
         "",
-        f"## Decision gate — day {day:.2f} of 3 "
-        f"(window since {cfg['gate_start_utc']}; thresholds in config `paper.gate`)",
+        f"## Decision gate — day {day:.0f} "
+        f"(window since {cfg['gate_start_utc']}; thresholds in config `paper.gate`; "
+        f"rewritten 2026-08-25 — net expectancy replaces win rate)",
         "",
-        f"- fills >= {gate['min_fills']} by day 3: {len(g['fills'])} so far, "
-        f"pace ~{pace:.0f} -> **{fills_v}**",
-        f"- win rate >= {gate['min_win_rate']:.0%} "
-        f"(needs >= {gate['min_closed_for_win_rate']} closed): "
-        f"{f'{g['win_rate']:.0%}' if g['win_rate'] is not None else 'n/a'} -> **{win_v}**",
+        f"- net expectancy >= {gate['min_expectancy_per_dollar']:+.2f}/$ staked: "
+        f"{f'{expectancy:+.3f}/$' if expectancy is not None else 'n/a'} "
+        f"over {len(g['fills'])} fills (${staked:,.0f} staked) -> **{exp_v}**",
+        f"- live-ready bar (>= {gate['live_ready_expectancy_per_dollar']:+.2f}/$, "
+        f">= {gate['min_closed_for_verdict']} closed): **{'MET' if live_ready else 'NOT MET'}**",
+        f"- volume >= {gate['min_fills_per_day']:.1f} fills/day: {fills_per_day:.2f}/day -> **{vol_v}**",
         f"- mean decay < {gate['max_mean_alpha_decay'] * 100:.0f}c/share: "
         f"{f'{g['mean_decay'] * 100:+.2f}c' if g['mean_decay'] is not None else 'n/a'} -> **{decay_v}**",
         "",
@@ -173,9 +181,10 @@ def build_dashboard() -> tuple[str, str]:
         "",
     ]
     history_line = (
-        f"- {now_dt.strftime('%Y-%m-%d %H:%M UTC')} — day {day:.2f}/3 | "
+        f"- {now_dt.strftime('%Y-%m-%d %H:%M UTC')} — day {day:.0f} | "
         f"fills {len(alltime['fills'])} ({alltime['n_open']} open/{len(alltime['closed'])} closed) | "
         f"win {f'{wr:.0%}' if wr is not None else 'n/a'} | "
+        f"exp {f'{expectancy:+.3f}/$' if expectancy is not None else 'n/a'} | "
         f"realized {money(alltime['realized'])} | MTM {money(mtm)} | net {money(net)}")
     return "\n".join(lines), history_line
 

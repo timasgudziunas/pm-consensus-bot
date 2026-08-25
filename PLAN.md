@@ -255,6 +255,14 @@ Before going live, ALL of these must be true:
 - [ ] Polymarket US KYC is complete and API keys are generated.
 - [ ] At least 5 of the paper-mode signal markets exist on Polymarket US.
 
+> **⚠ SUPERSEDED 2026-08-25 (owner decision):** the win-rate thresholds below
+> are retired — they said ON TRACK on a losing book (56% win rate, net −$277)
+> because they never tested net expectancy. The live gate is now net
+> expectancy per dollar staked; thresholds live in config `paper.gate`
+> (keep-testing floor ≥ 0.00/$, live-ready bar ≥ +0.05/$ with ≥ 30 closed,
+> volume ≥ 0.5 fills/day, decay < 10¢/share unchanged). The text below is
+> kept for audit only.
+
 Quantitative thresholds agreed with the owner 2026-07-03 (fixed BEFORE the paper
 data arrived, so the numbers can't negotiate with us). Gate clock: restarted by
 the owner at **2026-07-05 09:00 EDT** (gate review due 2026-07-08 09:00 EDT)
