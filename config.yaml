@@ -200,6 +200,36 @@ analysis:
     # over each wallet's own visible taker buys). Snapshot 2026-08-17.
     sports_wallet_entry_edge_context: 0.072
 
+  signal_v2:                          # pre-registered 2026-08-25 post-filter backtest
+                                       # (reports/proposals/signal_v2_preregistration.md);
+                                       # offline only -- nothing live reads this block unless
+                                       # an arm passes and paper.* is explicitly flipped to it
+    favorite_cutoff: 0.80             # arm A: drop entry price > this
+    band_low: 0.20                    # arm B: keep entry price in [band_low, band_high]
+    band_high: 0.80
+    quality_gate_k: 3                 # arm C: require >= this many of the 5 consensus
+                                       # wallets in the train-window top half by entry edge
+    quality_gate_variants: [2, 4]     # arm C neighborhood robustness gate variants
+    min_resolved_train_trades: 10     # wallets below this many resolved train BUYs are
+                                       # excluded from the edge ranking (treated bottom-half)
+    neighborhood_offset: 0.05         # A/B cutoff shift for neighborhood robustness
+    position_size_usd: 100            # base-cell position size, the winning 2026-07-03
+                                       # cohort-sweep cell -- distinct from live paper.position_size_usd ($50)
+    fill_retention_floor: 0.40        # adoption criterion 1: arm must retain >= this
+                                       # fraction of base validate fills
+    min_paper_fills: 20               # adoption criterion 3: minimum retained CLOSED
+                                       # paper fills before the counterfactual expectancy counts
+    paper_expectancy_floor: 0.0       # adoption criterion 3 threshold, $ PnL per $ staked
+    bootstrap:
+      iterations: 10000
+      seed: 20260825                  # fixed so reruns reproduce the same CI
+    sanity_gate:
+      tolerance: 0.10                 # base-cell reproduction must be within +/- this
+                                       # fraction of the original report's validate numbers
+      original_validate_pnl: 3482.39        # reports/backtest_report.md, generated 2026-07-03
+      original_validate_n_signals: 122
+      original_validate_n_closed: 119
+
   persistence_checkpoint:            # pre-registered Aug checkpoint (run 2026-08-17, overdue from Aug 5-11)
     past_end_utc: "2026-06-01T00:00:00Z"     # past side ends before June (cohort selected on June leaderboard -> collider)
     forward_start_utc: "2026-07-01T00:00:00Z" # held-out July+ window per pre-registration
