@@ -78,6 +78,24 @@ fewer fills dropped.
   volume returns.
 - **Ambiguous (passes 1–3, fails 4):** do not adopt; document and hold.
 
+## Amendment 2026-08-25 (before any arm results were computed)
+
+The implementation's sanity gate — reproduce the 2026-07-03 backtest report's
+base cell within ±10% — failed structurally, not from a bug: DB forensics
+show only 10% of cohort B's clipped trades existed when that report was
+generated (383,244 of 3,909,766 by `ingested_at`); the 2026-07-06/07
+deep-history backfill (`ingest_full.py`, past the old 4,000-trade/wallet cap)
+grew the data ~10x. Cohort membership is unchanged (100% overlap). Reproduced
+base: validate PnL +$3,307.60 (−5.0% vs +$3,482.39, within tolerance) but 157
+signals vs 122 (more data → more consensus detections). `backtest_report.md`'s
+own 2026-07-07 banner already flags this.
+
+**Amendment:** the base reference for all relative comparisons is the
+today's-DB base simulation (157 validate signals, +$3,307.60), not the stale
+report. The adoption rule above is UNCHANGED — it was always arm-vs-base
+inside the same simulator. This amendment was written and committed before
+any arm was evaluated.
+
 ## Standing caveats (inherited, attach to every number)
 
 - Taker-only trades feed; survivorship bias on cohort selection; validate
