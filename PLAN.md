@@ -312,3 +312,15 @@ representative of steady state. Power analysis:
       forward k=63, below the design target (n≈222, k≈91), so the test ran
       below designed power. Keeps status quo per the amendment. Full report:
       `reports/persistence_checkpoint.md`.*
+- [ ] **Oct 15 — FINAL event-season checkpoint (pre-registered 2026-08-25,
+      owner decision after signal v2 failed).** Context: the v2 post-filter
+      backtest found no adoptable arm (`reports/proposals/signal_v2_backtest.md`
+      — expected-outcome clause "post-filters cannot salvage the consensus
+      mechanism"), so the bot runs as event-season-only with config FROZEN
+      (N=5, W=12h, F=$1000, hold, $50). Criteria, fixed before the data:
+      fills CLOSED with signal_time in [2026-09-01T00:00Z, 2026-10-15T00:00Z)
+      judged against config `paper.gate` thresholds — (a) ≥ 30 closed
+      (volume viability during NFL season), AND (b) net expectancy ≥ 0.00/$
+      staked. **Either failure ⇒ wind down the project without
+      re-litigating**; both pass ⇒ owner decides on continuing toward the
+      live-ready bar (≥ +0.05/$). No config changes before the checkpoint.
