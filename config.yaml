@@ -176,6 +176,34 @@ analysis:
     # market-level position accounting
     negative_inventory_tolerance: 0.02  # net shares < -2% of bought shares -> pre-history position, excluded
 
+  # copy-gap diagnosis (2026-08-17, owner-directed): why paper copying lost
+  # money while the copied wallets' own entry edge was positive.
+  # src/copy_gap_analysis.py -> reports/copy_gap_analysis.md; offline only,
+  # nothing live reads this block.
+  copy_gap:
+    # favorite-longshot buckets on entry_price for the anatomy table
+    price_buckets: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+    bootstrap:
+      iterations: 10000
+      seed: 20260817        # fixed so reruns reproduce the same CI
+      min_n_report: 10      # below this, no interval reported
+    # context number quoted (not recomputed) for the selection-effect check:
+    # cohort-B SPORTS "wl edge" = avg(wallets.entry_edge) over cohort-B SPORTS
+    # wallets, as reported in reports/paper_dashboard.md's category table and
+    # defined identically to the "copyable entry edge" metric in
+    # reports/wallet_quality_analysis.md §0 (stake-weighted payout-minus-price
+    # over each wallet's own visible taker buys). Snapshot 2026-08-17.
+    sports_wallet_entry_edge_context: 0.072
+
+  persistence_checkpoint:            # pre-registered Aug checkpoint (run 2026-08-17, overdue from Aug 5-11)
+    past_end_utc: "2026-06-01T00:00:00Z"     # past side ends before June (cohort selected on June leaderboard -> collider)
+    forward_start_utc: "2026-07-01T00:00:00Z" # held-out July+ window per pre-registration
+    window_end_utc: "2026-08-17T00:00:00Z"    # fixed so reruns reproduce
+    min_resolved_forward: 10       # matches the power-model population definition
+    min_resolved_past: 10
+    permutation_iterations: 10000
+    seed: 20260817
+
 # Event tag label -> our category. First match wins, checked in this order.
 # Discovered in Phase 0: Gamma market.category and market.tags are null;
 # category comes from GET /events?slug=... -> tags[].label.

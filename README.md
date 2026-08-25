@@ -6,3 +6,5 @@ signals, copies positions. Backtest/paper phase — no live trading code.
 **Agents / new sessions:** read `CLAUDE.md` (rules + file router), then
 `handoff.md` (current operational state). Everything in `archive/` is
 superseded — don't read it for current facts.
+
+For design/what/why read `OVERVIEW.md`; for build phases and the decision gate read `PLAN.md`.

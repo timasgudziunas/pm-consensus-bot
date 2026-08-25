@@ -1,16 +1,18 @@
 # Polymarket Copy-Trading Bot — Project Overview
 
+> Design spec. Where this file and config.yaml/handoff.md disagree, config.yaml and handoff.md win.
+
 ## What we're building
 
-A bot that tracks ~100 hand-picked top Polymarket traders and detects **consensus signals**: when N distinct watchlist traders open the same side of the same market within a time window, we copy that position. The core hypothesis is that agreement among independently profitable traders is a stronger signal than any single trader's activity.
+A bot that tracks ~250 vetted top Polymarket traders and detects **consensus signals**: when N distinct watchlist traders open the same side of the same market within a time window, we copy that position. The core hypothesis is that agreement among independently profitable traders is a stronger signal than any single trader's activity.
 
 Build order is strict: **backtest → paper trade → live**. Do not write any live-execution code until the backtest and paper phases produce results. The backtest is the main deliverable of the first build session — it must tell us, with historical data, whether this strategy would have made money, under which parameters, and in which market categories.
 
 ## Owner's decisions (already made — do not re-ask)
 
 - **Exit strategy:** backtest BOTH (a) hold to resolution and (b) copy the traders' exits. Compare them in the final report.
-- **Categories:** backtest 5–10 categories (e.g., Politics, Sports, Crypto, Economy/Finance, Geopolitics, Pop Culture, Science/Tech, Elections) and identify the most consistently profitable. Note: different top traders specialize in different categories, so trader discovery is done per category.
-- **Position sizing:** simulate fixed sizes of $20 and $50 per signal. Live trading will start at ~$20/position.
+- **Categories:** backtest across the leaderboard-API-verified category set and identify the most consistently profitable. The leaderboard API only accepts POLITICS, SPORTS, CRYPTO, FINANCE, CULTURE, TECH (plus OVERALL, unused for per-category discovery) — ECONOMY, GEOPOLITICS, POP-CULTURE, SCIENCE, ELECTIONS, ENTERTAINMENT, BUSINESS, and WORLD all return HTTP 400 (verified against the live API 2026-07-02, see config.yaml `categories`). Note: different top traders specialize in different categories, so trader discovery is done per category.
+- **Position sizing:** backtest sweep simulates $20/$50/$100 per signal (config.yaml `sweep.position_size`). Live trading has not started and remains a stub (`live.py`). Paper trading (the current live process) runs at $50/position — see config.yaml `paper.position_size_usd` and handoff.md for the current value; do not treat "$20" as current.
 - **Stack:** Python 3.11+, `requests`, SQLite. Runs locally. No frameworks needed.
 
 ## Data sources (all public, no auth required)
@@ -42,7 +44,7 @@ Build order is strict: **backtest → paper trade → live**. Do not write any l
    - total trades (require ≥ 50)
    - **market-maker filter:** if a wallet has both BUYs and SELLs on the same token within short intervals at high frequency across many markets, it's a market maker — exclude. A simple heuristic: exclude if median hold time < 1 hour or if >60% of markets have round-trip trades within the same day.
    - realized PnL across closed positions (positive, and not dominated by 1–2 markets: top-2 markets should be < 60% of total PnL)
-4. Output: `watchlist` table in SQLite (wallet, username, categories, vetting stats, selected=true/false). Cap ~100–150 wallets across all categories. Print a human-readable shortlist so the owner can manually approve/remove wallets before backtesting.
+4. Output: `watchlist` table in SQLite (wallet, username, categories, vetting stats, selected=true/false). Cap ~100–150 wallets across all categories (original design cap — the current cohort is 250, see config.yaml `discovery.cohort_size`). Print a human-readable shortlist so the owner can manually approve/remove wallets before backtesting.
 
 ## Phase 2 — Historical ingestion (`ingest.py`)
 
@@ -79,9 +81,9 @@ Generate `reports/backtest_report.md` containing: the parameter grid results as 
 
 ## Phase 5 — Paper trading mode (`paper.py`) — same engine, live data
 
-- Poll `GET /trades` (global feed, NO user filter, `takerOnly=true`, limit high) every ~20s; filter locally against the watchlist; dedupe by `transactionHash`.
+- **Per-wallet rotating poll (current design, since 2026-07-05):** each cycle, poll `GET /trades?user=<wallet>` (`takerOnly=true`) for a rotating batch of watchlist wallets — `paper.wallets_per_poll` wallets every `paper.poll_interval_seconds` (~20s), `paper.poll_trade_limit` trades per wallet per poll; a 50-wallet batch sweeps a 250-wallet watchlist roughly every 2 minutes (see config.yaml `paper` block). Dedupe by `transactionHash`. The original design polled the global `GET /trades` feed with no user filter; it was abandoned because it silently dropped ~95% of watchlist trades during busy periods (a fixed-size page can't keep up with platform-wide volume) — see config.yaml `paper` block comments and handoff.md §7 landmine 1.
 - Run the SAME signal function as the backtest (shared code in `signals.py` — this is non-negotiable; the backtest is only valid if paper/live use identical logic).
-- On signal: fetch `/book` for the token, simulate filling $20 by walking the asks, record simulated entry AND the signal traders' average price. The gap between them = measured alpha decay. Log every signal to SQLite with both numbers.
+- On signal: fetch `/book` for the token, simulate filling the configured position size by walking the asks (currently $50, config.yaml `paper.position_size_usd` — this was $20 at design time; raised 2026-07-03 per owner instruction to walk deeper into the book for honest fills), record simulated entry AND the signal traders' average price. The gap between them = measured alpha decay. Log every signal to SQLite with both numbers.
 - Track open paper positions; apply the chosen exit strategy; write a daily summary.
 
 ## Phase 6 — Live execution (LATER — do not build yet)
@@ -90,26 +92,11 @@ The owner is in the US. The main Polymarket CLOB **blocks US order placement**. 
 
 ## Repo layout
 
-```
-polymarket-copybot/
-├── OVERVIEW.md            # this file
-├── config.yaml            # categories, lookback, sweep grid, thresholds, poll interval
-├── requirements.txt       # requests, pyyaml (keep deps minimal)
-├── data/                  # sqlite db (gitignored)
-├── reports/               # backtest + paper reports
-└── src/
-    ├── data_api.py        # Data API client (leaderboard, trades, positions)
-    ├── gamma_api.py       # market metadata + resolutions
-    ├── clob_api.py        # prices-history, order book
-    ├── db.py              # SQLite schema + helpers
-    ├── discover.py        # Phase 1
-    ├── ingest.py          # Phase 2
-    ├── signals.py         # shared signal logic (backtest + paper)
-    ├── backtest.py        # Phase 3
-    ├── report.py          # Phase 4
-    ├── paper.py           # Phase 5
-    └── live.py            # stub only
-```
+See CLAUDE.md's "Repo map" for the current file tree (this repo is
+`pm-consensus-bot`, not `polymarket-copybot`) — that section is the single
+source of truth for what's in `src/`, `reports/`, and `archive/` and is kept
+current as scripts are added. Not duplicated here to avoid the two trees
+drifting apart.
 
 ## Build order for tonight
 

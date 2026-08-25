@@ -16,8 +16,8 @@ config.yaml, or report paths that code writes to without checking.**
 | You need | Read | Notes |
 |---|---|---|
 | Current state: live params, cohort, gate status, landmines | `handoff.md` | Authoritative; supersedes everything older |
-| Design spec, API endpoints/params, strategy rationale | `OVERVIEW.md` | Timeless spec; trust live API over it |
-| Gate criteria & clock | `PLAN.md` → "Decision gate" section only | Rest of PLAN.md is a completed checklist (its Phase-5 boxes describe the old global-feed design — since replaced) |
+| Design spec, API endpoints/params, strategy rationale | `OVERVIEW.md` | Badly stale in spots (last touched 2026-07-02); trust live API over it, and where it disagrees with config.yaml/handoff.md, those win |
+| Gate criteria & clock | `PLAN.md` → "Decision gate" section only | Rest of PLAN.md is a completed checklist (its Phase-5 boxes describe the old global-feed design AND stale N/W/F/position-size defaults — both superseded, current values in config.yaml/handoff.md) |
 | Any tunable/threshold | `config.yaml` | Sole source of truth; `paper.gate` = live gate thresholds |
 | Latest wallet-skill analysis | `reports/wallet_quality_analysis.md` | Condensed in handoff §0 |
 | Latest category analysis | `reports/category_analysis.md` **§8+ only** + `reports/deep_analysis.md` | §1–7 are superseded v1, kept for audit |
@@ -56,6 +56,7 @@ config.yaml, or report paths that code writes to without checking.**
     # one-off analysis scripts (rerunnable):
     ├── smoke_test.py / ingest_full.py / backtest_category.py
     ├── deep_analysis.py    # writes reports/deep_analysis.md
+    ├── persistence_power_mc.py / replay_strict45.py   # → reports/proposals/persistence_power_and_strict45_analysis.md
     └── wallet_quality*.py  # 3 scripts → reports/wallet_quality_*.{md,csv}
 ```
 
@@ -89,6 +90,33 @@ config.yaml, or report paths that code writes to without checking.**
 8. **Field names from reality, not docs.** On first contact with an endpoint,
    print raw response keys. If they differ from OVERVIEW.md, adjust the code,
    comment the discrepancy, trust the live API.
+
+## Standing operational rules
+
+These recur across sessions and outrank a single handoff.md write-up (which
+gets fully rewritten each session) — keep them here permanently.
+
+1. **Disable the watchdog before intentionally stopping paper.py.** The
+   `pm-copybot-paper-watchdog` scheduled task will silently relaunch
+   `paper.py` if it's stopped while the task is still enabled. Disable the
+   task first, then stop the process.
+2. **Scheduled tasks recreated via `schtasks`/Task Scheduler UI revert to
+   Interactive-only + battery-restricted.** Any task recreated from scratch
+   (e.g. via `schtasks /Create`) defaults to `Logon Mode: Interactive only`
+   and `Power Management: No Start On Batteries` / `Stop On Battery Mode` —
+   it will stop firing on sleep/logoff/battery. Reapply the `S4U` logon fix
+   (requires an elevated/admin PowerShell session — a plain user session
+   gets `Access is denied`) and clear the battery restrictions after
+   recreating any task.
+3. **`pm-copybot-dashboard-daily` auto-regenerates the paper dashboard.** Per
+   handoff.md: "`reports/paper_dashboard.md` ... is the single paper report,
+   regenerated DAILY at 09:05 local by task `pm-copybot-dashboard-daily`."
+4. **Health check** (mirrors handoff.md's "Quick health check"):
+   ```powershell
+   python src\paper_status.py            # fresh numbers
+   Get-Content data\logs\watchdog.log -Tail 3   # check for restarts
+   ```
+   Healthy = paper PID alive, no new watchdog restarts, hundreds+ trades/hour.
 
 ## Code conventions
 

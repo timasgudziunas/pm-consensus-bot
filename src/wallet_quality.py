@@ -29,6 +29,7 @@ import sqlite3
 import sys
 from collections import defaultdict
 from datetime import datetime, timezone
+from typing import Optional
 
 import db
 from data_api import load_config
@@ -78,8 +79,10 @@ def connect_ro() -> sqlite3.Connection:
     return conn
 
 
-def connect_scratch() -> sqlite3.Connection:
-    conn = sqlite3.connect(SCRATCH_PATH, timeout=30)
+def connect_scratch(path: Optional[str] = None) -> sqlite3.Connection:
+    """Scratch DB connection; defaults to SCRATCH_PATH (callers with their own
+    scratch file, e.g. persistence_checkpoint.py, pass an explicit path)."""
+    conn = sqlite3.connect(path or SCRATCH_PATH, timeout=30)
     conn.row_factory = sqlite3.Row
     conn.executescript(SCRATCH_SCHEMA)
     return conn
@@ -98,18 +101,24 @@ def market_end_ts(m: dict):
 
 # ---------- stage: positions ----------
 
-def build_positions() -> None:
-    """Aggregate trades into per-(wallet, market) net positions and price them."""
+def build_positions(cutoff_ts: Optional[int] = None, scratch_path: Optional[str] = None) -> None:
+    """Aggregate trades into per-(wallet, market) net positions and price them.
+
+    cutoff_ts/scratch_path default to the original 2026-07-07 wallet-quality
+    behavior (analysis.window_end_utc, data/wq_positions.sqlite); pass both to
+    reuse this logic against a different cutoff and scratch file (e.g.
+    persistence_checkpoint.py uses analysis.persistence_checkpoint
+    .window_end_utc and data/pc_positions.sqlite) without duplicating it."""
     cfg = load_config()
     wq = cfg["analysis"]["wallet_quality"]
-    cutoff = int(datetime.fromisoformat(
-        cfg["analysis"]["window_end_utc"].replace("Z", "+00:00")).timestamp())
+    if cutoff_ts is None:
+        cutoff_ts = int(datetime.fromisoformat(
+            cfg["analysis"]["window_end_utc"].replace("Z", "+00:00")).timestamp())
     live = connect_ro()
     wset = sorted(db.get_cohort_wallets(live, cfg["paper"]["watchlist_cohort"]))
     ph = ",".join("?" * len(wset))
 
-    log.info("aggregating trades for %d wallets (cutoff %s)...", len(wset),
-             cfg["analysis"]["window_end_utc"])
+    log.info("aggregating trades for %d wallets (cutoff epoch %d)...", len(wset), cutoff_ts)
     # one pass: per (wallet, condition, outcome, side) sums; shares = usd/price
     agg: dict = defaultdict(lambda: {"buy_usd": 0.0, "sell_usd": 0.0, "max_buy": 0.0,
                                      "buy_sh": defaultdict(float), "sell_sh": defaultdict(float),
@@ -119,7 +128,7 @@ def build_positions() -> None:
             f"""SELECT wallet, condition_id, outcome_index, side, size_usd, price, timestamp
                 FROM trades WHERE wallet IN ({ph}) AND timestamp < ? AND outcome_index >= 0
                   AND price > 0""",
-            [*wset, cutoff]):
+            [*wset, cutoff_ts]):
         a = agg[(r["wallet"], r["condition_id"])]
         sh = r["size_usd"] / r["price"]
         if r["side"] == "BUY":
@@ -185,7 +194,7 @@ def build_positions() -> None:
                          sum(a["buy_sh"].values()), pnl_hold, pnl_cash,
                          a["n"], status, cash_dirty, vol, cat, ets))
 
-    scratch = connect_scratch()
+    scratch = connect_scratch(scratch_path)
     scratch.execute("DROP TABLE IF EXISTS positions")
     scratch.executescript(SCRATCH_SCHEMA)
     scratch.executemany(
@@ -526,7 +535,7 @@ def spearman(xs: list, ys: list):
     return num / den if den else None
 
 
-def raw_gate(pairs: list, seed: int, prefix: str) -> dict:
+def raw_gate(pairs: list, seed: int, prefix: str, iters: int = 10000) -> dict:
     """Spearman + permutation p for raw train->test edge pairs."""
     if len(pairs) < 3:
         return {prefix + "_spearman": None}
@@ -535,7 +544,6 @@ def raw_gate(pairs: list, seed: int, prefix: str) -> dict:
     rng = random.Random(seed)
     ys_p = ys[:]
     hits = 0
-    iters = 10000
     for _ in range(iters):
         rng.shuffle(ys_p)
         r = spearman(xs, ys_p)
@@ -545,7 +553,7 @@ def raw_gate(pairs: list, seed: int, prefix: str) -> dict:
             prefix + "_n": len(pairs)}
 
 
-def predictive_gate(h1_score: dict, h2_edge: dict, seed: int) -> dict:
+def predictive_gate(h1_score: dict, h2_edge: dict, seed: int, iters: int = 10000) -> dict:
     """Does the H1-only score predict H2 edge across wallets?
 
     Reports Spearman rho with a permutation p-value (seeded) and the
@@ -559,7 +567,6 @@ def predictive_gate(h1_score: dict, h2_edge: dict, seed: int) -> dict:
         return {"n": len(ws), "verdict": "INSUFFICIENT"}
     rng = random.Random(seed)
     perm = 0
-    iters = 10000
     ys_p = ys[:]
     for _ in range(iters):
         rng.shuffle(ys_p)

@@ -1,14 +1,28 @@
-"""Fetch resolution metadata for markets traded by cohort-B wallets but absent
-from the markets table (wallet-quality analysis prerequisite, 2026-07-07).
+"""Fetch/refresh resolution metadata for markets traded by cohort-B wallets
+(wallet-quality analysis prerequisite, 2026-07-07; extended 2026-08-17 for the
+pre-registered persistence checkpoint).
 
 Only signal/vetting markets were ever fetched, so per-wallet PnL computed on
 the existing markets table would be selection-biased toward consensus-relevant
 markets. This pulls the rest, ordered by descending cohort stake so partial
-completion still maximizes stake coverage.
+completion still maximizes stake coverage. Two categories of work, unioned
+into one stake-ordered queue:
+  MISSING  — cohort-B trades any time up to
+             analysis.persistence_checkpoint.window_end_utc with no markets
+             row at all (supersedes the original analysis.window_end_utc
+             scope, which is an earlier, smaller cutoff).
+  REFRESH  — cohort-B trades since analysis.persistence_checkpoint
+             .forward_start_utc whose markets row IS present but still looks
+             unresolved (closed IS NULL/0 or empty outcome_prices) — these
+             may have resolved since first fetch and need re-pulling so the
+             persistence checkpoint's forward-window positions aren't
+             misclassified UNRESOLVED.
 
-Resumable: the markets table itself is the checkpoint (missing set shrinks on
-restart); condition_ids Gamma returns nothing for are recorded in a misses
-file and skipped on restart. Safe to kill any time.
+Resumable: the markets table itself is the checkpoint for MISSING rows
+(shrinks on restart); REFRESH rows re-queue every run until they resolve
+(cheap — restricted to the forward window) or land in the misses file.
+condition_ids Gamma returns nothing for are recorded in a misses file and
+skipped on restart. Safe to kill any time.
 
 Writes: markets upserts (category left NULL — COALESCE in upsert preserves any
 existing category) + the misses file. Nothing else.
@@ -28,22 +42,52 @@ from gamma_api import GammaApi
 log = logging.getLogger("wq_fetch")
 
 
+def _ts(iso: str) -> int:
+    """Parse a config ISO-8601 UTC timestamp ('...Z') to epoch seconds."""
+    return int(datetime.fromisoformat(iso.replace("Z", "+00:00")).timestamp())
+
+
 def missing_condition_ids(conn, cfg: dict) -> list:
-    """Condition_ids traded by cohort-B wallets pre-cutoff with no markets row,
-    ordered by descending total cohort stake."""
-    cutoff = int(datetime.fromisoformat(
-        cfg["analysis"]["window_end_utc"].replace("Z", "+00:00")).timestamp())
+    """Condition_ids to fetch or refresh, ordered by descending combined
+    cohort stake: MISSING (no markets row) up to the persistence-checkpoint
+    window end, unioned with REFRESH (present but unresolved-looking) since
+    the forward-window start. See module docstring."""
+    pc = cfg["analysis"]["persistence_checkpoint"]
+    window_end = _ts(pc["window_end_utc"])
+    forward_start = _ts(pc["forward_start_utc"])
     wset = sorted(db.get_cohort_wallets(conn, cfg["paper"]["watchlist_cohort"]))
     ph = ",".join("?" * len(wset))
-    rows = conn.execute(
+
+    missing = conn.execute(
         f"""SELECT t.condition_id, SUM(t.size_usd) usd
             FROM trades t
             WHERE t.wallet IN ({ph}) AND t.timestamp < ?
               AND t.condition_id IS NOT NULL AND t.condition_id != ''
               AND NOT EXISTS (SELECT 1 FROM markets m WHERE m.condition_id = t.condition_id)
-            GROUP BY t.condition_id ORDER BY usd DESC""",
-        [*wset, cutoff]).fetchall()
-    return [r["condition_id"] for r in rows]
+            GROUP BY t.condition_id""",
+        [*wset, window_end]).fetchall()
+    refresh = conn.execute(
+        f"""SELECT t.condition_id, SUM(t.size_usd) usd
+            FROM trades t
+            JOIN markets m ON m.condition_id = t.condition_id
+            WHERE t.wallet IN ({ph}) AND t.timestamp >= ? AND t.timestamp < ?
+              AND (m.closed IS NULL OR m.closed = 0 OR m.outcome_prices IS NULL
+                   OR m.outcome_prices = '' OR m.outcome_prices = '[]')
+            GROUP BY t.condition_id""",
+        [*wset, forward_start, window_end]).fetchall()
+
+    stake: dict = {}
+    n_missing = n_refresh = 0
+    for r in missing:
+        stake[r["condition_id"]] = stake.get(r["condition_id"], 0.0) + (r["usd"] or 0.0)
+        n_missing += 1
+    for r in refresh:
+        if r["condition_id"] not in stake:
+            n_refresh += 1
+        stake[r["condition_id"]] = stake.get(r["condition_id"], 0.0) + (r["usd"] or 0.0)
+    log.info("queue built: %d missing + %d refresh-only = %d condition_ids (stake-ordered)",
+             n_missing, n_refresh, len(stake))
+    return [cid for cid, _ in sorted(stake.items(), key=lambda kv: -kv[1])]
 
 
 def bulk_upsert_markets(conn, rows: list) -> None:
