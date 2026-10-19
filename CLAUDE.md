@@ -1,7 +1,7 @@
 # CLAUDE.md — Project Rules & File Router
 
 > Read automatically every session. Rules here apply everywhere, always.
-> For current operational state, read `handoff.md` — it is authoritative.
+> For current operational state, read `HANDOFF.md` — it is authoritative.
 
 ## Project
 
@@ -15,9 +15,9 @@ config.yaml, or report paths that code writes to without checking.**
 
 | You need | Read | Notes |
 |---|---|---|
-| Current state: live params, cohort, gate status, landmines | `handoff.md` | Authoritative; supersedes everything older |
-| Design spec, API endpoints/params, strategy rationale | `OVERVIEW.md` | Badly stale in spots (last touched 2026-07-02); trust live API over it, and where it disagrees with config.yaml/handoff.md, those win |
-| Gate criteria & clock | `PLAN.md` → "Decision gate" section only | Rest of PLAN.md is a completed checklist (its Phase-5 boxes describe the old global-feed design AND stale N/W/F/position-size defaults — both superseded, current values in config.yaml/handoff.md) |
+| Current state: live params, cohort, gate status, landmines | `HANDOFF.md` | Authoritative; supersedes everything older |
+| Design spec, API endpoints/params, strategy rationale | `OVERVIEW.md` | Badly stale in spots (last touched 2026-07-02); trust live API over it, and where it disagrees with config.yaml/HANDOFF.md, those win |
+| Gate criteria & clock | `PLAN.md` → "Decision gate" section only | Rest of PLAN.md is a completed checklist (its Phase-5 boxes describe the old global-feed design AND stale N/W/F/position-size defaults — both superseded, current values in config.yaml/HANDOFF.md) |
 | Any tunable/threshold | `config.yaml` | Sole source of truth; `paper.gate` = live gate thresholds |
 | Latest wallet-skill analysis | `reports/wallet_quality_analysis.md` | Condensed in handoff §0 |
 | Latest category analysis | `reports/category_analysis.md` **§8+ only** + `reports/deep_analysis.md` | §1–7 are superseded v1, kept for audit |
@@ -34,7 +34,7 @@ config.yaml, or report paths that code writes to without checking.**
 ## Repo map
 
 ```
-├── CLAUDE.md / OVERVIEW.md / PLAN.md / handoff.md   # see router above
+├── CLAUDE.md / OVERVIEW.md / PLAN.md / HANDOFF.md   # see router above
 ├── config.yaml            # ALL tunables
 ├── archive/               # superseded docs/outputs — audit only
 ├── data/                  # SQLite DBs (gitignored)
@@ -93,7 +93,7 @@ config.yaml, or report paths that code writes to without checking.**
 
 ## Standing operational rules
 
-These recur across sessions and outrank a single handoff.md write-up (which
+These recur across sessions and outrank a single HANDOFF.md write-up (which
 gets fully rewritten each session) — keep them here permanently.
 
 1. **Disable the watchdog before intentionally stopping paper.py.** The
@@ -109,9 +109,9 @@ gets fully rewritten each session) — keep them here permanently.
    gets `Access is denied`) and clear the battery restrictions after
    recreating any task.
 3. **`pm-copybot-dashboard-daily` auto-regenerates the paper dashboard.** Per
-   handoff.md: "`reports/paper_dashboard.md` ... is the single paper report,
+   HANDOFF.md: "`reports/paper_dashboard.md` ... is the single paper report,
    regenerated DAILY at 09:05 local by task `pm-copybot-dashboard-daily`."
-4. **Health check** (mirrors handoff.md's "Quick health check"):
+4. **Health check** (mirrors HANDOFF.md's "Quick health check"):
    ```powershell
    python src\paper_status.py            # fresh numbers
    Get-Content data\logs\watchdog.log -Tail 3   # check for restarts
@@ -135,7 +135,7 @@ gets fully rewritten each session) — keep them here permanently.
 
 ## When in doubt
 
-- OVERVIEW.md for API details; handoff.md for current state; PLAN.md gate
+- OVERVIEW.md for API details; HANDOFF.md for current state; PLAN.md gate
   section for what's pending.
 - If an API behaves differently than documented, trust the API.
 - If a design decision isn't covered here, ask — don't guess.

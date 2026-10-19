@@ -1,6 +1,6 @@
 # Polymarket Copy-Trading Bot — Project Overview
 
-> Design spec. Where this file and config.yaml/handoff.md disagree, config.yaml and handoff.md win.
+> Design spec. Where this file and config.yaml/HANDOFF.md disagree, config.yaml and HANDOFF.md win.
 
 ## What we're building
 
@@ -12,7 +12,7 @@ Build order is strict: **backtest → paper trade → live**. Do not write any l
 
 - **Exit strategy:** backtest BOTH (a) hold to resolution and (b) copy the traders' exits. Compare them in the final report.
 - **Categories:** backtest across the leaderboard-API-verified category set and identify the most consistently profitable. The leaderboard API only accepts POLITICS, SPORTS, CRYPTO, FINANCE, CULTURE, TECH (plus OVERALL, unused for per-category discovery) — ECONOMY, GEOPOLITICS, POP-CULTURE, SCIENCE, ELECTIONS, ENTERTAINMENT, BUSINESS, and WORLD all return HTTP 400 (verified against the live API 2026-07-02, see config.yaml `categories`). Note: different top traders specialize in different categories, so trader discovery is done per category.
-- **Position sizing:** backtest sweep simulates $20/$50/$100 per signal (config.yaml `sweep.position_size`). Live trading has not started and remains a stub (`live.py`). Paper trading (the current live process) runs at $50/position — see config.yaml `paper.position_size_usd` and handoff.md for the current value; do not treat "$20" as current.
+- **Position sizing:** backtest sweep simulates $20/$50/$100 per signal (config.yaml `sweep.position_size`). Live trading has not started and remains a stub (`live.py`). Paper trading (the current live process) runs at $50/position — see config.yaml `paper.position_size_usd` and HANDOFF.md for the current value; do not treat "$20" as current.
 - **Stack:** Python 3.11+, `requests`, SQLite. Runs locally. No frameworks needed.
 
 ## Data sources (all public, no auth required)
@@ -81,7 +81,7 @@ Generate `reports/backtest_report.md` containing: the parameter grid results as 
 
 ## Phase 5 — Paper trading mode (`paper.py`) — same engine, live data
 
-- **Per-wallet rotating poll (current design, since 2026-07-05):** each cycle, poll `GET /trades?user=<wallet>` (`takerOnly=true`) for a rotating batch of watchlist wallets — `paper.wallets_per_poll` wallets every `paper.poll_interval_seconds` (~20s), `paper.poll_trade_limit` trades per wallet per poll; a 50-wallet batch sweeps a 250-wallet watchlist roughly every 2 minutes (see config.yaml `paper` block). Dedupe by `transactionHash`. The original design polled the global `GET /trades` feed with no user filter; it was abandoned because it silently dropped ~95% of watchlist trades during busy periods (a fixed-size page can't keep up with platform-wide volume) — see config.yaml `paper` block comments and handoff.md §7 landmine 1.
+- **Per-wallet rotating poll (current design, since 2026-07-05):** each cycle, poll `GET /trades?user=<wallet>` (`takerOnly=true`) for a rotating batch of watchlist wallets — `paper.wallets_per_poll` wallets every `paper.poll_interval_seconds` (~20s), `paper.poll_trade_limit` trades per wallet per poll; a 50-wallet batch sweeps a 250-wallet watchlist roughly every 2 minutes (see config.yaml `paper` block). Dedupe by `transactionHash`. The original design polled the global `GET /trades` feed with no user filter; it was abandoned because it silently dropped ~95% of watchlist trades during busy periods (a fixed-size page can't keep up with platform-wide volume) — see config.yaml `paper` block comments and HANDOFF.md §7 landmine 1.
 - Run the SAME signal function as the backtest (shared code in `signals.py` — this is non-negotiable; the backtest is only valid if paper/live use identical logic).
 - On signal: fetch `/book` for the token, simulate filling the configured position size by walking the asks (currently $50, config.yaml `paper.position_size_usd` — this was $20 at design time; raised 2026-07-03 per owner instruction to walk deeper into the book for honest fills), record simulated entry AND the signal traders' average price. The gap between them = measured alpha decay. Log every signal to SQLite with both numbers.
 - Track open paper positions; apply the chosen exit strategy; write a daily summary.

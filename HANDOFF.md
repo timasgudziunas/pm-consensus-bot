@@ -1,34 +1,54 @@
-# handoff.md — Session Handoff (updated 2026-08-25 ~16:45 UTC, supersedes all 2026-08-17 and earlier versions)
+# HANDOFF.md: Session Handoff (updated 2026-10-19 ~18:30 UTC, supersedes all 2026-08-25 and earlier versions)
 
 > For a fresh Claude session with no memory of prior conversations. Read this,
 > then CLAUDE.md for standing rules. The 2026-08-25 session (owner present)
 > resolved the strategic fork: signal v2 post-filters were pre-registered,
-> backtested, and FAILED; the bot now runs as **event-season-only with config
-> frozen** until the pre-registered Oct 15 final checkpoint (§3). All verdicts
-> in §2 are SETTLED — do not re-run or re-litigate them.
+> backtested, and FAILED; the bot has run as **event-season-only with config
+> frozen** since. **The pre-registered Oct 15 final checkpoint is now DUE and
+> UNRESOLVED. Read §3 item 1 before anything else.** All verdicts in §2 are
+> SETTLED; do not re-run or re-litigate them.
 
-## 1. Current state (as of 2026-08-25 ~16:45 UTC)
+## 1. Current state (as of 2026-10-19 ~18:30 UTC)
 
-- **Paper trading is LIVE, config FROZEN until the Oct 15 checkpoint**:
-  cohort B (250 wallets), N=5 W=12h F=$1000 hold, $50/position — signal
-  params untouched since gate start (2026-07-05). Dashboard as of 2026-08-25
-  15:45 UTC (day 51): **68 closed, 56% win rate, net −$277.39**, mean decay
-  +4.47¢/share, ~3 closes in the last 37 days (post-WC volume desert is the
-  standing regime; September NFL volume is the point of the hold).
+- **THE OCT 15 CHECKPOINT CAME DUE FOUR DAYS AGO AND HAS NO RECORDED
+  VERDICT.** §3 item 1 has the measured numbers. It is the only thing about
+  this project that matters right now. Everything below is routine.
+- **Paper trading is LIVE and healthy, config still FROZEN**: cohort B (250
+  wallets), N=5 W=12h F=$1000 hold, $50/position. Signal params untouched
+  since gate start (2026-07-05).
+- Paper PID **8700** (`data/logs/paper.pid`), alive, ~3,000 trades/hour
+  ingested at check time, 0 open positions. Watchdog last restarted paper.py
+  on 2026-10-12 01:32 UTC and has been quiet since. Tasks
+  **pm-copybot-paper-watchdog** (fires every few minutes) and
+  **pm-copybot-dashboard-daily** (09:05 local) both still run S4U; disable
+  the watchdog FIRST if stopping paper.py on purpose.
+- Dashboard as of 2026-10-19 17:35 UTC (day 106, all time): **78 closed, 62%
+  win rate, net −$244.60 realized**, mean decay +4.96¢/share, volume 0.73
+  fills/day. Only 10 closes in the 55 days since 2026-08-25. Expectancy on
+  the full book is **−0.063/$ → AT RISK** against the `paper.gate`
+  keep-testing floor of 0.00/$.
 - **The gate was REWRITTEN 2026-08-25** (owner decision): net expectancy per
   $ staked replaces win rate (config `paper.gate`; keep-testing floor
   ≥ 0.00/$, live-ready ≥ +0.05/$ with ≥ 30 closed, volume ≥ 0.5 fills/day,
-  decay < 10¢ unchanged). Current verdict on the live book: **−0.080/$ →
-  AT RISK** (the old win-rate gate falsely said ON TRACK; PLAN.md gate
-  section carries the superseded banner).
-- Paper PID **5208** (`data/logs/paper.pid`), alive, ~2,500 trades/hour
-  ingested at check time. Watchdog restarted paper.py twice on 2026-08-22
-  (14:32 and 14:37 UTC — died again right after the first restart, then
-  self-recovered; no data anomaly traced). Tasks
-  **pm-copybot-paper-watchdog** and **pm-copybot-dashboard-daily** (09:05
-  local) run S4U; disable the watchdog first if stopping paper.py on purpose.
-- **Everything is committed** through `e98bd00` + the handoff/PLAN commit
-  after it — no uncommitted analysis work. Working tree should be clean.
+  decay < 10¢ unchanged). The old win-rate gate falsely said ON TRACK on a
+  losing book; PLAN.md's gate section carries the superseded banner.
+- **Disk is now a real constraint.** `data/copybot.db` is 6.1 GB,
+  `data/paper.log` is 1.6 GB and still growing, `data/` totals roughly 7.7 GB.
+  Nothing rotates any of it. Factor this into either a wind-down or a revive.
+- The recurring watchdog trigger since September is
+  `sqlite3.OperationalError: database is locked` on the trades insert, six
+  times between 2026-09-17 and 2026-10-12. Each time the watchdog restarted
+  cleanly and no data anomaly was traced, but it is a real contention problem
+  that grows with DB size, not transient network noise.
+- `handoff.md` was renamed to `HANDOFF.md` on 2026-10-19 to match every other
+  repo under `projects/`. In-repo references were updated in the same commit.
+- The three `pm-copybot-checkin-day1/2/3` tasks are still registered and
+  enabled but have no future trigger (their one-time July triggers already
+  fired). Harmless leftovers from the retired day-3 gate. Delete them
+  whenever this project is touched again.
+- **Everything is committed** through the 2026-10-19 housekeeping commit (the
+  dashboard regen, the `HANDOFF.md` rename, and this refresh). No uncommitted
+  analysis work. Working tree should be clean.
 - API keys in gitignored `.env` — never read/print/log/commit. `live.py`
   stays a stub; no order/wallet/key code without direct owner authorization.
 
@@ -74,19 +94,41 @@ Cohort expansion: parked (only defensible with a selection-mechanism fix,
 which 2c just ruled out for post-filters). Wind-down: deferred to the Oct 15
 checkpoint. Chosen path: **event-season hold** (§3).
 
-## 3. Next steps — in priority order
+## 3. Next steps, in priority order
 
-1. **Nothing until volume returns.** Config frozen; let September NFL flow
-   accumulate fills. Routine health checks only.
-2. **Oct 15 — FINAL pre-registered checkpoint** (criteria in PLAN.md tracked
-   checkpoints, fixed 2026-08-25 before the data): fills CLOSED with
-   signal_time in [2026-09-01, 2026-10-15) must show (a) ≥ 30 closed AND
-   (b) net expectancy ≥ 0.00/$ staked. **Either failure ⇒ wind down without
-   re-litigating.** Both pass ⇒ owner decides on continuing toward the
-   live-ready bar (+0.05/$).
-3. If winding down at that point: disable `pm-copybot-paper-watchdog` FIRST,
-   stop paper.py, disable `pm-copybot-dashboard-daily`, write the final
-   project report, archive per `groom-repo-structure`.
+1. **RESOLVE THE OCT 15 CHECKPOINT. Owner decision. Nothing else first.**
+   Criteria were pre-registered 2026-08-25 in PLAN.md "Tracked checkpoints",
+   fixed before the data. I measured them read-only on 2026-10-19 and
+   deliberately did NOT record a verdict or tick the PLAN.md box, because
+   accepting a wind-down verdict is the owner's call, not a session's:
+
+   | criterion | threshold | measured | result |
+   |---|---|---|---|
+   | (a) closed fills, signal_time in [2026-09-01, 2026-10-15) | ≥ 30 | **8** | **FAIL** |
+   | (b) net expectancy per $ staked, same window | ≥ +0.00/$ | **+0.074/$** | PASS |
+
+   Those 8 closes went 8 for 8, +$29.70 realized on $400 staked.
+
+   **The pre-registered rule is "either failure implies wind down without
+   re-litigating," so the registered verdict is WIND DOWN.** Criterion (a)
+   was deliberately a volume-viability test: NFL season was the entire point
+   of the hold, and it produced 8 closes in 6 weeks. The 100% win rate is
+   n=8 on a book that is still net −$244.60 all time, and it is exactly the
+   kind of number the pre-registration existed to stop anyone from acting on.
+   Do not read it as evidence of edge. Do not propose new filter arms (§2c is
+   a standing verdict). If the owner wants to continue anyway, that is a
+   documented override of a pre-registration, not a reanalysis, and it should
+   be written down as such.
+
+2. **If winding down** (the registered outcome), in this order: disable
+   `pm-copybot-paper-watchdog` FIRST, then stop paper.py, then disable
+   `pm-copybot-dashboard-daily`, then delete the three dead
+   `pm-copybot-checkin-day1/2/3` tasks, then write the final project report,
+   then archive per the 8 point checklist in `../archives/README.md`.
+   Deal with the 7.7 GB of `data/` on the way out; it is gitignored, so it
+   does not travel with the repo but it does sit on disk.
+3. **Routine health checks only** until that decision is made. Config stays
+   frozen. See "Quick health check" at the bottom of this file.
 
 ## 4. Where everything lives (recent outputs)
 
