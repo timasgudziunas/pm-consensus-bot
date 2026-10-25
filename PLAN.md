@@ -312,7 +312,7 @@ representative of steady state. Power analysis:
       forward k=63, below the design target (n≈222, k≈91), so the test ran
       below designed power. Keeps status quo per the amendment. Full report:
       `reports/persistence_checkpoint.md`.*
-- [ ] **Oct 15 — FINAL event-season checkpoint (pre-registered 2026-08-25,
+- [x] **Oct 15 — FINAL event-season checkpoint (pre-registered 2026-08-25,
       owner decision after signal v2 failed).** Context: the v2 post-filter
       backtest found no adoptable arm (`reports/proposals/signal_v2_backtest.md`
       — expected-outcome clause "post-filters cannot salvage the consensus
@@ -324,3 +324,9 @@ representative of steady state. Power analysis:
       staked. **Either failure ⇒ wind down the project without
       re-litigating**; both pass ⇒ owner decides on continuing toward the
       live-ready bar (≥ +0.05/$). No config changes before the checkpoint.
+      *Measured 2026-10-19 and re-measured 2026-10-25 from `paper_trades`:
+      (a) 8 closed fills in the window vs ≥ 30 required: FAIL; (b) +0.074/$
+      (8 for 8, +$29.70 on $400 staked): PASS. Either failure ⇒ wind down.
+      **Verdict: WIND DOWN. Owner confirmed 2026-10-25; project archived
+      the same day.** The 100% win rate is n=8 on a book net −$244.60 over
+      78 closed all time and is not evidence of edge. Not re-litigated.*

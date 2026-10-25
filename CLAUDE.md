@@ -5,11 +5,19 @@
 
 ## Project
 
+**ARCHIVED 2026-10-25.** The pre-registered Oct 15 checkpoint failed its
+volume criterion (8 closed fills vs 30) and the owner confirmed wind-down.
+Nothing runs: paper.py stopped, all `pm-copybot-*` scheduled tasks
+unregistered (XML in `ops/scheduled-tasks/`), the 6 GB `data/copybot.db`
+deleted after `src/archive_extract.py` kept the small tables in
+`data/archive_extract.db`. Read `reports/final_report.md` for the verdict
+and `HANDOFF.md` for the final state. The rules below are kept as written
+for a revive; where they say a process is running, it is not.
+
 Polymarket copy-trading bot. Tracks ~250 vetted top traders (cohort B),
 detects consensus signals, copies positions. Backtest/paper phase — no live
-trading code. **`src/paper.py` is running as a live process under a watchdog
-(`pm-copybot-paper-watchdog` scheduled task). Do not move/rename src modules,
-config.yaml, or report paths that code writes to without checking.**
+trading code. `src/paper.py` ran as a live process under a watchdog
+(`pm-copybot-paper-watchdog` scheduled task) from 2026-07-05 to 2026-10-25.
 
 ## File router — read the right file, skip the rest
 
@@ -21,7 +29,8 @@ config.yaml, or report paths that code writes to without checking.**
 | Any tunable/threshold | `config.yaml` | Sole source of truth; `paper.gate` = live gate thresholds |
 | Latest wallet-skill analysis | `reports/wallet_quality_analysis.md` | Condensed in handoff §0 |
 | Latest category analysis | `reports/category_analysis.md` **§8+ only** + `reports/deep_analysis.md` | §1–7 are superseded v1, kept for audit |
-| Paper-trading results (net PnL, gate status) | `reports/paper_dashboard.md` | Regenerated from DB by `paper_status.py`; run it for fresh numbers |
+| Paper-trading results (net PnL, gate status) | `reports/paper_dashboard.md` | Final regen 2026-10-25 20:53 UTC. `paper_status.py` needs `data/copybot.db`, which was deleted; it will not run again |
+| Final verdict and why it failed | `reports/final_report.md` | Written at wind-down 2026-10-25 |
 | Open proposals (drafted, NOT applied) | `reports/proposals/` | |
 | Chosen-parameter provenance | `reports/backtest_report.md` | ⚠ numbers rest on old capped data / 431-wallet cohort — see its banner |
 
@@ -37,7 +46,8 @@ config.yaml, or report paths that code writes to without checking.**
 ├── CLAUDE.md / OVERVIEW.md / PLAN.md / HANDOFF.md   # see router above
 ├── config.yaml            # ALL tunables
 ├── archive/               # superseded docs/outputs — audit only
-├── data/                  # SQLite DBs (gitignored)
+├── data/                  # gitignored; only archive_extract.db (8.5 MB) + small logs remain
+├── ops/scheduled-tasks/   # XML exports of the 5 unregistered Task Scheduler tasks
 ├── reports/               # current analyses, paper logs, proposals/
 └── src/
     # core pipeline (actively used):
@@ -57,7 +67,8 @@ config.yaml, or report paths that code writes to without checking.**
     ├── smoke_test.py / ingest_full.py / backtest_category.py
     ├── deep_analysis.py    # writes reports/deep_analysis.md
     ├── persistence_power_mc.py / replay_strict45.py   # → reports/proposals/persistence_power_and_strict45_analysis.md
-    └── wallet_quality*.py  # 3 scripts → reports/wallet_quality_*.{md,csv}
+    ├── wallet_quality*.py  # 3 scripts → reports/wallet_quality_*.{md,csv}
+    └── archive_extract.py  # 2026-10-25 wind-down: copybot.db → data/archive_extract.db + paper_trades_final.csv
 ```
 
 ## Non-negotiables

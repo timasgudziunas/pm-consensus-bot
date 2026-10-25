@@ -1,22 +1,22 @@
 # Paper Trading Dashboard
 
-_Regenerated 2026-10-19 17:35 UTC by `src/paper_status.py` from `data/copybot.db` (single source of truth). Live stake: $50/position (older rows keep their opening stake)._
+_Regenerated 2026-10-25 20:53 UTC by `src/paper_status.py` from `data/copybot.db` (single source of truth). Live stake: $50/position (older rows keep their opening stake)._
 
 ## Bottom line (all-time)
 
-**Net PnL: $-244.60** = $-244.60 realized + $+0.00 mark-to-market on open positions
+**Net PnL: $-234.18** = $-244.60 realized + $+10.42 mark-to-market on open positions
 
 - Closed: 78 positions, win rate 62% (48/78), realized $-244.60
-- Open: 0 positions, $0.00 staked, MTM $+0.00 (0 priced)
-- Mean alpha decay: +4.96c/share over 78 fills
+- Open: 2 positions, $100.00 staked, MTM $+10.42 (2 priced)
+- Mean alpha decay: +5.05c/share over 80 fills
 - Filtered out (never filled): 31 SKIPPED (book too thin/gone), 16 STALE (detected too late)
 
-## Decision gate — day 106 (window since 2026-07-05T13:00:00Z; thresholds in config `paper.gate`; rewritten 2026-08-25 — net expectancy replaces win rate)
+## Decision gate — day 112 (window since 2026-07-05T13:00:00Z; thresholds in config `paper.gate`; rewritten 2026-08-25 — net expectancy replaces win rate)
 
-- net expectancy >= +0.00/$ staked: -0.063/$ over 78 fills ($3,900 staked) -> **AT RISK**
+- net expectancy >= +0.00/$ staked: -0.059/$ over 80 fills ($4,000 staked) -> **AT RISK**
 - live-ready bar (>= +0.05/$, >= 30 closed): **NOT MET**
-- volume >= 0.5 fills/day: 0.73/day -> **ON TRACK**
-- mean decay < 10c/share: +4.96c -> **ON TRACK**
+- volume >= 0.5 fills/day: 0.71/day -> **ON TRACK**
+- mean decay < 10c/share: +5.05c -> **ON TRACK**
 
 ## Daily realized PnL (by exit date)
 
@@ -129,12 +129,18 @@ _Regenerated 2026-10-19 17:35 UTC by `src/paper_status.py` from `data/copybot.db
 | 2026-10-17 | 0 | +0.00 | -244.60 |
 | 2026-10-18 | 0 | +0.00 | -244.60 |
 | 2026-10-19 | 0 | +0.00 | -244.60 |
+| 2026-10-20 | 0 | +0.00 | -244.60 |
+| 2026-10-21 | 0 | +0.00 | -244.60 |
+| 2026-10-22 | 0 | +0.00 | -244.60 |
+| 2026-10-23 | 0 | +0.00 | -244.60 |
+| 2026-10-24 | 0 | +0.00 | -244.60 |
+| 2026-10-25 | 0 | +0.00 | -244.60 |
 
 ## By category (watchlist cohort B, all-time)
 
 | category | wallets | wl pnl/vol | wl edge | signals | filled | skipped | fill% | PnL $ | PnL/$ | win% | paper edge | decay |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| POLITICS | 58 | 0.94 | +0.034 | 13 | 10 | 1 | 91% | +52.95 | +0.106 | 100% | +0.089 | +0.079 |
+| POLITICS | 58 | 0.94 | +0.034 | 15 | 12 | 1 | 92% | +52.95 | +0.106 | 100% | +0.089 | +0.080 |
 | TECH | 41 | 0.79 | +0.032 | 0 | 0 | 0 | - | - | - | - | - | - |
 | CRYPTO | 24 | 0.69 | +0.048 | 0 | 0 | 0 | - | - | - | - | - | - |
 | FINANCE | 62 | 0.40 | +0.033 | 0 | 0 | 0 | - | - | - | - | - | - |
@@ -218,3 +224,6 @@ _Regenerated 2026-10-19 17:35 UTC by `src/paper_status.py` from `data/copybot.db
 - 2026-10-17 23:39 UTC — day 104 | fills 78 (0 open/78 closed) | win 62% | exp -0.063/$ | realized $-244.60 | MTM $+0.00 | net $-244.60
 - 2026-10-18 17:24 UTC — day 105 | fills 78 (0 open/78 closed) | win 62% | exp -0.063/$ | realized $-244.60 | MTM $+0.00 | net $-244.60
 - 2026-10-19 17:35 UTC — day 106 | fills 78 (0 open/78 closed) | win 62% | exp -0.063/$ | realized $-244.60 | MTM $+0.00 | net $-244.60
+- 2026-10-22 17:21 UTC — day 109 | fills 80 (2 open/78 closed) | win 62% | exp -0.061/$ | realized $-244.60 | MTM $+2.12 | net $-242.48
+- 2026-10-25 20:28 UTC — day 112 | fills 80 (2 open/78 closed) | win 62% | exp -0.059/$ | realized $-244.60 | MTM $+10.42 | net $-234.18
+- 2026-10-25 20:53 UTC — day 112 | fills 80 (2 open/78 closed) | win 62% | exp -0.059/$ | realized $-244.60 | MTM $+10.42 | net $-234.18
